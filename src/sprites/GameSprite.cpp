@@ -9,7 +9,6 @@ namespace fs = std::filesystem;
 GameSprite::GameSprite(const std::string& fileName, float movementSpeed)
     : movementSpeed(movementSpeed) {
 
-    sf::Texture texture;
     if (texture.loadFromFile("assets/sprites/" + fileName)) {
         sprite.emplace(texture);
     } else {
