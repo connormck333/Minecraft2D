@@ -9,6 +9,7 @@ using namespace std;
 
 class GameSprite {
 protected:
+    sf::Texture texture;
     optional<sf::Sprite> sprite;
 
     float movementSpeed;
