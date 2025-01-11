@@ -2,14 +2,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "include/sprites/GameSprite.h"
+#include "include/sprites/Steve.h"
+
 using namespace std;
 using namespace sf;
 
 int main() {
     RenderWindow window(VideoMode({800, 600}), "My window", Style::Titlebar | Style::Close);
-    Font font;
-    font.openFromFile("../assets/fonts/Roboto-Regular.ttf");
-    Text text(font, "Hello World!");
+
+    auto* steve = new Steve();
 
     while (window.isOpen()) {
         // Event Polling
@@ -17,10 +19,12 @@ int main() {
             if (ev->is<Event::Closed>()) {
                 window.close();
             }
+
+            steve->moveSprite();
         }
 
         window.clear();
-        window.draw(text);
+        window.draw(steve->getSprite().value());
         window.display();
     }
 
