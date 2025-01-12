@@ -2,14 +2,16 @@
 #define STEVE_H
 
 #include "GroundSprite.h"
+#include "utils/Direction.h"
 
 class Steve : public GroundSprite {
 private:
-    unordered_map<int, sf::IntRect> textures;
+    std::unordered_map<int, sf::IntRect> textures;
     int currentTexture;
+    Direction directionFacing;
 
     void createTextures();
-    void animateWalking();
+    void animateWalking(Direction direction);
     void resetToStillTexture();
 
 public:
@@ -18,6 +20,8 @@ public:
     void moveSprite(sf::Event ev);
 
     void update();
+
+    void changeDirection();
 };
 
 #endif //STEVE_H

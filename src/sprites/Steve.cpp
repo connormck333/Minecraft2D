@@ -3,6 +3,7 @@
 
 #include "../../include/sprites/Steve.h"
 #include "../../include/sprites/GroundSprite.h"
+#include "../../include/sprites/utils/Direction.h"
 
 using namespace std;
 
@@ -16,7 +17,9 @@ Steve::Steve() : GroundSprite("Steve.png", 5.0f, 0.02f) {
     sprite->setTextureRect(textures[0]);
 
     sprite->setPosition(sf::Vector2f(353, 229));
+    sprite->setOrigin({ sprite->getLocalBounds().size.x - 11, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
+    directionFacing = Direction::RIGHT;
 
     createTextures();
 }
@@ -29,10 +32,10 @@ void Steve::moveSprite(sf::Event ev) {
     if (const auto* keyPressed = ev.getIf<sf::Event::KeyPressed>()) {
         if (keyPressed->scancode == sf::Keyboard::Scancode::A) {
             sprite->move(sf::Vector2f(-(movementSpeed), 0));
-            animateWalking();
+            animateWalking(Direction::LEFT);
         } else if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
             sprite->move(sf::Vector2f(movementSpeed, 0));
-            animateWalking();
+            animateWalking(Direction::RIGHT);
         }
     } else if (const auto* keyReleased = ev.getIf<sf::Event::KeyReleased>()) {
         if (
@@ -63,7 +66,7 @@ void Steve::createTextures() {
     );
 }
 
-void Steve::animateWalking() {
+void Steve::animateWalking(Direction direction) {
     if (currentTexture == 4) {
         currentTexture = 1;
     } else {
@@ -71,6 +74,11 @@ void Steve::animateWalking() {
     }
 
     sprite->setTextureRect(textures[currentTexture]);
+    if (direction == Direction::RIGHT) {
+        sprite->setScale(sf::Vector2f(5, 5));
+    } else {
+        sprite->setScale(sf::Vector2f(-5, 5));
+    }
 }
 
 void Steve::resetToStillTexture() {

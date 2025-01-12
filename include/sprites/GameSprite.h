@@ -5,12 +5,10 @@
 #include <optional>
 #include <SFML/Graphics.hpp>
 
-using namespace std;
-
 class GameSprite {
 protected:
     sf::Texture texture;
-    optional<sf::Sprite> sprite;
+    std::optional<sf::Sprite> sprite;
 
     float movementSpeed;
 
@@ -21,7 +19,7 @@ public:
 
     void loadTexture(const std::string& fileName);
 
-    optional<sf::Sprite> getSprite();
+    std::optional<sf::Sprite> getSprite();
 
     bool isStatic() const;
 };
