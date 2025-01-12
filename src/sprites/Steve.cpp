@@ -7,8 +7,7 @@
 
 using namespace std;
 
-
-Steve::Steve() : GroundSprite("Steve.png", 5.0f, 0.02f) {
+Steve::Steve() : GroundSprite("Steve.png", 5.0f) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -17,15 +16,11 @@ Steve::Steve() : GroundSprite("Steve.png", 5.0f, 0.02f) {
     sprite->setTextureRect(textures[0]);
 
     sprite->setPosition(sf::Vector2f(353, 229));
-    sprite->setOrigin({ sprite->getLocalBounds().size.x - 11, 0 });
+    sprite->setOrigin({ sprite->getLocalBounds().size.x - 11.5f, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
 
     createTextures();
-}
-
-void Steve::update() {
-    applyGravity();
 }
 
 void Steve::moveSprite(sf::Event ev) {
@@ -36,6 +31,8 @@ void Steve::moveSprite(sf::Event ev) {
         } else if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
             sprite->move(sf::Vector2f(movementSpeed, 0));
             animateWalking(Direction::RIGHT);
+        } else if (keyPressed->scancode == sf::Keyboard::Scancode::Space) {
+            jump();
         }
     } else if (const auto* keyReleased = ev.getIf<sf::Event::KeyReleased>()) {
         if (

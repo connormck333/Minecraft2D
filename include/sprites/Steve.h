@@ -19,8 +19,6 @@ public:
 
     void moveSprite(sf::Event ev);
 
-    void update();
-
     void changeDirection();
 };
 
