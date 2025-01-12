@@ -27,9 +27,8 @@ int main() {
             }
         }
 
-        if (!grass->collidesWith(steve)) {
-            steve->update();
-        }
+        grass->collidesWith(steve);
+        steve->update();
 
         window.clear();
         window.draw(steve->getSprite().value());

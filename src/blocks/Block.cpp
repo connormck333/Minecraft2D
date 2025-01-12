@@ -11,7 +11,7 @@ void Block::loadBlock(int x, int y, int height, int width) {
     sprite->setTextureRect(blockRect);
 }
 
-bool Block::collidesWith(GroundSprite *other) const {
+bool Block::collidesWith(GroundSprite* other) const {
     sf::Sprite otherSprite = other->getSprite().value();
 
     if (otherSprite.getGlobalBounds().findIntersection(sprite->getGlobalBounds())) {
