@@ -1,9 +1,9 @@
 #ifndef STEVE_H
 #define STEVE_H
 
-#include "GameSprite.h"
+#include "GroundSprite.h"
 
-class Steve: public GameSprite {
+class Steve : public GroundSprite {
 private:
     unordered_map<int, sf::IntRect> textures;
     int currentTexture;
@@ -15,7 +15,9 @@ private:
 public:
     Steve();
 
-    void moveSprite();
+    void moveSprite(sf::Event ev);
+
+    void update();
 };
 
 #endif //STEVE_H

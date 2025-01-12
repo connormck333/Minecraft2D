@@ -2,12 +2,12 @@
 #include <SFML/Graphics.hpp>
 
 #include "../../include/sprites/Steve.h"
-#include "../../include/sprites/GameSprite.h"
+#include "../../include/sprites/GroundSprite.h"
 
 using namespace std;
 
 
-Steve::Steve() : GameSprite("Steve.png", 5.0f) {
+Steve::Steve() : GroundSprite("Steve.png", 5.0f, 0.02f) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -21,21 +21,26 @@ Steve::Steve() : GameSprite("Steve.png", 5.0f) {
     createTextures();
 }
 
-void Steve::moveSprite() {
-    if (isKeyPressed(sf::Keyboard::Key::W)) {
-        sprite->move(sf::Vector2f(0, -(movementSpeed)));
-        animateWalking();
-    } else if (isKeyPressed(sf::Keyboard::Key::S)) {
-        sprite->move(sf::Vector2f(0, movementSpeed));
-        animateWalking();
-    } else if (isKeyPressed(sf::Keyboard::Key::A)) {
-        sprite->move(sf::Vector2f(-(movementSpeed), 0));
-        animateWalking();
-    } else if (isKeyPressed(sf::Keyboard::Key::D)) {
-        sprite->move(sf::Vector2f(movementSpeed, 0));
-        animateWalking();
-    } else {
-        resetToStillTexture();
+void Steve::update() {
+    applyGravity();
+}
+
+void Steve::moveSprite(sf::Event ev) {
+    if (const auto* keyPressed = ev.getIf<sf::Event::KeyPressed>()) {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::A) {
+            sprite->move(sf::Vector2f(-(movementSpeed), 0));
+            animateWalking();
+        } else if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
+            sprite->move(sf::Vector2f(movementSpeed, 0));
+            animateWalking();
+        }
+    } else if (const auto* keyReleased = ev.getIf<sf::Event::KeyReleased>()) {
+        if (
+            keyReleased->scancode == sf::Keyboard::Scancode::A ||
+            keyReleased->scancode == sf::Keyboard::Scancode::D
+        ) {
+            resetToStillTexture();
+        }
     }
 }
 

@@ -7,7 +7,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(SOURCE_FILES main.cpp
         src/sprites/Steve.cpp
-        src/sprites/GameSprite.cpp)
+        src/sprites/GameSprite.cpp
+        include/sprites/GroundSprite.h
+        src/sprites/GroundSprite.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

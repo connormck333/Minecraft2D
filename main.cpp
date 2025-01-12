@@ -20,8 +20,12 @@ int main() {
                 window.close();
             }
 
-            steve->moveSprite();
+            if (ev.has_value()) {
+                steve->moveSprite(ev.value());
+            }
         }
+
+        steve->update();
 
         window.clear();
         window.draw(steve->getSprite().value());
