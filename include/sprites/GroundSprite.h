@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef GROUNDSPRITE_H
 #define GROUNDSPRITE_H
 

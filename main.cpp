@@ -2,7 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "include/blocks/Dirt.h"
 #include "include/blocks/Grass.h"
+#include "include/blocks/Stone.h"
 #include "include/sprites/GameSprite.h"
 #include "include/sprites/Steve.h"
 
@@ -14,6 +16,8 @@ int main() {
 
     auto* steve = new Steve();
     auto* grass = new Grass();
+    auto* dirt = new Dirt();
+    auto* stone = new Stone();
 
     while (window.isOpen()) {
         // Event Polling
@@ -33,6 +37,8 @@ int main() {
         window.clear();
         window.draw(steve->getSprite().value());
         window.draw(grass->getSprite().value());
+        window.draw(dirt->getSprite().value());
+        window.draw(stone->getSprite().value());
         window.display();
     }
 

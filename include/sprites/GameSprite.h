@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef GAMESPRITE_H
 #define GAMESPRITE_H
 
