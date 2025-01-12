@@ -1,4 +1,6 @@
 #ifndef STEVE_H
+#pragma once
+
 #define STEVE_H
 
 #include "GroundSprite.h"
