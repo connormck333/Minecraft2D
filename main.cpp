@@ -24,9 +24,7 @@ int main() {
         }
 
         window.clear();
-        if (steve->getSprite().has_value()) {
-            window.draw(steve->getSprite().value());  // Only draw if sprite exists
-        }
+        window.draw(steve->getSprite().value());
         window.display();
     }
 
