@@ -8,11 +8,11 @@ private:
     float fallSpeed;
     bool isOnGround = false;
 public:
-    GroundSprite(const string& fileName, float movementSpeed, float fallSpeed);
+    GroundSprite(const std::string& fileName, float movementSpeed, float fallSpeed);
 
     void applyGravity();
 
-    bool isSpriteOnGround();
+    bool isSpriteOnGround() const;
 
     void setSpriteOnGround(bool spriteOnGround);
 };
