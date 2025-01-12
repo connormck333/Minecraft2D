@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "include/blocks/Grass.h"
 #include "include/sprites/GameSprite.h"
 #include "include/sprites/Steve.h"
 
@@ -12,6 +13,7 @@ int main() {
     RenderWindow window(VideoMode({800, 600}), "My window", Style::Titlebar | Style::Close);
 
     auto* steve = new Steve();
+    auto* grass = new Grass();
 
     while (window.isOpen()) {
         // Event Polling
@@ -25,10 +27,13 @@ int main() {
             }
         }
 
-        steve->update();
+        if (!grass->collidesWith(steve)) {
+            steve->update();
+        }
 
         window.clear();
         window.draw(steve->getSprite().value());
+        window.draw(grass->getSprite().value());
         window.display();
     }
 
