@@ -9,7 +9,11 @@ set(SOURCE_FILES main.cpp
         src/sprites/Steve.cpp
         src/sprites/GameSprite.cpp
         include/sprites/GroundSprite.h
-        src/sprites/GroundSprite.cpp)
+        src/sprites/GroundSprite.cpp
+        src/blocks/grass.cpp
+        include/blocks/Grass.h
+        src/blocks/Block.cpp
+        include/blocks/Block.h)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
