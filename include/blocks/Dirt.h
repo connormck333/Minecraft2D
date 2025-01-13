@@ -7,7 +7,7 @@
 
 class Dirt: public Block {
 public:
-    Dirt();
+    Dirt(sf::Vector2f pos);
 };
 
 #endif //DIRT_H

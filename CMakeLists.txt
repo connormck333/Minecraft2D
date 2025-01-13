@@ -15,7 +15,9 @@ set(SOURCE_FILES main.cpp
         include/blocks/Dirt.h
         src/blocks/Dirt.cpp
         include/blocks/Stone.h
-        src/blocks/Stone.cpp)
+        src/blocks/Stone.cpp
+        src/terrain/ValueNoise.cpp
+        "include/terrain/ValueNoise.h")
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

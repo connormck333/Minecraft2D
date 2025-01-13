@@ -7,7 +7,7 @@
 
 class Stone : public Block {
 public:
-    Stone();
+    Stone(sf::Vector2f pos);
 };
 
 #endif //STONE_H
