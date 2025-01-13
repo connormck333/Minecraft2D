@@ -7,7 +7,7 @@
 
 class Grass : public Block {
 public:
-    explicit Grass();
+    explicit Grass(sf::Vector2f pos);
 };
 
 #endif //GRASS_H

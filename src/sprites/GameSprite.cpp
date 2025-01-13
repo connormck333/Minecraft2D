@@ -18,10 +18,8 @@ GameSprite::GameSprite(const string &fileName) {
 }
 
 void GameSprite::loadTexture(const std::string &fileName) {
-    if (texture.loadFromFile("assets/sprites/" + fileName)) {
+    if (fileName != "" && texture.loadFromFile("assets/sprites/" + fileName)) {
         sprite.emplace(texture);
-    } else {
-        cout << "Failed to load sprite file: " << fileName << endl;
     }
 }
 

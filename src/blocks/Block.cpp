@@ -3,6 +3,10 @@
 
 Block::Block(const std::string& fileName) : GameSprite(fileName) {}
 
+Block::Block() : GameSprite("") {
+    isAir = true;
+}
+
 void Block::loadBlock(int x, int y, int height, int width) {
     const sf::IntRect blockRect(
         {x, y},
@@ -23,3 +27,6 @@ bool Block::collidesWith(GroundSprite* other) const {
     return false;
 }
 
+bool Block::isBlockAir() const {
+    return isAir;
+}
