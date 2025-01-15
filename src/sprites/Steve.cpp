@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Steve::Steve() : GroundSprite("Steve.png", 5.0f) {
+Steve::Steve() : GroundSprite("Steve.png", 7.0f) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -19,6 +19,8 @@ Steve::Steve() : GroundSprite("Steve.png", 5.0f) {
     sprite->setOrigin({ sprite->getLocalBounds().size.x - 11.5f, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
+
+    setHitboxPositionAndSize(30, 60);
 
     createTextures();
 }

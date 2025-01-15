@@ -45,3 +45,15 @@ void GroundSprite::jump() {
     }
 }
 
+void GroundSprite::setHitboxPositionAndSize(const float position, const float size) {
+    hitboxPos = position;
+    hitboxSize = size;
+}
+
+sf::FloatRect GroundSprite::getHitbox() const {
+    sf::FloatRect hitbox = sprite->getGlobalBounds();
+    hitbox.position.x += hitboxPos;
+    hitbox.size.x -= hitboxSize;
+
+    return hitbox;
+}

@@ -13,6 +13,13 @@ private:
     float velocityY = 0.0f;
     bool isOnGround = false;
     bool isJumping = false;
+
+    float hitboxPos = 0;
+    float hitboxSize = 0;
+
+protected:
+    void setHitboxPositionAndSize(float position, float size);
+
 public:
     GroundSprite(const std::string& fileName, float movementSpeed);
 
@@ -27,6 +34,8 @@ public:
     void setSpriteOnGround(bool spriteOnGround);
 
     void jump();
+
+    sf::FloatRect getHitbox() const;
 };
 
 #endif //GROUNDSPRITE_H
