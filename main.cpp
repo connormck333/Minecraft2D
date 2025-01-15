@@ -15,13 +15,11 @@ int main() {
 
     const int WORLD_WIDTH = 10;
     const int WORLD_HEIGHT = 20;
-    const int AIR_HEIGHT = 8;
-
     const int BLOCK_SIZE = 63;
 
     vector<vector<Block*>> world(WORLD_HEIGHT, vector<Block*>(WORLD_WIDTH));
-    ValueNoise valueNoise(256, BLOCK_SIZE);
-    valueNoise.generateTerrain(world, WORLD_WIDTH, WORLD_HEIGHT, AIR_HEIGHT);
+    ValueNoise valueNoise(512, BLOCK_SIZE);
+    valueNoise.generateTerrain(world, WORLD_WIDTH, WORLD_HEIGHT);
 
     RenderWindow window(VideoMode({800, 600}), "Minecraft", Style::Titlebar | Style::Close);
     View view = window.getDefaultView();
