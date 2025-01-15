@@ -21,17 +21,15 @@ void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const 
                 continue;
             }
 
-            sf::Vector2f pos = sf::Vector2f(x * BLOCK_SIZE, (y + AIR_HEIGHT) * BLOCK_SIZE);
+            const auto pos = sf::Vector2f(x * BLOCK_SIZE, (y + AIR_HEIGHT) * BLOCK_SIZE);
 
-            if (y == terrainHeight) {
-                world[y][x] = new Stone(pos);
-            } else if (y >= terrainHeight - 2)  {
+            if (y == 0) {
+                world[y][x] = new Grass(pos);
+            } else if (y <= 2) {
                 world[y][x] = new Dirt(pos);
             } else {
-                world[y][x] = new Grass(pos);
+                world[y][x] = new Stone(pos);
             }
-
-            world[y][x]->getSprite().value().setPosition(sf::Vector2f(x * BLOCK_SIZE, y * BLOCK_SIZE));
         }
     }
 }

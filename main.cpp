@@ -14,7 +14,7 @@ using namespace sf;
 int main() {
 
     const int WORLD_WIDTH = 10;
-    const int WORLD_HEIGHT = 10;
+    const int WORLD_HEIGHT = 20;
     const int AIR_HEIGHT = 8;
 
     const int BLOCK_SIZE = 63;
