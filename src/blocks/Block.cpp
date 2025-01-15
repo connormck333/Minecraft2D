@@ -16,6 +16,8 @@ void Block::loadBlock(int x, int y, int height, int width) {
 }
 
 bool Block::collidesWith(GroundSprite* other) const {
+    if (isAir) return false;
+
     sf::Sprite otherSprite = other->getSprite().value();
 
     if (otherSprite.getGlobalBounds().findIntersection(sprite->getGlobalBounds())) {

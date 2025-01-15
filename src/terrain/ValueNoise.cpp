@@ -8,7 +8,7 @@ using namespace std;
 
 ValueNoise::ValueNoise(int gridSize, int blockSize) : GRID_SIZE(gridSize), BLOCK_SIZE(blockSize) {}
 
-void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const int WORLD_WIDTH, const int WORLD_HEIGHT) {
+void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const int WORLD_WIDTH, const int WORLD_HEIGHT, const int AIR_HEIGHT) {
     auto gradients = generateRandomGradients();
 
     for (int x = 0; x < WORLD_WIDTH; x++) {
@@ -21,7 +21,7 @@ void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const 
                 continue;
             }
 
-            sf::Vector2f pos = sf::Vector2f(x * BLOCK_SIZE, y * BLOCK_SIZE);
+            sf::Vector2f pos = sf::Vector2f(x * BLOCK_SIZE, (y + AIR_HEIGHT) * BLOCK_SIZE);
 
             if (y == terrainHeight) {
                 world[y][x] = new Stone(pos);
@@ -30,8 +30,6 @@ void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const 
             } else {
                 world[y][x] = new Grass(pos);
             }
-
-            cout << x * BLOCK_SIZE << " " <<  y * BLOCK_SIZE << endl;
 
             world[y][x]->getSprite().value().setPosition(sf::Vector2f(x * BLOCK_SIZE, y * BLOCK_SIZE));
         }

@@ -15,13 +15,16 @@ int main() {
 
     const int WORLD_WIDTH = 10;
     const int WORLD_HEIGHT = 10;
+    const int AIR_HEIGHT = 8;
+
     const int BLOCK_SIZE = 63;
 
     vector<vector<Block*>> world(WORLD_HEIGHT, vector<Block*>(WORLD_WIDTH));
     ValueNoise valueNoise(256, BLOCK_SIZE);
-    valueNoise.generateTerrain(world, WORLD_WIDTH, WORLD_HEIGHT);
+    valueNoise.generateTerrain(world, WORLD_WIDTH, WORLD_HEIGHT, AIR_HEIGHT);
 
     RenderWindow window(VideoMode({800, 600}), "Minecraft", Style::Titlebar | Style::Close);
+    View view = window.getDefaultView();
 
     auto* steve = new Steve();
 
@@ -38,16 +41,20 @@ int main() {
         }
 
         steve->update();
-        window.clear();
+        view.setCenter(steve->getSprite().value().getPosition());
+        window.setView(view);
 
+        window.clear();
         for (int y = 0; y < WORLD_HEIGHT; y++) {
             for (int x = 0; x < WORLD_WIDTH; x++) {
                 if (!world[y][x]->isBlockAir()) {
                     window.draw(world[y][x]->getSprite().value());
                 }
+                if (!steve->isSpriteOnGround() || steve->isSpriteJumping()) {
+                    world[y][x]->collidesWith(steve);
+                }
             }
         }
-
         window.draw(steve->getSprite().value());
         window.display();
     }

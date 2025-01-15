@@ -23,7 +23,7 @@ private:
 public:
     ValueNoise(int gridSize, int blockSize);
 
-    void generateTerrain(std::vector<std::vector<Block*>>& world, int WORLD_WIDTH, int WORLD_HEIGHT);
+    void generateTerrain(std::vector<std::vector<Block*>>& world, int WORLD_WIDTH, int WORLD_HEIGHT, int AIR_HEIGHT);
 };
 
 #endif //VALUE_NOISE_H

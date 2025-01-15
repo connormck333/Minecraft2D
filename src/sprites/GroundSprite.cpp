@@ -8,7 +8,8 @@ void GroundSprite::update() {
         velocityY += jumpSpeed;
         sprite->move(sf::Vector2f(0, velocityY));
 
-        if (isOnGround) {
+        if (velocityY >= 0.0f) {
+            std::cout << "not jumping" << std::endl;
             velocityY = 0;
             isJumping = false;
         }
@@ -27,12 +28,18 @@ bool GroundSprite::isSpriteOnGround() const {
     return isOnGround;
 }
 
+bool GroundSprite::isSpriteJumping() const {
+    return isJumping;
+}
+
 void GroundSprite::setSpriteOnGround(bool spriteOnGround) {
     isOnGround = spriteOnGround;
 }
 
 void GroundSprite::jump() {
     if (!isJumping && isOnGround) {
+        std::cout << "jumping" << std::endl;
+        setSpriteOnGround(false);
         isJumping = true;
         velocityY = jumpVelocity;
     }
