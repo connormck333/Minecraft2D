@@ -43,16 +43,23 @@ int main() {
         window.setView(view);
 
         window.clear();
+        bool isOnGround = false;
         for (int y = 0; y < WORLD_HEIGHT; y++) {
             for (int x = 0; x < WORLD_WIDTH; x++) {
                 if (!world[y][x]->isBlockAir()) {
                     window.draw(world[y][x]->getSprite().value());
                 }
-                if (!steve->isSpriteOnGround() || steve->isSpriteJumping()) {
-                    world[y][x]->collidesWith(steve);
+                if (world[y][x]->collidesWith(steve)) {
+                    isOnGround = true;
+                    steve->setSpriteOnGround(true);
                 }
             }
         }
+
+        if (!isOnGround) {
+            steve->setSpriteOnGround(false);
+        }
+
         window.draw(steve->getSprite().value());
         window.display();
     }

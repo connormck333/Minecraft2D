@@ -21,11 +21,9 @@ bool Block::collidesWith(GroundSprite* other) const {
     sf::Sprite otherSprite = other->getSprite().value();
 
     if (otherSprite.getGlobalBounds().findIntersection(sprite->getGlobalBounds())) {
-        other->setSpriteOnGround(true);
         return true;
     }
 
-    other->setSpriteOnGround(false);
     return false;
 }
 
