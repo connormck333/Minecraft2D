@@ -10,16 +10,17 @@ class Steve : public GroundSprite {
 private:
     std::unordered_map<int, sf::IntRect> textures;
     int currentTexture;
+    int textureCounter;
     Direction directionFacing;
 
     void createTextures();
-    void animateWalking(Direction direction, sf::Vector2f pos);
     void resetToStillTexture();
 
 public:
     Steve();
 
-    void moveSprite(sf::Event ev);
+    void handleEvent(sf::Event ev);
+    void animateWalking(Direction direction);
 
     void changeDirection();
 };

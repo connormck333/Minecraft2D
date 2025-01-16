@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Steve::Steve() : GroundSprite("Steve.png", 7.0f) {
+Steve::Steve() : GroundSprite("Steve.png", 0.05f) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -25,13 +25,9 @@ Steve::Steve() : GroundSprite("Steve.png", 7.0f) {
     createTextures();
 }
 
-void Steve::moveSprite(sf::Event ev) {
+void Steve::handleEvent(sf::Event ev) {
     if (const auto* keyPressed = ev.getIf<sf::Event::KeyPressed>()) {
-        if (keyPressed->scancode == sf::Keyboard::Scancode::A) {
-            animateWalking(Direction::LEFT, sf::Vector2f(-(movementSpeed), 0));
-        } else if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
-            animateWalking(Direction::RIGHT, sf::Vector2f(movementSpeed, 0));
-        } else if (keyPressed->scancode == sf::Keyboard::Scancode::Space) {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::Space) {
             jump();
         }
     } else if (const auto* keyReleased = ev.getIf<sf::Event::KeyReleased>()) {
@@ -63,21 +59,27 @@ void Steve::createTextures() {
     );
 }
 
-void Steve::animateWalking(Direction direction, sf::Vector2f pos) {
+void Steve::animateWalking(Direction direction) {
     if (currentTexture == 4) {
         currentTexture = 1;
     } else {
         currentTexture++;
     }
 
-    sprite->setTextureRect(textures[currentTexture]);
+    if (textureCounter == 220) {
+        sprite->setTextureRect(textures[currentTexture]);
+        textureCounter = 0;
+    } else {
+        textureCounter++;
+    }
+
     if (direction == Direction::RIGHT && !rightBlocked) {
         sprite->setScale(sf::Vector2f(5, 5));
+        sprite->move(sf::Vector2f(movementSpeed, 0));
     } else if (direction == Direction::LEFT && !leftBlocked) {
         sprite->setScale(sf::Vector2f(-5, 5));
-    } else return;
-
-    sprite->move(pos);
+        sprite->move(sf::Vector2f(-movementSpeed, 0));
+    }
 }
 
 void Steve::resetToStillTexture() {
