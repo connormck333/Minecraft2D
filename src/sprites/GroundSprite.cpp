@@ -5,10 +5,10 @@ GroundSprite::GroundSprite(const std::string& fileName, const float movementSpee
 
 void GroundSprite::update() {
     if (isJumping) {
-        velocityY += jumpSpeed;
+        velocityY -= jumpSpeed;
         sprite->move(sf::Vector2f(0, velocityY));
 
-        if (velocityY >= 0.0f) {
+        if (velocityY <= jumpVelocity) {
             velocityY = 0;
             isJumping = false;
         }
@@ -18,7 +18,7 @@ void GroundSprite::update() {
 }
 
 void GroundSprite::applyGravity() {
-    if (!isOnGround) {
+    if (!isOnGround && !isJumping) {
         sprite->move(sf::Vector2f(0, gravity));
     }
 }
@@ -37,9 +37,9 @@ void GroundSprite::setSpriteOnGround(bool spriteOnGround) {
 
 void GroundSprite::jump() {
     if (!isJumping && isOnGround) {
-        setSpriteOnGround(false);
+        // setSpriteOnGround(false);
         isJumping = true;
-        velocityY = jumpVelocity;
+        // velocityY = jumpVelocity;
     }
 }
 

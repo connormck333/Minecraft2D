@@ -8,9 +8,9 @@
 
 class GroundSprite : public GameSprite {
 private:
-    float gravity = 0.05f;
-    float jumpSpeed = 0.02f;
-    float jumpVelocity = -2.0f;
+    float gravity = 0.08f;
+    float jumpSpeed = 0.005f;
+    float jumpVelocity = -1.1f;
     float velocityY = 0.0f;
 
     bool isOnGround = false;
