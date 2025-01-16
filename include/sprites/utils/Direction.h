@@ -4,7 +4,7 @@
 #define DIRECTION_H
 
 enum class Direction {
-    LEFT, RIGHT
+    LEFT, RIGHT, NONE
 };
 
 #endif //DIRECTION_H

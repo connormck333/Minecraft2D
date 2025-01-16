@@ -13,7 +13,7 @@ private:
     Direction directionFacing;
 
     void createTextures();
-    void animateWalking(Direction direction);
+    void animateWalking(Direction direction, sf::Vector2f pos);
     void resetToStillTexture();
 
 public:

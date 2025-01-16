@@ -1,4 +1,6 @@
 #include "../../include/blocks/Block.h"
+
+#include "../../include/blocks/utils/CollisionType.h"
 #include "../../include/sprites/GroundSprite.h"
 
 Block::Block(const std::string& fileName) : GameSprite(fileName) {}
@@ -15,16 +17,24 @@ void Block::loadBlock(int x, int y, int height, int width) {
     sprite->setTextureRect(blockRect);
 }
 
-bool Block::collidesWith(GroundSprite* other) const {
-    if (isAir) return false;
+CollisionType* Block::collidesWith(GroundSprite* other) const {
+    if (isAir) return nullptr;
 
     sf::FloatRect otherHitbox = other->getHitbox();
+    sf::FloatRect blockBounds = sprite->getGlobalBounds();
+    std::optional<sf::FloatRect> intersection;
 
-    if (otherHitbox.findIntersection(sprite->getGlobalBounds())) {
-        return true;
+    if ((intersection = otherHitbox.findIntersection(blockBounds))) {
+        sf::FloatRect intersectionValue = intersection.value();
+        std::cout << intersectionValue.size.x << std::endl;
+        return new CollisionType(
+            intersectionValue.size.x > 0,
+            intersectionValue.size.y > 0,
+            (otherHitbox.position.x > blockBounds.position.x) ? Direction::LEFT : Direction::RIGHT
+        );
     }
 
-    return false;
+    return nullptr;
 }
 
 bool Block::isBlockAir() const {

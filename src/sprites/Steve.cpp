@@ -28,11 +28,9 @@ Steve::Steve() : GroundSprite("Steve.png", 7.0f) {
 void Steve::moveSprite(sf::Event ev) {
     if (const auto* keyPressed = ev.getIf<sf::Event::KeyPressed>()) {
         if (keyPressed->scancode == sf::Keyboard::Scancode::A) {
-            sprite->move(sf::Vector2f(-(movementSpeed), 0));
-            animateWalking(Direction::LEFT);
+            animateWalking(Direction::LEFT, sf::Vector2f(-(movementSpeed), 0));
         } else if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
-            sprite->move(sf::Vector2f(movementSpeed, 0));
-            animateWalking(Direction::RIGHT);
+            animateWalking(Direction::RIGHT, sf::Vector2f(movementSpeed, 0));
         } else if (keyPressed->scancode == sf::Keyboard::Scancode::Space) {
             jump();
         }
@@ -65,19 +63,24 @@ void Steve::createTextures() {
     );
 }
 
-void Steve::animateWalking(Direction direction) {
+void Steve::animateWalking(Direction direction, sf::Vector2f pos) {
     if (currentTexture == 4) {
         currentTexture = 1;
     } else {
         currentTexture++;
     }
 
+    cout << "left " << (leftBlocked ? "true" : "false") << endl;
+    cout << "right " << (rightBlocked ? "true" : "false") << endl;
+
     sprite->setTextureRect(textures[currentTexture]);
-    if (direction == Direction::RIGHT) {
+    if (direction == Direction::RIGHT && !rightBlocked) {
         sprite->setScale(sf::Vector2f(5, 5));
-    } else {
+    } else if (direction == Direction::LEFT && !leftBlocked) {
         sprite->setScale(sf::Vector2f(-5, 5));
-    }
+    } else return;
+
+    sprite->move(pos);
 }
 
 void Steve::resetToStillTexture() {

@@ -4,6 +4,7 @@
 #define BLOCK_H
 
 #include "../sprites/GroundSprite.h"
+#include "utils/CollisionType.h"
 
 class Block : public GameSprite {
 private:
@@ -16,7 +17,7 @@ public:
 
     void loadBlock(int x, int y, int height, int width);
 
-    bool collidesWith(GroundSprite* sprite) const;
+    CollisionType* collidesWith(GroundSprite* sprite) const;
 
     bool isBlockAir() const;
 };

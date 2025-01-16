@@ -9,7 +9,6 @@ void GroundSprite::update() {
         sprite->move(sf::Vector2f(0, velocityY));
 
         if (velocityY >= 0.0f) {
-            std::cout << "not jumping" << std::endl;
             velocityY = 0;
             isJumping = false;
         }
@@ -38,7 +37,6 @@ void GroundSprite::setSpriteOnGround(bool spriteOnGround) {
 
 void GroundSprite::jump() {
     if (!isJumping && isOnGround) {
-        std::cout << "jumping" << std::endl;
         setSpriteOnGround(false);
         isJumping = true;
         velocityY = jumpVelocity;
@@ -56,4 +54,20 @@ sf::FloatRect GroundSprite::getHitbox() const {
     hitbox.size.x -= hitboxSize;
 
     return hitbox;
+}
+
+bool GroundSprite::isLeftBlocked() const {
+    return leftBlocked;
+}
+
+bool GroundSprite::isRightBlocked() const {
+    return rightBlocked;
+}
+
+void GroundSprite::setLeftBlocked(bool leftBlocked) {
+    this->leftBlocked = leftBlocked;
+}
+
+void GroundSprite::setRightBlocked(bool rightBlocked) {
+    this->rightBlocked = rightBlocked;
 }
