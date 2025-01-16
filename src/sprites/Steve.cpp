@@ -70,9 +70,6 @@ void Steve::animateWalking(Direction direction, sf::Vector2f pos) {
         currentTexture++;
     }
 
-    cout << "left " << (leftBlocked ? "true" : "false") << endl;
-    cout << "right " << (rightBlocked ? "true" : "false") << endl;
-
     sprite->setTextureRect(textures[currentTexture]);
     if (direction == Direction::RIGHT && !rightBlocked) {
         sprite->setScale(sf::Vector2f(5, 5));

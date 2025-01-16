@@ -26,8 +26,6 @@ CollisionType* Block::collidesWith(GroundSprite* other) const {
 
     if ((intersection = otherHitbox.findIntersection(blockBounds))) {
         sf::FloatRect intersectionValue = intersection.value();
-        std::cout << "y: " << intersectionValue.size.y << std::endl;
-        std::cout << "x: " << intersectionValue.size.x << std::endl;
         return new CollisionType(
             intersectionValue.size.y > 1 && intersectionValue.size.x > 0,
             intersectionValue.size.y > 0 && intersectionValue.size.x > 4,
