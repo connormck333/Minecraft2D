@@ -17,7 +17,7 @@ private:
     void resetToStillTexture();
 
 public:
-    Steve();
+    Steve(sf::Vector2f position);
 
     void handleEvent(sf::Event ev);
     void animateWalking(Direction direction);

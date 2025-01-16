@@ -11,15 +11,11 @@ set(SOURCE_FILES main.cpp
         src/sprites/GroundSprite.cpp
         src/blocks/grass.cpp
         src/blocks/Block.cpp
-        include/sprites/utils/Direction.h
-        include/blocks/Dirt.h
         src/blocks/Dirt.cpp
-        include/blocks/Stone.h
         src/blocks/Stone.cpp
         src/terrain/ValueNoise.cpp
-        "include/terrain/ValueNoise.h"
         src/blocks/utils/CollisionType.cpp
-        include/blocks/utils/CollisionType.h)
+        src/utils.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

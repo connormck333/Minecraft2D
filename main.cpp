@@ -1,30 +1,26 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-#include "include/blocks/Dirt.h"
-#include "include/blocks/Stone.h"
+#include "include/Constants.h"
 #include "include/sprites/GameSprite.h"
 #include "include/sprites/Steve.h"
 #include "include/terrain/ValueNoise.h"
+#include "include/Utils.h"
 
 using namespace std;
 using namespace sf;
 
 int main() {
 
-    const int WORLD_WIDTH = 20;
-    const int WORLD_HEIGHT = 20;
-    const int BLOCK_SIZE = 63;
-
-    vector<vector<Block*>> world(WORLD_HEIGHT, vector<Block*>(WORLD_WIDTH));
-    ValueNoise valueNoise(512, BLOCK_SIZE);
-    valueNoise.generateTerrain(world, WORLD_WIDTH, WORLD_HEIGHT);
+    vector<vector<Block*>> world(Constants::WORLD_HEIGHT, vector<Block*>(Constants::WORLD_WIDTH));
+    ValueNoise valueNoise(512, Constants::BLOCK_SIZE);
+    valueNoise.generateTerrain(world, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT);
 
     RenderWindow window(VideoMode({800, 600}), "Minecraft", Style::Titlebar | Style::Close);
     View view = window.getDefaultView();
 
-    auto* steve = new Steve();
+    sf::Vector2f stevePos = getSteveSpawnPos(world);
+    auto* steve = new Steve(stevePos);
 
     while (window.isOpen()) {
         // Event Polling
@@ -37,13 +33,15 @@ int main() {
                 steve->handleEvent(ev.value());
                 if (const auto mouse = ev.value().getIf<Event::MouseButtonPressed>()) {
                     Vector2f pos = window.mapPixelToCoords(mouse->position);
-                    int x = pos.x / BLOCK_SIZE;
-                    int y = abs((pos.y / BLOCK_SIZE) - WORLD_HEIGHT) + 1;
+                    int x = pos.x / Constants::BLOCK_SIZE;
+                    int y = abs((pos.y / Constants::BLOCK_SIZE) - Constants::WORLD_HEIGHT) + 1;
 
                     if (y >= 0 && y < world.size()) {
-                        cout << world[y].size() << endl;
                         if (x >= 0 && x < world[y].size()) {
+                            const Block* temp = world[y][x];
                             world[y][x] = new Block();
+
+                            delete temp;
                         }
                     }
                 }
@@ -65,8 +63,8 @@ int main() {
         bool rightBlocked = false;
         bool leftBlocked = false;
         bool hitHead = false;
-        for (int y = 0; y < WORLD_HEIGHT; y++) {
-            for (int x = 0; x < WORLD_WIDTH; x++) {
+        for (int y = 0; y < Constants::WORLD_HEIGHT; y++) {
+            for (int x = 0; x < Constants::WORLD_WIDTH; x++) {
                 if (!world[y][x]->isBlockAir()) {
                     window.draw(world[y][x]->getSprite().value());
                 }

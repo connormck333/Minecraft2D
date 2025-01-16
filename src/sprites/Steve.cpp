@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Steve::Steve() : GroundSprite("Steve.png", 0.05f) {
+Steve::Steve(sf::Vector2f position) : GroundSprite("Steve.png", 0.08f) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -15,7 +15,7 @@ Steve::Steve() : GroundSprite("Steve.png", 0.05f) {
     currentTexture = 0;
     sprite->setTextureRect(textures[0]);
 
-    sprite->setPosition(sf::Vector2f(353, 229));
+    sprite->setPosition(position);
     sprite->setOrigin({ sprite->getLocalBounds().size.x - 11.5f, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
