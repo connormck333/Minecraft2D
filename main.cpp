@@ -13,7 +13,7 @@ using namespace sf;
 
 int main() {
 
-    const int WORLD_WIDTH = 10;
+    const int WORLD_WIDTH = 20;
     const int WORLD_HEIGHT = 20;
     const int BLOCK_SIZE = 63;
 
@@ -35,6 +35,18 @@ int main() {
 
             if (ev.has_value()) {
                 steve->handleEvent(ev.value());
+                if (const auto mouse = ev.value().getIf<Event::MouseButtonPressed>()) {
+                    Vector2f pos = window.mapPixelToCoords(mouse->position);
+                    int x = pos.x / BLOCK_SIZE;
+                    int y = abs((pos.y / BLOCK_SIZE) - WORLD_HEIGHT) + 1;
+
+                    if (y >= 0 && y < world.size()) {
+                        cout << world[y].size() << endl;
+                        if (x >= 0 && x < world[y].size()) {
+                            world[y][x] = new Block();
+                        }
+                    }
+                }
             }
         }
 
