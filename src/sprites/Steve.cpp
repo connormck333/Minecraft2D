@@ -2,12 +2,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "../../include/sprites/Steve.h"
+
+#include "../../include/Constants.h"
 #include "../../include/sprites/GroundSprite.h"
 #include "../../include/sprites/utils/Direction.h"
 
 using namespace std;
 
-Steve::Steve(sf::Vector2f position) : GroundSprite("Steve.png", 0.08f) {
+Steve::Steve(sf::Vector2f position) : GroundSprite("Steve.png", Constants::STEVE_MOVEMENT_SPEED) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}

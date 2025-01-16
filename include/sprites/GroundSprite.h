@@ -8,8 +8,8 @@
 
 class GroundSprite : public GameSprite {
 private:
-    float gravity = 0.08f;
-    float jumpSpeed = 0.005f;
+    float gravity = 0.12f;
+    float jumpSpeed = 0.0075f;
     float jumpVelocity = -1.1f;
     float velocityY = 0.0f;
 

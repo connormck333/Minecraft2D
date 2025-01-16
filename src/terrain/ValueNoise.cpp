@@ -1,5 +1,6 @@
 #include "../../include/terrain/ValueNoise.h"
 
+#include "../../include/Utils.h"
 #include "../../include/blocks/Grass.h"
 #include "../../include/blocks/Dirt.h"
 #include "../../include/blocks/Stone.h"
@@ -28,7 +29,11 @@ void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const 
             } else if (y >= terrainHeight - 2) {
                 world[y][x] = new Dirt(pos);
             } else {
-                world[y][x] = new Stone(pos);
+                if (getRandomBool(20)) {
+                    world[y][x] = getRandomOre(pos);
+                } else {
+                    world[y][x] = new Stone(pos);
+                }
             }
         }
     }

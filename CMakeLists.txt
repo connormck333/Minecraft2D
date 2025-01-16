@@ -15,7 +15,11 @@ set(SOURCE_FILES main.cpp
         src/blocks/Stone.cpp
         src/terrain/ValueNoise.cpp
         src/blocks/utils/CollisionType.cpp
-        src/utils.cpp)
+        src/utils.cpp
+        src/blocks/IronOre.cpp
+        src/blocks/DiamondOre.cpp
+        src/blocks/GoldOre.cpp
+        src/blocks/EmeraldOre.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

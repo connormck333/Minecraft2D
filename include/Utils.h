@@ -9,4 +9,9 @@
 
 sf::Vector2f getSteveSpawnPos(const std::vector<std::vector<Block*>>& world);
 
+Block* getRandomOre(sf::Vector2f pos);
+
+int getRandomInt(int min, int max);
+bool getRandomBool(int chance);
+
 #endif //UTILS_H
