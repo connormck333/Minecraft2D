@@ -64,13 +64,15 @@ int main() {
         bool isOnGround = false;
         bool rightBlocked = false;
         bool leftBlocked = false;
+        bool hitHead = false;
         for (int y = 0; y < WORLD_HEIGHT; y++) {
             for (int x = 0; x < WORLD_WIDTH; x++) {
                 if (!world[y][x]->isBlockAir()) {
                     window.draw(world[y][x]->getSprite().value());
                 }
                 if (CollisionType* collision = world[y][x]->collidesWith(steve)) {
-                    isOnGround = isOnGround || collision->collisionY();
+                    hitHead = collision->collisionTop();
+                    isOnGround = isOnGround || (collision->collisionY() && !hitHead);
                     if (collision->collisionX()) {
                         if (!rightBlocked && collision->getDirection() == Direction::RIGHT) rightBlocked = true;
                         if (!leftBlocked && collision->getDirection() == Direction::LEFT) leftBlocked = true;
@@ -81,6 +83,7 @@ int main() {
         }
 
         if (!isOnGround) steve->setSpriteOnGround(false);
+        if (hitHead) steve->setSpriteJumping(false);
 
         steve->setLeftBlocked(leftBlocked);
         steve->setRightBlocked(rightBlocked);

@@ -31,27 +31,33 @@ bool GroundSprite::isSpriteJumping() const {
     return isJumping;
 }
 
+void GroundSprite::setSpriteJumping(bool jumping) {
+    isJumping = jumping;
+}
+
 void GroundSprite::setSpriteOnGround(bool spriteOnGround) {
     isOnGround = spriteOnGround;
 }
 
 void GroundSprite::jump() {
     if (!isJumping && isOnGround) {
-        // setSpriteOnGround(false);
         isJumping = true;
-        // velocityY = jumpVelocity;
     }
 }
 
-void GroundSprite::setHitboxPositionAndSize(const float position, const float size) {
-    hitboxPos = position;
-    hitboxSize = size;
+void GroundSprite::setHitboxPositionAndSize(const float positionX, const float sizeX, const float positionY, const float sizeY) {
+    hitboxPosX = positionX;
+    hitboxSizeX = sizeX;
+    hitboxPosY = positionY;
+    hitboxSizeY = sizeY;
 }
 
 sf::FloatRect GroundSprite::getHitbox() const {
     sf::FloatRect hitbox = sprite->getGlobalBounds();
-    hitbox.position.x += hitboxPos;
-    hitbox.size.x -= hitboxSize;
+    hitbox.position.x += hitboxPosX;
+    hitbox.size.x -= hitboxSizeX;
+    hitbox.position.y += hitboxPosY;
+    hitbox.size.y -= hitboxSizeY;
 
     return hitbox;
 }

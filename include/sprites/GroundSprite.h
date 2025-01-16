@@ -16,14 +16,16 @@ private:
     bool isOnGround = false;
     bool isJumping = false;
 
-    float hitboxPos = 0;
-    float hitboxSize = 0;
+    float hitboxPosX = 0;
+    float hitboxSizeX = 0;
+    float hitboxPosY = 0;
+    float hitboxSizeY = 0;
 
 protected:
     bool leftBlocked = false;
     bool rightBlocked = false;
 
-    void setHitboxPositionAndSize(float position, float size);
+    void setHitboxPositionAndSize(float positionX, float sizeX, float positionY, float sizeY);
 
 public:
     GroundSprite(const std::string& fileName, float movementSpeed);
@@ -35,6 +37,7 @@ public:
     bool isSpriteOnGround() const;
 
     bool isSpriteJumping() const;
+    void setSpriteJumping(bool jumping);
 
     void setSpriteOnGround(bool spriteOnGround);
 

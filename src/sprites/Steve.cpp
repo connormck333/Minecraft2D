@@ -20,7 +20,7 @@ Steve::Steve() : GroundSprite("Steve.png", 0.05f) {
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
 
-    setHitboxPositionAndSize(30, 60);
+    setHitboxPositionAndSize(30, 60, 50, 50);
 
     createTextures();
 }
