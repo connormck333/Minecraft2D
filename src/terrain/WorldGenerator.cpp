@@ -28,11 +28,24 @@ void WorldGenerator::updateWorld() const {
     bool leftBlocked = false;
     bool hitHead = false;
 
+    sf::Vector2f stevePos = steve.getSprite().value().getPosition();
+    stevePos.y = Constants::WORLD_HEIGHT - (stevePos.y / Constants::BLOCK_SIZE);
+    stevePos.x = stevePos.x / Constants::BLOCK_SIZE;
+    int minY = stevePos.y - 5;
+    int maxY = stevePos.y + 5;
+    int minX = stevePos.x - 5;
+    int maxX = stevePos.x + 5;
+
     for (int y = 0; y < Constants::WORLD_HEIGHT; y++) {
-        for (int x = 0; x < Constants::WORLD_WIDTH; x++) {
+        for (int x = 0; x < Constants::WORLD_WIDTH ; x++) {
             if (!world[y][x]->isBlockAir()) {
                 window.draw(world[y][x]->getSprite().value());
             }
+
+            if ((y < minY || y > maxY) && (x < minX || x > maxX)) {
+                continue;
+            }
+
             if (CollisionType* collision = world[y][x]->collidesWith(&steve)) {
                 hitHead = collision->collisionTop();
                 isOnGround = isOnGround || (collision->collisionY() && !hitHead);

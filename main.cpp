@@ -11,16 +11,15 @@
 #include "include/terrain/WorldGenerator.h"
 
 using namespace std;
-using namespace sf;
 
 int main() {
 
     vector<vector<Block*>> world(Constants::WORLD_HEIGHT, vector<Block*>(Constants::WORLD_WIDTH));
-    ValueNoise valueNoise(512);
+    ValueNoise valueNoise(10);
     valueNoise.generateTerrain(world);
 
-    RenderWindow window(VideoMode({800, 600}), "Minecraft", Style::Titlebar | Style::Close);
-    View view = window.getDefaultView();
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "Minecraft", sf::Style::Titlebar | sf::Style::Close);
+    sf::View view = window.getDefaultView();
 
     sf::Vector2f stevePos = getSteveSpawnPos(world);
     auto* steve = new Steve(stevePos);
@@ -31,9 +30,9 @@ int main() {
     worldGenerator.loadTrees();
 
     while (window.isOpen()) {
-        // Event Polling
-        while (const optional<Event> ev = window.pollEvent()) {
-            if (ev->is<Event::Closed>()) {
+
+        while (const optional<sf::Event> ev = window.pollEvent()) {
+            if (ev->is<sf::Event::Closed>()) {
                 window.close();
             }
 
