@@ -19,7 +19,10 @@ set(SOURCE_FILES main.cpp
         src/blocks/IronOre.cpp
         src/blocks/DiamondOre.cpp
         src/blocks/GoldOre.cpp
-        src/blocks/EmeraldOre.cpp)
+        src/blocks/EmeraldOre.cpp
+        src/handlers/EventHandler.cpp
+        src/handlers/InputHandler.cpp
+        src/terrain/WorldGenerator.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
