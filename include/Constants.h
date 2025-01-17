@@ -4,5 +4,7 @@ namespace Constants {
     constexpr int WORLD_HEIGHT = 30;
     constexpr int WORLD_WIDTH = 30;
 
+    constexpr int TREES_AMOUNT = 3;
+
     constexpr float STEVE_MOVEMENT_SPEED = 0.09f;
 }

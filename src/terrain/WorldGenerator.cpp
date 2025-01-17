@@ -1,12 +1,28 @@
 #include "../../include/terrain/WorldGenerator.h"
 #include "../../include/Constants.h"
+#include "../../include/Utils.h"
 #include "../../include/blocks/Block.h"
+#include "../../include/blocks/utils/CollisionType.h"
+#include "../../include/terrain/Tree.h"
 
-class CollisionType;
 WorldGenerator::WorldGenerator(sf::RenderWindow& window, Steve& steve, std::vector<std::vector<Block*>>& world) :
     window(window), steve(steve), world(world) {}
 
-void WorldGenerator::updateWorld() {
+void WorldGenerator::loadTrees() const {
+    int min = 0;
+    int max = Constants::WORLD_WIDTH / Constants::TREES_AMOUNT;
+    for (int i = 0; i < Constants::TREES_AMOUNT; i++) {
+        int x = getRandomInt(min, max);
+        int y = findTopYLevelAtX(world, x);
+
+        new Tree(world, sf::Vector2f(x, y));
+
+        min = max;
+        max += Constants::WORLD_WIDTH / Constants::TREES_AMOUNT;
+    }
+}
+
+void WorldGenerator::updateWorld() const {
     bool isOnGround = false;
     bool rightBlocked = false;
     bool leftBlocked = false;

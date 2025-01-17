@@ -14,4 +14,6 @@ Block* getRandomOre(sf::Vector2f pos);
 int getRandomInt(int min, int max);
 bool getRandomBool(int chance);
 
+int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, int x);
+
 #endif //UTILS_H

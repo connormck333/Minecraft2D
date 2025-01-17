@@ -16,8 +16,8 @@ using namespace sf;
 int main() {
 
     vector<vector<Block*>> world(Constants::WORLD_HEIGHT, vector<Block*>(Constants::WORLD_WIDTH));
-    ValueNoise valueNoise(512, Constants::BLOCK_SIZE);
-    valueNoise.generateTerrain(world, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT);
+    ValueNoise valueNoise(512);
+    valueNoise.generateTerrain(world);
 
     RenderWindow window(VideoMode({800, 600}), "Minecraft", Style::Titlebar | Style::Close);
     View view = window.getDefaultView();
@@ -28,6 +28,7 @@ int main() {
     EventHandler eventHandler(window, *steve, world);
     InputHandler inputHandler(*steve);
     WorldGenerator worldGenerator(window, *steve, world);
+    worldGenerator.loadTrees();
 
     while (window.isOpen()) {
         // Event Polling

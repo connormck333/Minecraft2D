@@ -1,5 +1,6 @@
 #include "../../include/terrain/ValueNoise.h"
 
+#include "../../include/Constants.h"
 #include "../../include/Utils.h"
 #include "../../include/blocks/Grass.h"
 #include "../../include/blocks/Dirt.h"
@@ -7,22 +8,22 @@
 
 using namespace std;
 
-ValueNoise::ValueNoise(int gridSize, int blockSize) : GRID_SIZE(gridSize), BLOCK_SIZE(blockSize) {}
+ValueNoise::ValueNoise(int gridSize) : GRID_SIZE(gridSize) {}
 
-void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world, const int WORLD_WIDTH, const int WORLD_HEIGHT) {
+void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world) {
     auto gradients = generateRandomGradients();
 
-    for (int x = 0; x < WORLD_WIDTH; x++) {
+    for (int x = 0; x < Constants::WORLD_WIDTH; x++) {
         float noiseValue = fractalNoise(x * 0.1f, 4, 0.5f, gradients);
-        int terrainHeight = static_cast<int>((noiseValue + 1.0f) * (WORLD_HEIGHT / 4));
+        int terrainHeight = static_cast<int>((noiseValue + 1.0f) * (Constants::WORLD_HEIGHT / 4));
 
-        for (int y = 0; y < WORLD_HEIGHT; y++) {
+        for (int y = 0; y < Constants::WORLD_HEIGHT; y++) {
             if (y > terrainHeight) {
                 world[y][x] = new Block();
                 continue;
             }
 
-            const auto pos = sf::Vector2f(x * BLOCK_SIZE, (WORLD_HEIGHT - y) * BLOCK_SIZE);
+            const auto pos = sf::Vector2f(x * Constants::BLOCK_SIZE, (Constants::WORLD_HEIGHT - y) * Constants::BLOCK_SIZE);
 
             if (y == terrainHeight) {
                 world[y][x] = new Grass(pos);

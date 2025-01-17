@@ -8,7 +8,6 @@
 class ValueNoise {
 private:
     const int GRID_SIZE;
-    const int BLOCK_SIZE;
 
     std::vector<float> generateRandomGradients() const;
 
@@ -21,9 +20,9 @@ private:
     float fractalNoise(float x, int octaves, float persistence, const std::vector<float>& gradients);
 
 public:
-    ValueNoise(int gridSize, int blockSize);
+    ValueNoise(int gridSize);
 
-    void generateTerrain(std::vector<std::vector<Block*>>& world, int WORLD_WIDTH, int WORLD_HEIGHT);
+    void generateTerrain(std::vector<std::vector<Block*>>& world);
 };
 
 #endif //VALUE_NOISE_H

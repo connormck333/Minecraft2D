@@ -22,7 +22,10 @@ set(SOURCE_FILES main.cpp
         src/blocks/EmeraldOre.cpp
         src/handlers/EventHandler.cpp
         src/handlers/InputHandler.cpp
-        src/terrain/WorldGenerator.cpp)
+        src/terrain/WorldGenerator.cpp
+        src/terrain/Tree.cpp
+        src/blocks/OakWood.cpp
+        src/blocks/Leaves.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

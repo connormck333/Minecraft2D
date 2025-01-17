@@ -3,9 +3,8 @@
 #ifndef WORLDGENERATOR_H
 #define WORLDGENERATOR_H
 
+#include "Tree.h"
 #include "../sprites/Steve.h"
-
-class Block;
 
 class WorldGenerator {
 private:
@@ -16,7 +15,9 @@ private:
 public:
     WorldGenerator(sf::RenderWindow& window, Steve& steve, std::vector<std::vector<Block*>>& world);
 
-    void updateWorld();
+    void loadTrees() const;
+
+    void updateWorld() const;
 };
 
 #endif //WORLDGENERATOR_H

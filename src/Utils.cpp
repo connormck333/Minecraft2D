@@ -11,18 +11,11 @@
 #include "../include/blocks/GoldOre.h"
 #include "../include/blocks/IronOre.h"
 
-class Block;
 using namespace std;
 
 sf::Vector2f getSteveSpawnPos(const vector<vector<Block*>>& world) {
-    int stevePosY = -1;
     int stevePosX = Constants::WORLD_WIDTH / 2;
-    for (int i = Constants::WORLD_HEIGHT - 1; i >= 0; i--) {
-        if (world[i][stevePosX]->getSprite().has_value()) {
-            stevePosY = i;
-            break;
-        }
-    }
+    int stevePosY = findTopYLevelAtX(world, stevePosX);
 
     sf::Vector2f stevePos = world[stevePosY][stevePosX]->getSprite().value().getPosition();
     stevePos.y -= Constants::BLOCK_SIZE * 2;
@@ -47,11 +40,19 @@ int getRandomInt(int min, int max) {
     std::mt19937 gen(rd());
     std::uniform_int_distribution distribution(min, max);
 
-    int num = distribution(gen);
-    cout << num << endl;
-    return num;
+    return distribution(gen);
 }
 
 bool getRandomBool(int chance) {
     return getRandomInt(0, chance) == 0;
+}
+
+int findTopYLevelAtX(const vector<vector<Block*>>& world, const int x) {
+    for (int i = Constants::WORLD_HEIGHT - 1; i >= 0; i--) {
+        if (world[i][x]->getSprite().has_value()) {
+            return i;
+        }
+    }
+
+    return -1;
 }
