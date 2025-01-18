@@ -17,4 +17,19 @@ namespace Constants {
         (SCREEN_WIDTH - (HOTBAR_WIDTH / 2)) / 2,
         SCREEN_HEIGHT - HOTBAR_HEIGHT - 210
     );
+
+    constexpr int HOTBAR_SLOT_YPOS = 11;
+    inline std::unordered_map<int, int> HOTBAR_SLOT_XPOS = {
+        {0, 10},
+        {1, 59},
+        {2, 107},
+        {3, 154},
+        {4, 202},
+        {5, 250},
+        {6, 298},
+        {7, 346}
+    };
+    constexpr int HOTBAR_SLOT_SIZE = 27;
+    constexpr int HOTBAR_SLOT_GAP = 15;
+    constexpr int HOTBAR_LEFT_PADDING = 10;
 }

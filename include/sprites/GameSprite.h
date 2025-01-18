@@ -15,6 +15,8 @@ protected:
     float movementSpeed;
 
 public:
+    virtual ~GameSprite() = default;
+
     GameSprite(const std::string& fileName, float movementSpeed);
 
     explicit GameSprite(const std::string& fileName);

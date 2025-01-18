@@ -18,4 +18,6 @@ int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, int x);
 
 sf::Vector2f getRelativeBlockPos(float x, float y);
 
+Item* getItemById(std::string id, int slotId);
+
 #endif //UTILS_H

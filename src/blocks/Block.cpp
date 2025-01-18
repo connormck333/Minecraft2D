@@ -38,3 +38,7 @@ CollisionType* Block::collidesWith(GroundSprite* other) const {
 bool Block::isBlockAir() const {
     return isAir;
 }
+
+std::string Block::getItem() const {
+    return "-1";
+}

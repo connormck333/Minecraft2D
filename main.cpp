@@ -30,22 +30,24 @@ int main() {
     WorldGenerator worldGenerator(window, *steve, world);
     worldGenerator.loadTrees();
 
-    auto* hotbar = new Hotbar();
+    auto* hotbar = new Hotbar(window);
 
     while (window.isOpen()) {
+
+        std::string itemId;
 
         while (const optional<sf::Event> ev = window.pollEvent()) {
             if (ev->is<sf::Event::Closed>()) {
                 window.close();
             }
 
-            eventHandler.handleEvents(ev);
+            itemId = eventHandler.handleEvents(ev);
         }
 
         inputHandler.handle();
 
         steve->update();
-        hotbar->updatePosition(window);
+        hotbar->update(itemId);
 
         view.setCenter(steve->getSprite().value().getPosition());
         window.setView(view);
@@ -55,7 +57,7 @@ int main() {
         worldGenerator.updateWorld();
 
         window.draw(steve->getSprite().value());
-        window.draw(hotbar->getSprite().value());
+        hotbar->draw();
         window.display();
     }
 

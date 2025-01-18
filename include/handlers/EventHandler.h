@@ -7,6 +7,7 @@
 
 #include "../blocks/Block.h"
 #include "../sprites/Steve.h"
+#include "../inventory/items/Item.h"
 
 class EventHandler {
 private:
@@ -14,12 +15,12 @@ private:
     Steve& steve;
     std::vector<std::vector<Block*>>& world;
 
-    void deleteBlockOnClick(const sf::Event& ev) const;
+    std::string deleteBlockOnClick(const sf::Event& ev) const;
 
 public:
     EventHandler(sf::RenderWindow& window, Steve& steve, std::vector<std::vector<Block*>> &world);
 
-    void handleEvents(const std::optional<sf::Event> &ev) const;
+    std::string handleEvents(const std::optional<sf::Event> &ev) const;
 
 };
 

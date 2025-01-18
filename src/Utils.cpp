@@ -10,6 +10,7 @@
 #include "../include/blocks/EmeraldOre.h"
 #include "../include/blocks/GoldOre.h"
 #include "../include/blocks/IronOre.h"
+#include "../include/inventory/items/DirtItem.h"
 
 using namespace std;
 
@@ -64,3 +65,10 @@ sf::Vector2f getRelativeBlockPos(float x, float y) {
 
     return pos;
 }
+
+Item* getItemById(std::string id, const int slotId) {
+    if (id == "dirt") return new DirtItem(slotId);
+
+    return nullptr;
+}
+

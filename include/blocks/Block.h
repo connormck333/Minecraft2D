@@ -5,6 +5,7 @@
 
 #include "../sprites/GroundSprite.h"
 #include "utils/CollisionType.h"
+#include "../inventory/items/Item.h"
 
 class Block : public GameSprite {
 private:
@@ -20,6 +21,8 @@ public:
     CollisionType* collidesWith(GroundSprite* sprite) const;
 
     bool isBlockAir() const;
+
+    virtual std::string getItem() const;
 };
 
 #endif //BLOCK_H
