@@ -15,7 +15,7 @@ using namespace std;
 int main() {
 
     vector<vector<Block*>> world(Constants::WORLD_HEIGHT, vector<Block*>(Constants::WORLD_WIDTH));
-    ValueNoise valueNoise(10);
+    ValueNoise valueNoise(30);
     valueNoise.generateTerrain(world);
 
     sf::RenderWindow window(sf::VideoMode({800, 600}), "Minecraft", sf::Style::Titlebar | sf::Style::Close);

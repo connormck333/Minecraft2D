@@ -29,15 +29,17 @@ void WorldGenerator::updateWorld() const {
     bool hitHead = false;
 
     sf::Vector2f stevePos = steve.getSprite().value().getPosition();
-    stevePos.y = Constants::WORLD_HEIGHT - (stevePos.y / Constants::BLOCK_SIZE);
+    stevePos.y = abs((stevePos.y / Constants::BLOCK_SIZE) - Constants::WORLD_HEIGHT) + 1;
     stevePos.x = stevePos.x / Constants::BLOCK_SIZE;
-    int minY = stevePos.y - 5;
-    int maxY = stevePos.y + 5;
-    int minX = stevePos.x - 5;
-    int maxX = stevePos.x + 5;
 
-    for (int y = 0; y < Constants::WORLD_HEIGHT; y++) {
-        for (int x = 0; x < Constants::WORLD_WIDTH ; x++) {
+    int minY = std::max(0, static_cast<int>(stevePos.y) - 7);
+    int maxY = std::max(0, static_cast<int>(stevePos.y) + 7);
+    int minX = std::max(0, static_cast<int>(stevePos.x) - 8);
+    int maxX = std::max(0, static_cast<int>(stevePos.x) + 8);
+
+    for (int y = minY; y < maxY; y++) {
+        for (int x = minX; x < maxX; x++) {
+            // std::cout << y << " " << x << std::endl;
             if (!world[y][x]->isBlockAir()) {
                 window.draw(world[y][x]->getSprite().value());
             }

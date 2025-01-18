@@ -74,7 +74,7 @@ float ValueNoise::valueNoise(float x, const std::vector<float> &gradients) {
 
 float ValueNoise::fractalNoise(float x, int octaves, float persistence, const std::vector<float> &gradients) {
     float total = 0.0f;
-    float frequency = 2.0f;
+    float frequency = 1.0f;
     float amplitude = 20.0f;
     float maxValue = 0.0f;
 
