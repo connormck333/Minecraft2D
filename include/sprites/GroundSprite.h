@@ -4,13 +4,12 @@
 #define GROUNDSPRITE_H
 
 #include "GameSprite.h"
-#include "utils/Direction.h"
 
 class GroundSprite : public GameSprite {
 private:
     float gravity = 0.12f;
-    float jumpSpeed = 0.0075f;
-    float jumpVelocity = -1.1f;
+    float jumpSpeed = 0.0008f;
+    float jumpVelocity = -0.43f;
     float velocityY = 0.0f;
 
     bool isOnGround = false;
