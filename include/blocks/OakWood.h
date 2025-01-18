@@ -8,6 +8,8 @@
 class OakWood : public Block {
 public:
     OakWood(sf::Vector2f pos);
+
+    std::string getItem() const override;
 };
 
 #endif //OAKWOOD_H

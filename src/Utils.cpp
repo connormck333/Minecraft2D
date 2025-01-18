@@ -11,6 +11,8 @@
 #include "../include/blocks/GoldOre.h"
 #include "../include/blocks/IronOre.h"
 #include "../include/inventory/items/DirtItem.h"
+#include "../include/inventory/items/StoneItem.h"
+#include "../include/inventory/items/WoodItem.h"
 
 using namespace std;
 
@@ -66,9 +68,18 @@ sf::Vector2f getRelativeBlockPos(float x, float y) {
     return pos;
 }
 
-Item* getItemById(std::string id, const int slotId) {
+Item* getItemById(const std::string& id, const int slotId) {
     if (id == "dirt") return new DirtItem(slotId);
+    if (id == "stone") return new StoneItem(slotId);
+    if (id == "wood") return new WoodItem(slotId);
 
     return nullptr;
+}
+
+sf::Vector2f getItemBlockScale(sf::Vector2f scale) {
+    scale.x = (scale.x / Constants::BLOCK_SIZE) * Constants::HOTBAR_SLOT_SIZE;
+    scale.y = (scale.y / Constants::BLOCK_SIZE) * Constants::HOTBAR_SLOT_SIZE;
+
+    return scale;
 }
 

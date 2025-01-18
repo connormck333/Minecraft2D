@@ -7,7 +7,7 @@ namespace Constants {
     constexpr int WORLD_HEIGHT = 100;
     constexpr int WORLD_WIDTH = 100;
 
-    constexpr int TREES_AMOUNT = 3;
+    constexpr int TREES_AMOUNT = WORLD_WIDTH / 10;
 
     constexpr float STEVE_MOVEMENT_SPEED = 0.09f;
 

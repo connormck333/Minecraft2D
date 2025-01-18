@@ -28,7 +28,9 @@ set(SOURCE_FILES main.cpp
         src/blocks/Leaves.cpp
         src/inventory/Hotbar.cpp
         src/inventory/items/DirtItem.cpp
-        src/inventory/items/Item.cpp)
+        src/inventory/items/Item.cpp
+        src/inventory/items/StoneItem.cpp
+        src/inventory/items/WoodItem.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
