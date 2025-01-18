@@ -23,6 +23,14 @@ void GameSprite::loadTexture(const std::string &fileName) {
     }
 }
 
+void GameSprite::loadRect(int x, int y, int height, int width) {
+    const sf::IntRect blockRect(
+        {x, y},
+        {width, height}
+    );
+    sprite->setTextureRect(blockRect);
+}
+
 optional<sf::Sprite> GameSprite::getSprite() {
     return sprite;
 }

@@ -16,4 +16,6 @@ bool getRandomBool(int chance);
 
 int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, int x);
 
+sf::Vector2f getRelativeBlockPos(float x, float y);
+
 #endif //UTILS_H

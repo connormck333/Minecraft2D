@@ -10,16 +10,8 @@ Block::Block() : GameSprite("") {
     isAir = true;
 }
 
-void Block::loadBlock(int x, int y, int height, int width) {
-    const sf::IntRect blockRect(
-        {x, y},
-        {width, height}
-    );
-    sprite->setTextureRect(blockRect);
-}
-
 void Block::loadBlock(int x, int y) {
-    this->loadBlock(x, y, Constants::BLOCK_SIZE, Constants::BLOCK_SIZE);
+    loadRect(x, y, Constants::BLOCK_SIZE, Constants::BLOCK_SIZE);
 }
 
 CollisionType* Block::collidesWith(GroundSprite* other) const {

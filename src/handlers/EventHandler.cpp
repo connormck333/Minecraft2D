@@ -1,5 +1,5 @@
 #include "../../include/handlers/EventHandler.h"
-#include "../../include/Constants.h"
+#include "../../include/Utils.h"
 
 EventHandler::EventHandler(sf::RenderWindow& window, Steve& steve, std::vector<std::vector<Block*>>& world) :
     window(window), steve(steve), world(world) {}
@@ -15,11 +15,10 @@ void EventHandler::handleEvents(const std::optional<sf::Event>& ev) const {
 void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
     if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
         sf::Vector2f pos = window.mapPixelToCoords(mouse->position);
-        int x = pos.x / Constants::BLOCK_SIZE;
-        int y = Constants::WORLD_HEIGHT - (pos.y / Constants::BLOCK_SIZE) + 1;
+        sf::Vector2f relativePos = getRelativeBlockPos(pos.x, pos.y);
 
-        if (y > 0 && y < world.size()) {
-            if (x >= 0 && x < world[y].size()) {
+        if (int y = relativePos.y; y > 0 && y < world.size()) {
+            if (int x = relativePos.x; x >= 0 && x < world[y].size()) {
                 const Block* temp = world[y][x];
                 world[y][x] = new Block();
 

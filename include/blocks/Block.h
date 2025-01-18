@@ -16,7 +16,6 @@ public:
     Block();
 
     void loadBlock(int x, int y);
-    void loadBlock(int x, int y, int height, int width);
 
     CollisionType* collidesWith(GroundSprite* sprite) const;
 

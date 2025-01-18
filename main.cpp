@@ -8,6 +8,7 @@
 #include "include/terrain/ValueNoise.h"
 #include "include/Utils.h"
 #include "include/handlers/InputHandler.h"
+#include "include/inventory/Hotbar.h"
 #include "include/terrain/WorldGenerator.h"
 
 using namespace std;
@@ -18,7 +19,7 @@ int main() {
     ValueNoise valueNoise(30);
     valueNoise.generateTerrain(world);
 
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "Minecraft", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode({Constants::SCREEN_HEIGHT, Constants::SCREEN_WIDTH}), "Minecraft", sf::Style::Titlebar | sf::Style::Close);
     sf::View view = window.getDefaultView();
 
     sf::Vector2f stevePos = getSteveSpawnPos(world);
@@ -28,6 +29,8 @@ int main() {
     InputHandler inputHandler(*steve);
     WorldGenerator worldGenerator(window, *steve, world);
     worldGenerator.loadTrees();
+
+    auto* hotbar = new Hotbar();
 
     while (window.isOpen()) {
 
@@ -42,6 +45,8 @@ int main() {
         inputHandler.handle();
 
         steve->update();
+        hotbar->updatePosition(window);
+
         view.setCenter(steve->getSprite().value().getPosition());
         window.setView(view);
 
@@ -50,6 +55,7 @@ int main() {
         worldGenerator.updateWorld();
 
         window.draw(steve->getSprite().value());
+        window.draw(hotbar->getSprite().value());
         window.display();
     }
 

@@ -25,7 +25,8 @@ set(SOURCE_FILES main.cpp
         src/terrain/WorldGenerator.cpp
         src/terrain/Tree.cpp
         src/blocks/OakWood.cpp
-        src/blocks/Leaves.cpp)
+        src/blocks/Leaves.cpp
+        src/inventory/Hotbar.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

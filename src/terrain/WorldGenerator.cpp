@@ -29,13 +29,12 @@ void WorldGenerator::updateWorld() const {
     bool hitHead = false;
 
     sf::Vector2f stevePos = steve.getSprite().value().getPosition();
-    stevePos.y = Constants::WORLD_HEIGHT - (stevePos.y / Constants::BLOCK_SIZE) + 1;
-    stevePos.x = stevePos.x / Constants::BLOCK_SIZE;
+    sf::Vector2f pos = getRelativeBlockPos(stevePos.x, stevePos.y);
 
-    const int minY = std::max(0, static_cast<int>(stevePos.y) - 7);
-    const int maxY = std::max(0, static_cast<int>(stevePos.y) + 7);
-    const int minX = std::max(0, static_cast<int>(stevePos.x) - 8);
-    const int maxX = std::max(0, static_cast<int>(stevePos.x) + 8);
+    const int minY = std::max(0, static_cast<int>(pos.y) - 7);
+    const int maxY = std::max(0, static_cast<int>(pos.y) + 7);
+    const int minX = std::max(0, static_cast<int>(pos.x) - 8);
+    const int maxX = std::max(0, static_cast<int>(pos.x) + 8);
 
     for (int y = minY; y < maxY; y++) {
         for (int x = minX; x < maxX; x++) {
