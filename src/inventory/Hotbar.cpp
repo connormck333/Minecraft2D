@@ -28,8 +28,10 @@ void Hotbar::addNewItem(const std::string& itemId) {
 
     for (int i = 0; i < 8; i++) {
         if (slots[i] != nullptr) continue;
+        std::cout << i << std::endl;
 
         slots[i] = getItemById(itemId, i);
+        return;
     }
 }
 
@@ -52,7 +54,6 @@ void Hotbar::draw() const {
         for (Item* item : slots) {
             if (item == nullptr) continue;
             window.draw(item->getSprite().value());
-            return;
         }
     }
 }
