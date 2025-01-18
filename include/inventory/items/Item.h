@@ -11,12 +11,15 @@ private:
     int slotId;
     int quantity;
 
-    sf::Vector2i getSlotPosition();
+    std::optional<sf::Text> quantityText;
+
+    sf::Vector2i getSlotPosition() const;
 
 public:
     Item(std::string id, int slotId, const std::string& fileName);
 
     std::string getId() const;
+    std::optional<sf::Text> getQuantityText() const;
 
     void setSlotPosition(const sf::RenderWindow& window);
 

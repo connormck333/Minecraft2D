@@ -54,6 +54,9 @@ void Hotbar::draw() const {
         for (Item* item : slots) {
             if (item == nullptr) continue;
             window.draw(item->getSprite().value());
+            if (item->getQuantityText().has_value()) {
+                window.draw(item->getQuantityText().value());
+            }
         }
     }
 }

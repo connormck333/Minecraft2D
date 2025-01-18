@@ -7,6 +7,8 @@
 #include <SFML/System/Vector2.hpp>
 #include "../include/blocks/Block.h"
 
+inline sf::Font quantityFont("./assets/fonts/Roboto-Regular.ttf");
+
 sf::Vector2f getSteveSpawnPos(const std::vector<std::vector<Block*>>& world);
 
 Block* getRandomOre(sf::Vector2f pos);
