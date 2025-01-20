@@ -31,8 +31,10 @@ set(SOURCE_FILES main.cpp
         src/inventory/items/Item.cpp
         src/inventory/items/StoneItem.cpp
         src/inventory/items/WoodItem.cpp
-        include/inventory/items/DiamondItem.h
-        src/inventory/items/DiamondItem.cpp)
+        src/inventory/items/DiamondItem.cpp
+        src/inventory/items/EmeraldItem.cpp
+        src/inventory/items/GoldItem.cpp
+        src/inventory/items/IronItem.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

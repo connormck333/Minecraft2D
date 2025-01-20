@@ -8,6 +8,8 @@
 class GoldOre : public Block {
 public:
     explicit GoldOre(sf::Vector2f pos);
+
+    Item *getItem() const override;
 };
 
 #endif //GOLDORE_H

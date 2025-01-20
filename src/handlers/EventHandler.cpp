@@ -25,7 +25,9 @@ void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
                 const Block* block = world[y][x];
                 world[y][x] = new Block();
 
-                hotbar.addNewItem(block->getItem());
+                if (!block->isBlockAir()) {
+                    hotbar.addNewItem(block->getItem());
+                }
 
                 delete block;
             }

@@ -23,6 +23,8 @@ void Hotbar::update() {
 }
 
 void Hotbar::addNewItem(Item* item) {
+    if (item == nullptr) return;
+
     for (int i = 0; i < 8; i++) {
         if (slots[i] == nullptr) continue;
 

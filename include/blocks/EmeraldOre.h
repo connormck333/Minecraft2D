@@ -8,6 +8,8 @@
 class EmeraldOre : public Block {
 public:
     explicit EmeraldOre(sf::Vector2f pos);
+
+    Item* getItem() const override;
 };
 
 #endif //EMERALDORE_H
