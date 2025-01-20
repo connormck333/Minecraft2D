@@ -9,7 +9,7 @@ class Grass : public Block {
 public:
     explicit Grass(sf::Vector2f pos);
 
-    std::string getItem() const override;
+    Item* getItem() const override;
 };
 
 #endif //GRASS_H

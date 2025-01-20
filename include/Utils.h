@@ -20,9 +20,8 @@ int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, int x);
 
 sf::Vector2f getRelativeBlockPos(float x, float y);
 
-Item* getItemById(const std::string& id, int slotId);
-
 sf::Vector2f getItemBlockScale(sf::Vector2f scale);
+sf::Vector2f getItemScale(sf::Vector2f scale, int height, int width);
 
 bool doesBlockExist(const std::vector<std::vector<Block*>>& world, int x, int y);
 

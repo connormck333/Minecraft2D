@@ -4,7 +4,7 @@
 #include "../../../include/Utils.h"
 #include "../../../include/blocks/Stone.h"
 
-StoneItem::StoneItem(int slotId) : Item("stone", slotId, "blocks2.png") {
+StoneItem::StoneItem() : Item("stone", "blocks2.png") {
     loadRect(128, 64, Constants::BLOCK_SIZE, Constants::BLOCK_SIZE);
     sprite->setScale(getItemBlockScale(sprite->getScale()));
 }

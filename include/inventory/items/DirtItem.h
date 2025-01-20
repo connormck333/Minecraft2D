@@ -7,7 +7,7 @@
 
 class DirtItem : public Item {
 public:
-    DirtItem(int slotId);
+    DirtItem();
 
     Block* createBlock(const sf::Vector2f &pos) override;
 };

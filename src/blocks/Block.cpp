@@ -39,6 +39,6 @@ bool Block::isBlockAir() const {
     return isAir;
 }
 
-std::string Block::getItem() const {
-    return "-1";
+Item* Block::getItem() const {
+    return nullptr;
 }

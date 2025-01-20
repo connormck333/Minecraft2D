@@ -7,6 +7,6 @@ Dirt::Dirt(sf::Vector2f pos) : Block("blocks2.png") {
     sprite->setPosition(pos);
 }
 
-std::string Dirt::getItem() const {
-    return "dirt";
+Item* Dirt::getItem() const {
+    return new DirtItem();
 }

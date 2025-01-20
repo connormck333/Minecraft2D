@@ -7,7 +7,7 @@
 
 class StoneItem : public Item {
 public:
-    StoneItem(int slotId);
+    StoneItem();
 
     Block* createBlock(const sf::Vector2f &pos) override;
 };

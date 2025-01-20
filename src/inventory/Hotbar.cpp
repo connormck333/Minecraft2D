@@ -16,20 +16,17 @@ void Hotbar::loadSelectedSlot() {
     selectedSquare.setOutlineColor(sf::Color::White);
 }
 
-void Hotbar::update(const std::string& itemId) {
-    addNewItem(itemId);
+void Hotbar::update() {
     updatePosition();
     updateSlots();
     updateSelectedSlot();
 }
 
-void Hotbar::addNewItem(const std::string& itemId) {
-    if (itemId == "-1" || itemId.size() == 0) return;
-
+void Hotbar::addNewItem(Item* item) {
     for (int i = 0; i < 8; i++) {
         if (slots[i] == nullptr) continue;
 
-        if (slots[i]->getId() == itemId) {
+        if (slots[i]->getId() == item->getId()) {
             slots[i]->incrementQuantity();
             return;
         }
@@ -38,7 +35,7 @@ void Hotbar::addNewItem(const std::string& itemId) {
     for (int i = 0; i < 8; i++) {
         if (slots[i] != nullptr) continue;
 
-        slots[i] = getItemById(itemId, i);
+        slots[i] = item;
         return;
     }
 }
@@ -57,7 +54,7 @@ void Hotbar::updateSlots() {
             continue;
         }
 
-        item->setSlotPosition(window);
+        item->setSlotPosition(window, i);
     }
 }
 

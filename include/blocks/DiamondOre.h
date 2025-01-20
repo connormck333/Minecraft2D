@@ -8,6 +8,8 @@
 class DiamondOre : public Block {
 public:
     explicit DiamondOre(sf::Vector2f pos);
+
+    Item* getItem() const override;
 };
 
 #endif //DIAMONDORE_H

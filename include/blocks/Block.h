@@ -22,7 +22,7 @@ public:
 
     bool isBlockAir() const;
 
-    virtual std::string getItem() const;
+    virtual Item* getItem() const;
 };
 
 #endif //BLOCK_H

@@ -6,19 +6,17 @@ EventHandler::EventHandler(sf::RenderWindow& window, std::vector<std::vector<Blo
     window(window), world(world), steve(steve), hotbar(hotbar) {}
 
 
-std::string EventHandler::handleEvents(const std::optional<sf::Event>& ev) const {
-    if (!ev.has_value()) return nullptr;
+void EventHandler::handleEvents(const std::optional<sf::Event>& ev) const {
+    if (!ev.has_value()) return;
 
     steve.handleEvent(ev.value());
-    std::string itemId = deleteBlockOnClick(ev.value());
+    deleteBlockOnClick(ev.value());
     placeBlockOnRightClick(ev.value());
-
-    return itemId;
 }
 
-std::string EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
+void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
     if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
-        if (mouse->button != sf::Mouse::Button::Left) return "-1";
+        if (mouse->button != sf::Mouse::Button::Left) return;
 
         sf::Vector2f pos = getMousePos(mouse);
 
@@ -27,21 +25,18 @@ std::string EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
                 const Block* block = world[y][x];
                 world[y][x] = new Block();
 
-                std::string itemId = block->getItem();
+                hotbar.addNewItem(block->getItem());
 
                 delete block;
-                return itemId;
             }
         }
     }
-
-    return "-1";
 }
 
 void EventHandler::placeBlockOnRightClick(const sf::Event &ev) const {
     if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
         if (mouse->button != sf::Mouse::Button::Right) return;
-        if (hotbar.getSelectedItem() == nullptr) return;
+        if (hotbar.getSelectedItem() == nullptr || !hotbar.getSelectedItem()->canBePlaced()) return;
 
         sf::Vector2f pos = getMousePos(mouse);
 

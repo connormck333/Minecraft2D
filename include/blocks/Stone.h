@@ -9,7 +9,7 @@ class Stone : public Block {
 public:
     Stone(sf::Vector2f pos);
 
-    std::string getItem() const override;
+    Item* getItem() const override;
 };
 
 #endif //STONE_H

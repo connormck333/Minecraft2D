@@ -7,7 +7,7 @@
 
 class WoodItem : public Item {
 public:
-    WoodItem(int slotId);
+    WoodItem();
 
     Block* createBlock(const sf::Vector2f &pos) override;
 };

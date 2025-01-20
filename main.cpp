@@ -33,20 +33,18 @@ int main() {
 
     while (window.isOpen()) {
 
-        std::string itemId;
-
         while (const optional<sf::Event> ev = window.pollEvent()) {
             if (ev->is<sf::Event::Closed>()) {
                 window.close();
             }
 
-            itemId = eventHandler.handleEvents(ev);
+            eventHandler.handleEvents(ev);
         }
 
         inputHandler.handle();
 
         steve->update();
-        hotbar->update(itemId);
+        hotbar->update();
 
         view.setCenter(steve->getSprite().value().getPosition());
         window.setView(view);

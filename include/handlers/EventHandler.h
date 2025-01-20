@@ -18,7 +18,7 @@ private:
 
     sf::Vector2f getMousePos(const sf::Event::MouseButtonPressed* mouse) const;
 
-    std::string deleteBlockOnClick(const sf::Event& ev) const;
+    void deleteBlockOnClick(const sf::Event& ev) const;
     void placeBlockOnRightClick(const sf::Event& ev) const;
 
     bool canPlaceBlock(int x, int y) const;
@@ -26,7 +26,7 @@ private:
 public:
     EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>> &world, Steve& steve, Hotbar& hotbar);
 
-    std::string handleEvents(const std::optional<sf::Event> &ev) const;
+    void handleEvents(const std::optional<sf::Event> &ev) const;
 
 };
 

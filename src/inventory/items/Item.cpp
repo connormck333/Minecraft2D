@@ -2,11 +2,15 @@
 #include "../../../include/Constants.h"
 #include "../../../include/Utils.h"
 
-Item::Item(std::string id, int slotId, const std::string &fileName) : GameSprite(fileName), id(id), slotId(slotId), quantity(1) {
+Item::Item(std::string id, const std::string &fileName) : GameSprite(fileName), id(id), quantity(1) {
     quantityText = sf::Text(quantityFont);
     quantityText->setString(std::to_string(quantity));
     quantityText->setCharacterSize(15);
     quantityText->setFillColor(sf::Color::White);
+}
+
+Item::Item(std::string id, const std::string &fileName, const bool isBlock) : Item(id, fileName) {
+    this->isBlock = isBlock;
 }
 
 std::string Item::getId() const {
@@ -17,7 +21,7 @@ std::optional<sf::Text> Item::getQuantityText() const {
     return quantityText;
 }
 
-sf::Vector2i Item::getSlotPosition() const {
+sf::Vector2i Item::getSlotPosition(const int slotId) const {
     sf::Vector2i pos;
     pos.x = Constants::HOTBAR_POSITION.x + Constants::HOTBAR_SLOT_XPOS[slotId];
     pos.y = Constants::HOTBAR_POSITION.y + Constants::HOTBAR_SLOT_YPOS;
@@ -25,8 +29,8 @@ sf::Vector2i Item::getSlotPosition() const {
     return pos;
 }
 
-void Item::setSlotPosition(const sf::RenderWindow& window) {
-    sf::Vector2f pos = window.mapPixelToCoords(getSlotPosition());
+void Item::setSlotPosition(const sf::RenderWindow& window, const int slotId) {
+    sf::Vector2f pos = window.mapPixelToCoords(getSlotPosition(slotId));
     sprite->setPosition(pos);
     pos.y += 10;
     quantityText.value().setPosition(pos);
@@ -44,6 +48,10 @@ void Item::decrementQuantity() {
 
 int Item::getQuantity() const {
     return quantity;
+}
+
+bool Item::canBePlaced() const {
+    return isBlock;
 }
 
 Block* Item::createBlock(const sf::Vector2f& pos) {

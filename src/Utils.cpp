@@ -10,6 +10,7 @@
 #include "../include/blocks/EmeraldOre.h"
 #include "../include/blocks/GoldOre.h"
 #include "../include/blocks/IronOre.h"
+#include "../include/inventory/items/DiamondItem.h"
 #include "../include/inventory/items/DirtItem.h"
 #include "../include/inventory/items/StoneItem.h"
 #include "../include/inventory/items/WoodItem.h"
@@ -67,22 +68,18 @@ sf::Vector2f getRelativeBlockPos(float x, float y) {
     return pos;
 }
 
-Item* getItemById(const std::string& id, const int slotId) {
-    if (id == "dirt") return new DirtItem(slotId);
-    if (id == "stone") return new StoneItem(slotId);
-    if (id == "wood") return new WoodItem(slotId);
-
-    return nullptr;
+sf::Vector2f getItemBlockScale(const sf::Vector2f scale) {
+    return getItemScale(scale, Constants::BLOCK_SIZE, Constants::BLOCK_SIZE);
 }
 
-sf::Vector2f getItemBlockScale(sf::Vector2f scale) {
-    scale.x = (scale.x / Constants::BLOCK_SIZE) * Constants::HOTBAR_SLOT_SIZE;
-    scale.y = (scale.y / Constants::BLOCK_SIZE) * Constants::HOTBAR_SLOT_SIZE;
+sf::Vector2f getItemScale(sf::Vector2f scale, const int height, const int width) {
+    scale.x = (scale.x / width) * Constants::HOTBAR_SLOT_SIZE;
+    scale.y = (scale.y / height) * Constants::HOTBAR_SLOT_SIZE;
 
     return scale;
 }
 
-bool doesBlockExist(const std::vector<std::vector<Block*>>& world, int x, int y) {
+bool doesBlockExist(const std::vector<std::vector<Block*>>& world, const int x, const int y) {
     if (x < 0 || y < 0 || y >= world.size() || x > world[y].size()) return false;
 
     return world[y][x] != nullptr && !world[y][x]->isBlockAir();
