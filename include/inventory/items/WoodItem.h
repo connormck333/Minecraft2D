@@ -8,6 +8,8 @@
 class WoodItem : public Item {
 public:
     WoodItem(int slotId);
+
+    Block* createBlock(const sf::Vector2f &pos) override;
 };
 
 #endif //WOODITEM_H

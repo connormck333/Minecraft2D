@@ -5,6 +5,8 @@
 
 #include "../../sprites/GameSprite.h"
 
+class Block;
+
 class Item : public GameSprite {
 private:
     std::string id;
@@ -25,6 +27,8 @@ public:
 
     void incrementQuantity();
     void decrementQuantity();
+
+    virtual Block* createBlock(const sf::Vector2f& pos);
 };
 
 #endif //ITEM_H

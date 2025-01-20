@@ -8,6 +8,8 @@
 class StoneItem : public Item {
 public:
     StoneItem(int slotId);
+
+    Block* createBlock(const sf::Vector2f &pos) override;
 };
 
 #endif //STONEITEM_H

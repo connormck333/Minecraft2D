@@ -8,6 +8,8 @@
 class DirtItem : public Item {
 public:
     DirtItem(int slotId);
+
+    Block* createBlock(const sf::Vector2f &pos) override;
 };
 
 #endif //DIRTITEM_H

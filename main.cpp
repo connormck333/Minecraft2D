@@ -26,7 +26,7 @@ int main() {
     auto* steve = new Steve(stevePos);
     auto* hotbar = new Hotbar(window);
 
-    EventHandler eventHandler(window, *steve, world);
+    EventHandler eventHandler(window, world, *steve, *hotbar);
     InputHandler inputHandler(*steve, *hotbar);
     WorldGenerator worldGenerator(window, *steve, world);
     worldGenerator.loadTrees();
