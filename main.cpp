@@ -24,13 +24,12 @@ int main() {
 
     sf::Vector2f stevePos = getSteveSpawnPos(world);
     auto* steve = new Steve(stevePos);
+    auto* hotbar = new Hotbar(window);
 
     EventHandler eventHandler(window, *steve, world);
-    InputHandler inputHandler(*steve);
+    InputHandler inputHandler(*steve, *hotbar);
     WorldGenerator worldGenerator(window, *steve, world);
     worldGenerator.loadTrees();
-
-    auto* hotbar = new Hotbar(window);
 
     while (window.isOpen()) {
 

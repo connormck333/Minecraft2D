@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "../../include/sprites/Steve.h"
-
 #include "../../include/Constants.h"
 #include "../../include/sprites/GroundSprite.h"
 #include "../../include/sprites/utils/Direction.h"
