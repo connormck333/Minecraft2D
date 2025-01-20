@@ -48,9 +48,15 @@ void Hotbar::updatePosition() {
     sprite->setPosition(pos);
 }
 
-void Hotbar::updateSlots() const {
-    for (Item* item : slots) {
+void Hotbar::updateSlots() {
+    for (int i = 0; i < slots.size(); i++) {
+        Item* item = slots[i];
         if (item == nullptr) continue;
+        if (item->getQuantity() <= 0) {
+            deleteSlot(i);
+            continue;
+        }
+
         item->setSlotPosition(window);
     }
 }
@@ -71,6 +77,7 @@ void Hotbar::draw() const {
 
     for (Item* item : slots) {
         if (item == nullptr) continue;
+
         window.draw(item->getSprite().value());
         if (item->getQuantityText().has_value()) {
             window.draw(item->getQuantityText().value());
@@ -86,3 +93,8 @@ Item *Hotbar::getSelectedItem() const {
     return slots[selectedSlot];
 }
 
+void Hotbar::deleteSlot(int slotId) {
+    const Item* temp = slots[slotId];
+    slots[slotId] = nullptr;
+    delete temp;
+}

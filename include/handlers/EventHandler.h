@@ -21,6 +21,8 @@ private:
     std::string deleteBlockOnClick(const sf::Event& ev) const;
     void placeBlockOnRightClick(const sf::Event& ev) const;
 
+    bool canPlaceBlock(int x, int y) const;
+
 public:
     EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>> &world, Steve& steve, Hotbar& hotbar);
 

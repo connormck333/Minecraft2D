@@ -24,4 +24,6 @@ Item* getItemById(const std::string& id, int slotId);
 
 sf::Vector2f getItemBlockScale(sf::Vector2f scale);
 
+bool doesBlockExist(const std::vector<std::vector<Block*>>& world, int x, int y);
+
 #endif //UTILS_H

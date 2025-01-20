@@ -17,8 +17,9 @@ private:
     void loadSelectedSlot();
     void addNewItem(const std::string& itemId);
     void updatePosition();
-    void updateSlots() const;
+    void updateSlots();
     void updateSelectedSlot();
+    void deleteSlot(int slotId);
 
 public:
     Hotbar(sf::RenderWindow& window);

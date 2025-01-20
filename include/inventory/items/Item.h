@@ -27,6 +27,7 @@ public:
 
     void incrementQuantity();
     void decrementQuantity();
+    int getQuantity() const;
 
     virtual Block* createBlock(const sf::Vector2f& pos);
 };

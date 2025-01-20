@@ -14,9 +14,8 @@
 #include "../include/inventory/items/StoneItem.h"
 #include "../include/inventory/items/WoodItem.h"
 
-using namespace std;
 
-sf::Vector2f getSteveSpawnPos(const vector<vector<Block*>>& world) {
+sf::Vector2f getSteveSpawnPos(const std::vector<std::vector<Block*>>& world) {
     int stevePosX = Constants::WORLD_WIDTH / 2;
     int stevePosY = findTopYLevelAtX(world, stevePosX);
 
@@ -50,7 +49,7 @@ bool getRandomBool(int chance) {
     return getRandomInt(0, chance) == 0;
 }
 
-int findTopYLevelAtX(const vector<vector<Block*>>& world, const int x) {
+int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, const int x) {
     for (int i = Constants::WORLD_HEIGHT - 1; i >= 0; i--) {
         if (world[i][x]->getSprite().has_value()) {
             return i;
@@ -83,3 +82,8 @@ sf::Vector2f getItemBlockScale(sf::Vector2f scale) {
     return scale;
 }
 
+bool doesBlockExist(const std::vector<std::vector<Block*>>& world, int x, int y) {
+    if (x < 0 || y < 0 || y >= world.size() || x > world[y].size()) return false;
+
+    return world[y][x] != nullptr && !world[y][x]->isBlockAir();
+}

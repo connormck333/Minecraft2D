@@ -42,6 +42,10 @@ void Item::decrementQuantity() {
     quantityText.value().setString(std::to_string(quantity));
 }
 
+int Item::getQuantity() const {
+    return quantity;
+}
+
 Block* Item::createBlock(const sf::Vector2f& pos) {
     return new Block();
 }

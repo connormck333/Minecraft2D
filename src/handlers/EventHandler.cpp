@@ -41,12 +41,13 @@ std::string EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
 void EventHandler::placeBlockOnRightClick(const sf::Event &ev) const {
     if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
         if (mouse->button != sf::Mouse::Button::Right) return;
+        if (hotbar.getSelectedItem() == nullptr) return;
 
         sf::Vector2f pos = getMousePos(mouse);
 
         if (int y = pos.y; y > 0 && y < world.size()) {
             if (int x = pos.x; x >= 0 && x < world[y].size()) {
-                if (world[y][x] == nullptr || !world[y][x]->isBlockAir()) return;
+                if (world[y][x] == nullptr || !world[y][x]->isBlockAir() || !canPlaceBlock(x, y)) return;
 
                 sf::Vector2f relativePos(
                     x * Constants::BLOCK_SIZE,
@@ -66,3 +67,7 @@ sf::Vector2f EventHandler::getMousePos(const sf::Event::MouseButtonPressed* mous
     return getRelativeBlockPos(pos.x, pos.y);
 }
 
+bool EventHandler::canPlaceBlock(int x, int y) const {
+    return doesBlockExist(world, x - 1, y) || doesBlockExist(world, x + 1, y)
+        || doesBlockExist(world, x, y - 1) || doesBlockExist(world, x, y + 1);
+}
