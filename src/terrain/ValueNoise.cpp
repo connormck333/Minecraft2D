@@ -23,7 +23,7 @@ void ValueNoise::generateTerrain(std::vector<std::vector<Block*>>& world) {
                 continue;
             }
 
-            const auto pos = sf::Vector2f(x * Constants::BLOCK_SIZE, (Constants::WORLD_HEIGHT - y) * Constants::BLOCK_SIZE);
+            const sf::Vector2f pos = getPosAtBlock(x, y);
 
             if (y == terrainHeight) {
                 world[y][x] = new Grass(pos);

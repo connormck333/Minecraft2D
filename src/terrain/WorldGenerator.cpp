@@ -57,20 +57,22 @@ void WorldGenerator::updateWorld() const {
             for (GroundSprite* sprite : groundSprites) {
                 if (CollisionType* collision = world[y][x]->collidesWith(sprite)) {
                     if (collision->collisionTop()) hitHead.insert(sprite);
-                    if (isOnGround.contains(sprite) || (collision->collisionY() && !hitHead.contains(sprite))) isOnGround.insert(sprite);
+                    if (collision->collisionY() && !hitHead.contains(sprite)) isOnGround.insert(sprite);
 
                     if (collision->collisionX()) {
-                        if (!rightBlocked.contains(sprite) && collision->getDirection() == Direction::RIGHT) rightBlocked.insert(sprite);
-                        if (!leftBlocked.contains(sprite) && collision->getDirection() == Direction::LEFT) leftBlocked.insert(sprite);
+                        if (collision->getDirection() == Direction::RIGHT) rightBlocked.insert(sprite);
+                        if (collision->getDirection() == Direction::LEFT) leftBlocked.insert(sprite);
                     }
+                    sprite->setSpriteOnGround(true);
                 }
-                sprite->setSpriteOnGround(true);
             }
         }
     }
 
     for (GroundSprite* sprite : groundSprites) {
-        if (!isOnGround.contains(sprite)) sprite->setSpriteOnGround(false);
+        if (!isOnGround.contains(sprite)) {
+            sprite->setSpriteOnGround(false);
+        }
         if (hitHead.contains(sprite)) sprite->setSpriteJumping(false);
 
         sprite->setLeftBlocked(leftBlocked.contains(sprite));

@@ -33,7 +33,7 @@ int main() {
     SpriteHandler spriteHandler(window, *steve);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
-    spriteHandler.addSprite(new Zombie(stevePos));
+    spriteHandler.addSprite(new Zombie(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
 
     while (window.isOpen()) {
 

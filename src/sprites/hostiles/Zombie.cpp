@@ -1,7 +1,7 @@
 #include "../../../include/sprites/hostiles/Zombie.h"
 #include "../../../include/Constants.h"
 
-Zombie::Zombie(sf::Vector2f pos) : GroundSprite("zombie.png", Constants::HOSTILE_MOVEMENT_SPEED) {
+Zombie::Zombie(Steve& steve, sf::Vector2f pos) : AutomatedSprite(steve, "zombie.png", Constants::HOSTILE_MOVEMENT_SPEED) {
     textures[0] = sf::IntRect(
         {17, 79},
         {15, 16}

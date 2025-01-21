@@ -3,14 +3,14 @@
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
 
-#include "../GroundSprite.h"
+#include "../AutomatedSprite.h"
 
-class Zombie : public GroundSprite {
+class Zombie : public AutomatedSprite {
 private:
     void createTextures();
 
 public:
-    explicit Zombie(sf::Vector2f pos);
+    explicit Zombie(Steve& steve, sf::Vector2f pos);
 };
 
 #endif //ZOMBIE_H

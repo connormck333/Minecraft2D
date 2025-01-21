@@ -37,7 +37,7 @@ protected:
 public:
     GroundSprite(const std::string& fileName, float movementSpeed);
 
-    void update();
+    virtual void update();
 
     void applyGravity();
 

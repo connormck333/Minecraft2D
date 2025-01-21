@@ -10,7 +10,7 @@ namespace Constants {
     constexpr int TREES_AMOUNT = WORLD_WIDTH / 10;
 
     constexpr float STEVE_MOVEMENT_SPEED = 0.13f;
-    constexpr float HOSTILE_MOVEMENT_SPEED = 0.1f;
+    constexpr float HOSTILE_MOVEMENT_SPEED = 0.04f;
 
     constexpr int HOTBAR_HEIGHT = 51;
     constexpr int HOTBAR_WIDTH = 389;

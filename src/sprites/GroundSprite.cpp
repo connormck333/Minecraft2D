@@ -1,5 +1,8 @@
 #include "../../include/sprites/GroundSprite.h"
 
+#include "../../include/Constants.h"
+#include "../../include/Utils.h"
+
 GroundSprite::GroundSprite(const std::string& fileName, const float movementSpeed)
 : GameSprite(fileName, movementSpeed) {}
 
@@ -90,7 +93,7 @@ void GroundSprite::animateWalking(Direction direction) {
         currentTexture++;
     }
 
-    if (textureCounter == 150) {
+    if (textureCounter == 220) {
         sprite->setTextureRect(textures[currentTexture]);
         textureCounter = 0;
     } else {
