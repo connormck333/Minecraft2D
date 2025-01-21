@@ -1,12 +1,15 @@
 #include "../../include/terrain/WorldGenerator.h"
+
+#include <unordered_set>
+
 #include "../../include/Constants.h"
 #include "../../include/Utils.h"
 #include "../../include/blocks/Block.h"
 #include "../../include/blocks/utils/CollisionType.h"
 #include "../../include/terrain/Tree.h"
 
-WorldGenerator::WorldGenerator(sf::RenderWindow& window, Steve& steve, std::vector<std::vector<Block*>>& world) :
-    window(window), steve(steve), world(world) {}
+WorldGenerator::WorldGenerator(sf::RenderWindow& window, SpriteHandler& spriteHandler, std::vector<std::vector<Block*>>& world) :
+    window(window), spriteHandler(spriteHandler), world(world) {}
 
 void WorldGenerator::loadTrees() const {
     int min = 0;
@@ -23,10 +26,13 @@ void WorldGenerator::loadTrees() const {
 }
 
 void WorldGenerator::updateWorld() const {
-    bool isOnGround = false;
-    bool rightBlocked = false;
-    bool leftBlocked = false;
-    bool hitHead = false;
+    std::vector<GameSprite*> sprites = spriteHandler.getSprites();
+    Steve& steve = spriteHandler.getSteve();
+
+    std::unordered_set<GroundSprite*> isOnGround;
+    std::unordered_set<GroundSprite*> rightBlocked;
+    std::unordered_set<GroundSprite*> leftBlocked;
+    std::unordered_set<GroundSprite*> hitHead;
 
     sf::Vector2f stevePos = steve.getSprite().value().getPosition();
     sf::Vector2f pos = getRelativeBlockPos(stevePos.x, stevePos.y);
@@ -35,6 +41,8 @@ void WorldGenerator::updateWorld() const {
     const int maxY = std::max(0, static_cast<int>(pos.y) + 7);
     const int minX = std::max(0, static_cast<int>(pos.x) - 8);
     const int maxX = std::max(0, static_cast<int>(pos.x) + 8);
+
+    std::vector<GroundSprite*> groundSprites = getGroundSprites(sprites, minX, minY, maxX, maxY);
 
     for (int y = minY; y < maxY; y++) {
         for (int x = minX; x < maxX; x++) {
@@ -46,22 +54,46 @@ void WorldGenerator::updateWorld() const {
                 continue;
             }
 
-            if (CollisionType* collision = world[y][x]->collidesWith(&steve)) {
-                hitHead = collision->collisionTop();
-                isOnGround = isOnGround || (collision->collisionY() && !hitHead);
-                if (collision->collisionX()) {
-                    if (!rightBlocked && collision->getDirection() == Direction::RIGHT) rightBlocked = true;
-                    if (!leftBlocked && collision->getDirection() == Direction::LEFT) leftBlocked = true;
+            for (GroundSprite* sprite : groundSprites) {
+                if (CollisionType* collision = world[y][x]->collidesWith(sprite)) {
+                    if (collision->collisionTop()) hitHead.insert(sprite);
+                    if (isOnGround.contains(sprite) || (collision->collisionY() && !hitHead.contains(sprite))) isOnGround.insert(sprite);
+
+                    if (collision->collisionX()) {
+                        if (!rightBlocked.contains(sprite) && collision->getDirection() == Direction::RIGHT) rightBlocked.insert(sprite);
+                        if (!leftBlocked.contains(sprite) && collision->getDirection() == Direction::LEFT) leftBlocked.insert(sprite);
+                    }
                 }
-                steve.setSpriteOnGround(true);
+                sprite->setSpriteOnGround(true);
             }
         }
     }
 
-    if (!isOnGround) steve.setSpriteOnGround(false);
-    if (hitHead) steve.setSpriteJumping(false);
+    for (GroundSprite* sprite : groundSprites) {
+        if (!isOnGround.contains(sprite)) sprite->setSpriteOnGround(false);
+        if (hitHead.contains(sprite)) sprite->setSpriteJumping(false);
 
-    steve.setLeftBlocked(leftBlocked);
-    steve.setRightBlocked(rightBlocked);
+        sprite->setLeftBlocked(leftBlocked.contains(sprite));
+        sprite->setRightBlocked(rightBlocked.contains(sprite));
+    }
 }
 
+std::vector<GroundSprite*> WorldGenerator::getGroundSprites(std::vector<GameSprite*>& sprites, int minX, int minY, int maxX, int maxY) const {
+    std::vector<GroundSprite*> groundSprites;
+    for (GameSprite* gameSprite : sprites) {
+        if (auto* sprite = dynamic_cast<GroundSprite*>(gameSprite)) {
+            sf::Vector2f pos = sprite->getSprite().value().getPosition();
+            sf::Vector2f spritePos = getRelativeBlockPos(pos.x, pos.y);
+            if (
+                spritePos.x <= maxX && spritePos.x >= minX
+                && spritePos.y <= maxY && spritePos.y >= minY
+            ) {
+                groundSprites.push_back(sprite);
+                continue;
+            }
+            sprite->setSpriteOnGround(true);
+        }
+    }
+
+    return groundSprites;
+}

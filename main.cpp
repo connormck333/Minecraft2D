@@ -8,7 +8,9 @@
 #include "include/terrain/ValueNoise.h"
 #include "include/Utils.h"
 #include "include/handlers/InputHandler.h"
+#include "include/handlers/SpriteHandler.h"
 #include "include/inventory/Hotbar.h"
+#include "include/sprites/hostiles/Zombie.h"
 #include "include/terrain/WorldGenerator.h"
 
 using namespace std;
@@ -28,8 +30,10 @@ int main() {
 
     EventHandler eventHandler(window, world, *steve, *hotbar);
     InputHandler inputHandler(*steve, *hotbar);
-    WorldGenerator worldGenerator(window, *steve, world);
+    SpriteHandler spriteHandler(window, *steve);
+    WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
+    spriteHandler.addSprite(new Zombie(stevePos));
 
     while (window.isOpen()) {
 
@@ -43,7 +47,7 @@ int main() {
 
         inputHandler.handle();
 
-        steve->update();
+        spriteHandler.update();
         hotbar->update();
 
         view.setCenter(steve->getSprite().value().getPosition());
@@ -53,7 +57,7 @@ int main() {
 
         worldGenerator.updateWorld();
 
-        window.draw(steve->getSprite().value());
+        spriteHandler.draw();
         hotbar->draw();
         window.display();
     }

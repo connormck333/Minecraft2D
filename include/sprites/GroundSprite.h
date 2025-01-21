@@ -4,6 +4,7 @@
 #define GROUNDSPRITE_H
 
 #include "GameSprite.h"
+#include "utils/Direction.h"
 
 class GroundSprite : public GameSprite {
 private:
@@ -21,8 +22,15 @@ private:
     float hitboxSizeY = 0;
 
 protected:
+    std::unordered_map<int, sf::IntRect> textures;
+    int currentTexture = 0;
+    int textureCounter = 0;
+    Direction directionFacing = Direction::RIGHT;
+
     bool leftBlocked = false;
     bool rightBlocked = false;
+
+    void resetToStillTexture();
 
     void setHitboxPositionAndSize(float positionX, float sizeX, float positionY, float sizeY);
 
@@ -49,6 +57,9 @@ public:
 
     void setLeftBlocked(bool leftBlocked);
     void setRightBlocked(bool rightBlocked);
+
+    void animateWalking(Direction direction);
+
 };
 
 #endif //GROUNDSPRITE_H

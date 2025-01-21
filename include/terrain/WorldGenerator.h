@@ -4,16 +4,19 @@
 #define WORLDGENERATOR_H
 
 #include "Tree.h"
+#include "../handlers/SpriteHandler.h"
 #include "../sprites/Steve.h"
 
 class WorldGenerator {
 private:
     sf::RenderWindow& window;
-    Steve& steve;
+    SpriteHandler& spriteHandler;
     std::vector<std::vector<Block*>>& world;
 
+    std::vector<GroundSprite*> getGroundSprites(std::vector<GameSprite*>& sprites, int minX, int minY, int maxX, int maxY) const;
+
 public:
-    WorldGenerator(sf::RenderWindow& window, Steve& steve, std::vector<std::vector<Block*>>& world);
+    WorldGenerator(sf::RenderWindow& window, SpriteHandler& spriteHandler, std::vector<std::vector<Block*>>& world);
 
     void loadTrees() const;
 

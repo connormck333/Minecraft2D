@@ -77,3 +77,31 @@ void GroundSprite::setLeftBlocked(bool leftBlocked) {
 void GroundSprite::setRightBlocked(bool rightBlocked) {
     this->rightBlocked = rightBlocked;
 }
+
+void GroundSprite::resetToStillTexture() {
+    currentTexture = 0;
+    sprite->setTextureRect(textures[currentTexture]);
+}
+
+void GroundSprite::animateWalking(Direction direction) {
+    if (currentTexture == textures.size() - 1) {
+        currentTexture = 1;
+    } else {
+        currentTexture++;
+    }
+
+    if (textureCounter == 150) {
+        sprite->setTextureRect(textures[currentTexture]);
+        textureCounter = 0;
+    } else {
+        textureCounter++;
+    }
+
+    if (direction == Direction::RIGHT && !rightBlocked) {
+        sprite->setScale(sf::Vector2f(5, 5));
+        sprite->move(sf::Vector2f(movementSpeed, 0));
+    } else if (direction == Direction::LEFT && !leftBlocked) {
+        sprite->setScale(sf::Vector2f(-5, 5));
+        sprite->move(sf::Vector2f(-movementSpeed, 0));
+    }
+}

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Steve::Steve(sf::Vector2f position) : GroundSprite("Steve.png", Constants::STEVE_MOVEMENT_SPEED) {
+Steve::Steve(sf::Vector2f pos) : GroundSprite("Steve.png", Constants::STEVE_MOVEMENT_SPEED) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -16,7 +16,7 @@ Steve::Steve(sf::Vector2f position) : GroundSprite("Steve.png", Constants::STEVE
     currentTexture = 0;
     sprite->setTextureRect(textures[0]);
 
-    sprite->setPosition(position);
+    sprite->setPosition(pos);
     sprite->setOrigin({ sprite->getLocalBounds().size.x - 11.5f, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
@@ -58,32 +58,4 @@ void Steve::createTextures() {
         {96, 96},
         {23, 23}
     );
-}
-
-void Steve::animateWalking(Direction direction) {
-    if (currentTexture == 4) {
-        currentTexture = 1;
-    } else {
-        currentTexture++;
-    }
-
-    if (textureCounter == 220) {
-        sprite->setTextureRect(textures[currentTexture]);
-        textureCounter = 0;
-    } else {
-        textureCounter++;
-    }
-
-    if (direction == Direction::RIGHT && !rightBlocked) {
-        sprite->setScale(sf::Vector2f(5, 5));
-        sprite->move(sf::Vector2f(movementSpeed, 0));
-    } else if (direction == Direction::LEFT && !leftBlocked) {
-        sprite->setScale(sf::Vector2f(-5, 5));
-        sprite->move(sf::Vector2f(-movementSpeed, 0));
-    }
-}
-
-void Steve::resetToStillTexture() {
-    currentTexture = 0;
-    sprite->setTextureRect(textures[currentTexture]);
 }
