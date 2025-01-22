@@ -29,10 +29,6 @@ CollisionType* Block::collidesWith(GroundSprite* other) const {
         bool collisionTop = collisionY && (otherHitbox.position.y > blockBounds.position.y);
         Direction direction = (otherHitbox.position.x > blockBounds.position.x) ? Direction::LEFT : Direction::RIGHT;
 
-        if (intersectionValue.size.x > 0) {
-            other->getSprite().value().move(sf::Vector2f(-intersectionValue.size.x, 0));
-        }
-
         return new CollisionType(collisionX, collisionY, collisionTop, direction);
     }
 

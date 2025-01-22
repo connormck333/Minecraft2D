@@ -29,6 +29,7 @@ protected:
 
     bool leftBlocked = false;
     bool rightBlocked = false;
+    bool shouldAttemptJump = true;
 
     void resetToStillTexture();
 
@@ -49,6 +50,8 @@ public:
     void setSpriteOnGround(bool spriteOnGround);
 
     void jump();
+    bool shouldJump() const;
+    void setShouldJump(bool val);
 
     sf::FloatRect getHitbox() const;
 

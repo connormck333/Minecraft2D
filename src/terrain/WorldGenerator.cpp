@@ -6,6 +6,7 @@
 #include "../../include/Utils.h"
 #include "../../include/blocks/Block.h"
 #include "../../include/blocks/utils/CollisionType.h"
+#include "../../include/sprites/AutomatedSprite.h"
 #include "../../include/terrain/Tree.h"
 
 WorldGenerator::WorldGenerator(sf::RenderWindow& window, SpriteHandler& spriteHandler, std::vector<std::vector<Block*>>& world) :
@@ -77,6 +78,7 @@ void WorldGenerator::updateWorld() const {
 
         sprite->setLeftBlocked(leftBlocked.contains(sprite));
         sprite->setRightBlocked(rightBlocked.contains(sprite));
+        sprite->setShouldJump(decideShouldJumpForAutomatedSprites(*sprite));
     }
 }
 
@@ -98,4 +100,14 @@ std::vector<GroundSprite*> WorldGenerator::getGroundSprites(std::vector<GameSpri
     }
 
     return groundSprites;
+}
+
+bool WorldGenerator::decideShouldJumpForAutomatedSprites(GroundSprite& sprite) const {
+    if (!dynamic_cast<AutomatedSprite*>(&sprite)) return true;
+
+    sf::Vector2f pos = sprite.getSprite().value().getPosition();
+    pos = getRelativeBlockPos(pos.x, pos.y);
+
+    return (sprite.isRightBlocked() && !doesBlockExist(world, pos.x + 1, pos.y))
+        || (sprite.isLeftBlocked() && !doesBlockExist(world, pos.x - 1, pos.y));
 }

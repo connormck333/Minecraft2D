@@ -10,7 +10,6 @@ class AutomatedSprite : public GroundSprite {
 private:
     Steve& steve;
     Direction getDirectionOfSteve() const;
-    int movementCounter;
 
 public:
     AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed);

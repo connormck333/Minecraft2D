@@ -15,6 +15,8 @@ private:
 
     std::vector<GroundSprite*> getGroundSprites(std::vector<GameSprite*>& sprites, int minX, int minY, int maxX, int maxY) const;
 
+    bool decideShouldJumpForAutomatedSprites(GroundSprite& sprite) const;
+
 public:
     WorldGenerator(sf::RenderWindow& window, SpriteHandler& spriteHandler, std::vector<std::vector<Block*>>& world);
 

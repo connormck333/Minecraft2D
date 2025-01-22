@@ -1,6 +1,4 @@
 #include "../../include/sprites/GroundSprite.h"
-
-#include "../../include/Constants.h"
 #include "../../include/Utils.h"
 
 GroundSprite::GroundSprite(const std::string& fileName, const float movementSpeed)
@@ -46,6 +44,14 @@ void GroundSprite::jump() {
     if (!isJumping && isOnGround) {
         isJumping = true;
     }
+}
+
+bool GroundSprite::shouldJump() const {
+    return shouldAttemptJump;
+}
+
+void GroundSprite::setShouldJump(const bool val) {
+    shouldAttemptJump = val;
 }
 
 void GroundSprite::setHitboxPositionAndSize(const float positionX, const float sizeX, const float positionY, const float sizeY) {

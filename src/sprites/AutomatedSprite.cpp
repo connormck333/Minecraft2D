@@ -11,16 +11,11 @@ Direction AutomatedSprite::getDirectionOfSteve() const {
 }
 
 void AutomatedSprite::update() {
-    if (movementCounter == 1) {
-        Direction dir = getDirectionOfSteve();
-        animateWalking(dir);
+    Direction dir = getDirectionOfSteve();
+    animateWalking(dir);
 
-        if (leftBlocked || rightBlocked) {
-            jump();
-        }
-        movementCounter = 0;
-    } else {
-        movementCounter++;
+    if ((leftBlocked || rightBlocked) && shouldAttemptJump) {
+        jump();
     }
 
     GroundSprite::update();
