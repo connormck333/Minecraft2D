@@ -37,7 +37,8 @@ set(SOURCE_FILES main.cpp
         src/inventory/items/IronItem.cpp
         src/sprites/hostiles/Zombie.cpp
         src/handlers/SpriteHandler.cpp
-        src/sprites/AutomatedSprite.cpp)
+        src/sprites/AutomatedSprite.cpp
+        src/sprites/hostiles/Creeper.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

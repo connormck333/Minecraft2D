@@ -10,6 +10,7 @@
 #include "include/handlers/InputHandler.h"
 #include "include/handlers/SpriteHandler.h"
 #include "include/inventory/Hotbar.h"
+#include "include/sprites/hostiles/Creeper.h"
 #include "include/sprites/hostiles/Zombie.h"
 #include "include/terrain/WorldGenerator.h"
 
@@ -33,7 +34,7 @@ int main() {
     SpriteHandler spriteHandler(window, *steve);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
-    spriteHandler.addSprite(new Zombie(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
+    spriteHandler.addSprite(new Creeper(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
 
     while (window.isOpen()) {
 
