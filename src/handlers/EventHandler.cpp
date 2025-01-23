@@ -19,17 +19,20 @@ void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
         if (mouse->button != sf::Mouse::Button::Left) return;
 
         sf::Vector2f pos = getMousePos(mouse);
+        sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
 
         if (int y = pos.y; y > 0 && y < world.size()) {
             if (int x = pos.x; x >= 0 && x < world[y].size()) {
-                const Block* block = world[y][x];
-                world[y][x] = new Block();
+                if (canBreakOrPlaceBlock(pos.x, pos.y, stevePos.x, stevePos.y)) {
+                    const Block* block = world[y][x];
+                    world[y][x] = new Block();
 
-                if (!block->isBlockAir()) {
-                    hotbar.addNewItem(block->getItem());
+                    if (!block->isBlockAir()) {
+                        hotbar.addNewItem(block->getItem());
+                    }
+
+                    delete block;
                 }
-
-                delete block;
             }
         }
     }
@@ -41,10 +44,15 @@ void EventHandler::placeBlockOnRightClick(const sf::Event &ev) const {
         if (hotbar.getSelectedItem() == nullptr || !hotbar.getSelectedItem()->canBePlaced()) return;
 
         sf::Vector2f pos = getMousePos(mouse);
+        sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
 
         if (int y = pos.y; y > 0 && y < world.size()) {
             if (int x = pos.x; x >= 0 && x < world[y].size()) {
-                if (world[y][x] == nullptr || !world[y][x]->isBlockAir() || !canPlaceBlock(x, y)) return;
+                if (
+                    world[y][x] == nullptr
+                    || !world[y][x]->isBlockAir()
+                    || !canBreakOrPlaceBlock(x, y, stevePos.x, stevePos.y)
+                ) return;
 
                 sf::Vector2f relativePos(
                     x * Constants::BLOCK_SIZE,
@@ -64,7 +72,40 @@ sf::Vector2f EventHandler::getMousePos(const sf::Event::MouseButtonPressed* mous
     return getRelativeBlockPos(pos.x, pos.y);
 }
 
-bool EventHandler::canPlaceBlock(int x, int y) const {
-    return doesBlockExist(world, x - 1, y) || doesBlockExist(world, x + 1, y)
-        || doesBlockExist(world, x, y - 1) || doesBlockExist(world, x, y + 1);
+bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const {
+
+    if (!isWithinDistance(x, y, steveX, steveY)) return false;
+
+    bool canInteractX = true;
+    if (steveX < x) {
+        for (int currentX = steveX; currentX < x; currentX++) {
+            if (doesBlockExist(world, currentX, y)) canInteractX = false;
+        }
+    } else {
+        for (int currentX = x; currentX < steveX; currentX++) {
+            if (doesBlockExist(world, currentX, y)) canInteractX = false;
+        }
+    }
+
+    std::cout << "x: " << canInteractX << std::endl;
+
+    bool canInteractY = true;
+    if (steveY < y) {
+        for (int currentY = steveY + 1; currentY < y; currentY++) {
+            if (doesBlockExist(world, x, currentY)) canInteractY = false;
+        }
+    } else {
+        for (int currentY = y + 1; currentY < steveY; currentY++) {
+            if (doesBlockExist(world, x, currentY)) canInteractY = false;
+        }
+    }
+
+    std::cout << "y: " << canInteractY << std::endl << std::endl;
+
+    return canInteractX || canInteractY;
 }
+
+bool EventHandler::isWithinDistance(int x, int y, int steveX, int steveY) const {
+    return std::abs(steveX - x) <= Constants::STEVE_REACH_DISTANCE && std::abs(steveY - y) <= Constants::STEVE_REACH_DISTANCE;
+}
+
