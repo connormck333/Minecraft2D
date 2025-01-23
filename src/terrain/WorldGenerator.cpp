@@ -15,9 +15,14 @@ WorldGenerator::WorldGenerator(sf::RenderWindow& window, SpriteHandler& spriteHa
 void WorldGenerator::loadTrees() const {
     int min = 0;
     int max = Constants::WORLD_WIDTH / Constants::TREES_AMOUNT;
+
+    sf::Vector2f stevePos = getRelativeBlockPos(spriteHandler.getSteve().getSprite().value().getPosition());
+
     for (int i = 0; i < Constants::TREES_AMOUNT; i++) {
         int x = getRandomInt(min, max);
         int y = findTopYLevelAtX(world, x);
+
+        if (x == stevePos.x) continue;
 
         new Tree(world, sf::Vector2f(x, y));
 
