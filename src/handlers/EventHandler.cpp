@@ -87,8 +87,6 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
         }
     }
 
-    std::cout << "x: " << canInteractX << std::endl;
-
     bool canInteractY = true;
     if (steveY < y) {
         for (int currentY = steveY + 1; currentY < y; currentY++) {
@@ -99,8 +97,6 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
             if (doesBlockExist(world, x, currentY)) canInteractY = false;
         }
     }
-
-    std::cout << "y: " << canInteractY << std::endl << std::endl;
 
     return canInteractX || canInteractY;
 }
