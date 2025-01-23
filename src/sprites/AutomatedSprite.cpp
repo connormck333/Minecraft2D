@@ -1,5 +1,7 @@
 #include "../../include/sprites/AutomatedSprite.h"
 
+#include "../../include/Utils.h"
+
 AutomatedSprite::AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed)
 : GroundSprite(fileName, movementSpeed), steve(steve) {}
 
@@ -11,12 +13,17 @@ Direction AutomatedSprite::getDirectionOfSteve() const {
 }
 
 void AutomatedSprite::update() {
-    Direction dir = getDirectionOfSteve();
-    animateWalking(dir);
-
-    if ((leftBlocked || rightBlocked)) {
+    if (leftBlocked || rightBlocked) {
         if (shouldAttemptJump) jump();
         else resetToStillTexture();
+    }
+
+    sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
+    sf::Vector2f spritePos = getRelativeBlockPos(sprite.value().getPosition());
+
+    if (stevePos.x != spritePos.x) {
+        Direction dir = getDirectionOfSteve();
+        animateWalking(dir);
     }
 
     GroundSprite::update();
