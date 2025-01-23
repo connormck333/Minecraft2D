@@ -62,10 +62,14 @@ int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, const int x)
 
 sf::Vector2f getRelativeBlockPos(float x, float y) {
     sf::Vector2f pos;
-    pos.y = Constants::WORLD_HEIGHT - (y / Constants::BLOCK_SIZE) + 1;
-    pos.x = x / Constants::BLOCK_SIZE;
+    pos.y = static_cast<int>(Constants::WORLD_HEIGHT - (y / Constants::BLOCK_SIZE) + 1);
+    pos.x = static_cast<int>(x / Constants::BLOCK_SIZE);
 
     return pos;
+}
+
+sf::Vector2f getRelativeBlockPos(const sf::Vector2f pos) {
+    return getRelativeBlockPos(pos.x, pos.y);
 }
 
 sf::Vector2f getPosAtBlock(int x, int y) {

@@ -10,11 +10,11 @@ Zombie::Zombie(Steve& steve, sf::Vector2f pos) : AutomatedSprite(steve, "zombie.
     sprite->setTextureRect(textures[0]);
 
     sprite->setPosition(pos);
-    sprite->setOrigin({ sprite->getLocalBounds().size.x - 11.5f, 0 });
+    sprite->setOrigin({ sprite->getLocalBounds().size.x / 3, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
 
-    setHitboxPositionAndSize(30, 60, 50, 50);
+    setHitboxPositionAndSize(15, 30, 0, 0);
 
     createTextures();
 }
@@ -22,18 +22,18 @@ Zombie::Zombie(Steve& steve, sf::Vector2f pos) : AutomatedSprite(steve, "zombie.
 void Zombie::createTextures() {
     textures[1] = sf::IntRect(
         {17, 127},
-        {13, 15}
+        {13, 16}
     );
     textures[2] = sf::IntRect(
         {42, 127},
-        {13, 15}
+        {13, 16}
     );
     textures[3] = sf::IntRect(
         {65, 127},
-        {14, 15}
+        {14, 16}
     );
     textures[4] = sf::IntRect(
         {89, 127},
-        {14, 15}
+        {14, 16}
     );
 }

@@ -14,8 +14,9 @@ void AutomatedSprite::update() {
     Direction dir = getDirectionOfSteve();
     animateWalking(dir);
 
-    if ((leftBlocked || rightBlocked) && shouldAttemptJump) {
-        jump();
+    if ((leftBlocked || rightBlocked)) {
+        if (shouldAttemptJump) jump();
+        else resetToStillTexture();
     }
 
     GroundSprite::update();
