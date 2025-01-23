@@ -2,7 +2,7 @@
 #include "../../include/Utils.h"
 
 AutomatedSprite::AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed)
-: GroundSprite(fileName, movementSpeed), steve(steve) {}
+: GroundSprite(fileName, movementSpeed), steve(steve), damageCooldown(1200) {}
 
 Direction AutomatedSprite::getDirectionOfSteve() const {
     sf::Vector2f stevePos = steve.getSprite().value().getPosition();
@@ -23,6 +23,15 @@ void AutomatedSprite::update() {
     if (stevePos.x != spritePos.x) {
         Direction dir = getDirectionOfSteve();
         animateWalking(dir);
+    } else if (stevePos.y == spritePos.y) {
+        if (currentDamageTick == 0) {
+            currentDamageTick++;
+            steve.damage(1);
+        } else if (currentDamageTick >= damageCooldown) {
+            currentDamageTick = 0;
+        } else {
+            currentDamageTick++;
+        }
     }
 
     GroundSprite::update();

@@ -29,14 +29,14 @@ int main() {
     sf::Vector2f stevePos = getSteveSpawnPos(world);
     auto* steve = new Steve(stevePos);
     auto* hotbar = new Hotbar(window);
-    auto* healthbar = new Healthbar(window);
+    auto* healthbar = new Healthbar(window, steve->getHealth());
 
     EventHandler eventHandler(window, world, *steve, *hotbar);
     InputHandler inputHandler(*steve, *hotbar);
     SpriteHandler spriteHandler(window, *steve);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
-    spriteHandler.addSprite(new Creeper(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
+    spriteHandler.addSprite(new Zombie(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
 
     while (window.isOpen()) {
 

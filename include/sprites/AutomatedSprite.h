@@ -9,6 +9,9 @@
 class AutomatedSprite : public GroundSprite {
 private:
     Steve& steve;
+    int damageCooldown;
+    int currentDamageTick;
+
     Direction getDirectionOfSteve() const;
 
 public:
