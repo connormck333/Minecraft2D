@@ -30,10 +30,6 @@ CollisionType* Block::collidesWith(GroundSprite* other) const {
         sf::Vector2f blockPos = getRelativeBlockPos(sprite->getPosition());
 
         bool collisionX = intersectionValue.size.y > 1 && intersectionValue.size.x > 0;
-        if (dynamic_cast<AutomatedSprite*>(other)) {
-            std::cout << collisionX << std::endl;
-            if (collisionX) std::cout << intersectionValue.size.y << std::endl;
-        }
         bool collisionY = otherPos.y - 1 == blockPos.y && intersectionValue.size.y > 0 && intersectionValue.size.x > 6;
         bool collisionTop = intersectionValue.size.y > 0 && intersectionValue.size.x > 4 && (otherHitbox.position.y > blockBounds.position.y);
         Direction direction = (otherHitbox.position.x > blockBounds.position.x) ? Direction::LEFT : Direction::RIGHT;

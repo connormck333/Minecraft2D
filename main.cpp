@@ -9,6 +9,7 @@
 #include "include/Utils.h"
 #include "include/handlers/InputHandler.h"
 #include "include/handlers/SpriteHandler.h"
+#include "include/inventory/Healthbar.h"
 #include "include/inventory/Hotbar.h"
 #include "include/sprites/hostiles/Creeper.h"
 #include "include/sprites/hostiles/Zombie.h"
@@ -28,6 +29,7 @@ int main() {
     sf::Vector2f stevePos = getSteveSpawnPos(world);
     auto* steve = new Steve(stevePos);
     auto* hotbar = new Hotbar(window);
+    auto* healthbar = new Healthbar(window);
 
     EventHandler eventHandler(window, world, *steve, *hotbar);
     InputHandler inputHandler(*steve, *hotbar);
@@ -60,6 +62,7 @@ int main() {
 
         spriteHandler.draw();
         hotbar->draw();
+        healthbar->update();
         window.display();
     }
 

@@ -1,5 +1,4 @@
 #include "../../include/sprites/AutomatedSprite.h"
-
 #include "../../include/Utils.h"
 
 AutomatedSprite::AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed)
