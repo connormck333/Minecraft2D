@@ -13,7 +13,7 @@ void RespawnHandler::checkForDeath(GameState& gameState) {
     }
 }
 
-void RespawnHandler::respawn(const std::vector<std::vector<Block*>>& world, GameState& gameState) {
+void RespawnHandler::respawn(const std::vector<std::vector<Block*>>& world, GameState& gameState) const {
     float remainingTime = Constants::RESPAWN_TIME - respawnClock.getElapsedTime().asSeconds();
     if (remainingTime <= 0) {
         gameState = GameState::ACTIVE;
@@ -21,7 +21,7 @@ void RespawnHandler::respawn(const std::vector<std::vector<Block*>>& world, Game
     }
 }
 
-void RespawnHandler::render(const GameState& gameState) {
+void RespawnHandler::render(const GameState& gameState) const {
     if (gameState == GameState::RESPAWN) {
         respawnScreen->render();
     }

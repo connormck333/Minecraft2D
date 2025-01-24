@@ -21,9 +21,9 @@ public:
 
     void checkForDeath(GameState& gameState);
 
-    void respawn(const std::vector<std::vector<Block*>>& world, GameState& gameState);
+    void respawn(const std::vector<std::vector<Block*>>& world, GameState& gameState) const;
 
-    void render(const GameState& gameState);
+    void render(const GameState& gameState) const;
 };
 
 #endif //RESPAWNHANDLER_H

@@ -2,7 +2,9 @@
 #include "../../include/Utils.h"
 
 AutomatedSprite::AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed)
-: GroundSprite(fileName, movementSpeed), steve(steve), damageCooldown(1200) {}
+: GroundSprite(fileName, movementSpeed), steve(steve), damageCooldown(1) {
+    damageClock.restart();
+}
 
 Direction AutomatedSprite::getDirectionOfSteve() const {
     sf::Vector2f stevePos = steve.getSprite().value().getPosition();
@@ -12,11 +14,6 @@ Direction AutomatedSprite::getDirectionOfSteve() const {
 }
 
 void AutomatedSprite::update() {
-    if (leftBlocked || rightBlocked) {
-        if (shouldAttemptJump) jump();
-        else resetToStillTexture();
-    }
-
     sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
     sf::Vector2f spritePos = getRelativeBlockPos(sprite.value().getPosition());
 
@@ -24,15 +21,18 @@ void AutomatedSprite::update() {
         Direction dir = getDirectionOfSteve();
         animateWalking(dir);
     } else if (stevePos.y == spritePos.y) {
-        if (currentDamageTick == 0) {
-            currentDamageTick++;
+        if (damageClock.getElapsedTime().asSeconds() >= damageCooldown) {
             steve.damage(1);
-        } else if (currentDamageTick >= damageCooldown) {
-            currentDamageTick = 0;
-        } else {
-            currentDamageTick++;
+            damageClock.restart();
         }
     }
 
     GroundSprite::update();
+}
+
+void AutomatedSprite::shouldJump() {
+    if (leftBlocked || rightBlocked) {
+        if (shouldAttemptJump) jump();
+        else resetToStillTexture();
+    }
 }

@@ -16,6 +16,7 @@ public:
     SpriteHandler(sf::RenderWindow& window, Steve& steve);
 
     void addSprite(GameSprite* sprite);
+    void removeSprite(GameSprite* sprite);
 
     Steve& getSteve() const;
     std::vector<GameSprite*> getSprites() const;

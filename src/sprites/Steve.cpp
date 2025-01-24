@@ -66,6 +66,7 @@ int& Steve::getHealth() {
 
 void Steve::damage(const int damage) {
     health -= damage;
+    sprite.value().move(sf::Vector2f(-10, -15));
 }
 
 void Steve::respawn(sf::Vector2f spawnPos) {

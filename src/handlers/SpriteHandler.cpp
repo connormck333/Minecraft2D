@@ -33,3 +33,16 @@ void SpriteHandler::draw() const {
         window.draw(sprite->getSprite().value());
     }
 }
+
+void SpriteHandler::removeSprite(GameSprite* sprite) {
+    int index = -1;
+    for (int i = 0; i < sprites.size(); i++) {
+        if (sprite == sprites[i]) {
+            index = i;
+        }
+    }
+
+    if (index != -1) {
+        sprites.erase(sprites.begin() + index);
+    }
+}

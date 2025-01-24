@@ -8,11 +8,15 @@
 
 class AutomatedSprite : public GroundSprite {
 private:
-    Steve& steve;
+    sf::Clock damageClock;
     int damageCooldown;
-    int currentDamageTick;
+
+protected:
+    Steve& steve;
 
     Direction getDirectionOfSteve() const;
+
+    void shouldJump();
 
 public:
     AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed);

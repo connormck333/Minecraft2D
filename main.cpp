@@ -11,7 +11,6 @@
 #include "include/handlers/SpriteHandler.h"
 #include "include/inventory/Healthbar.h"
 #include "include/inventory/Hotbar.h"
-#include "include/screens/RespawnScreen.h"
 #include "include/sprites/hostiles/Creeper.h"
 #include "include/sprites/hostiles/Zombie.h"
 #include "include/terrain/WorldGenerator.h"
@@ -39,13 +38,14 @@ int main() {
     SpriteHandler spriteHandler(window, *steve);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
-    spriteHandler.addSprite(new Zombie(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
+    spriteHandler.addSprite(new Creeper(world, spriteHandler, *steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
 
     RespawnHandler respawnHandler(window, *steve, *hotbar);
     auto gameState = GameState::ACTIVE;
 
     while (window.isOpen()) {
 
+        // Check for events
         while (const optional<sf::Event> ev = window.pollEvent()) {
             if (ev->is<sf::Event::Closed>()) {
                 window.close();
@@ -54,8 +54,10 @@ int main() {
             if (gameState == GameState::ACTIVE) eventHandler.handleEvents(ev);
         }
 
+        // Check if Steve's health is <= 0
         respawnHandler.checkForDeath(gameState);
 
+        // Manage game depending on GameState
         if (gameState == GameState::ACTIVE) {
             inputHandler.handle();
 
@@ -66,14 +68,18 @@ int main() {
             window.setView(view);
         } else respawnHandler.respawn(world, gameState);
 
+        // Clear window
         window.clear();
 
+        // Redraw world depending on Steve's location
         worldGenerator.updateWorld();
 
+        // Redraw Steve, hotbar and healthbar
         spriteHandler.draw();
         hotbar->draw();
         healthbar->update();
 
+        // Display respawn screen if Steve is dead
         respawnHandler.render(gameState);
 
         window.display();
