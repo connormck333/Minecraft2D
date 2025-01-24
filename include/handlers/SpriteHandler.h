@@ -9,11 +9,17 @@
 class SpriteHandler {
 private:
     sf::RenderWindow& window;
+    std::vector<std::vector<Block*>>& world;
     Steve& steve;
+
+    sf::Clock spriteClock;
     std::vector<GameSprite*> sprites;
 
+    sf::Vector2f createSpritePos() const;
+    void createNewSprite();
+
 public:
-    SpriteHandler(sf::RenderWindow& window, Steve& steve);
+    SpriteHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>>& world, Steve& steve);
 
     void addSprite(GameSprite* sprite);
     void removeSprite(GameSprite* sprite);
@@ -21,7 +27,7 @@ public:
     Steve& getSteve() const;
     std::vector<GameSprite*> getSprites() const;
 
-    void update() const;
+    void update();
     void draw() const;
 };
 

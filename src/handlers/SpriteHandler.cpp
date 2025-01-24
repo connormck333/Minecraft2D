@@ -1,6 +1,14 @@
 #include "../../include/handlers/SpriteHandler.h"
 
-SpriteHandler::SpriteHandler(sf::RenderWindow& window, Steve& steve) : window(window), steve(steve) {}
+#include "../../include/Constants.h"
+#include "../../include/Utils.h"
+#include "../../include/sprites/hostiles/Creeper.h"
+#include "../../include/sprites/hostiles/Zombie.h"
+
+SpriteHandler::SpriteHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>>& world, Steve& steve)
+: window(window), world(world), steve(steve) {
+    spriteClock.start();
+}
 
 void SpriteHandler::addSprite(GameSprite* sprite) {
     sprites.push_back(sprite);
@@ -17,12 +25,19 @@ std::vector<GameSprite*> SpriteHandler::getSprites() const {
     return spritesVector;
 }
 
-void SpriteHandler::update() const {
+void SpriteHandler::update() {
     steve.update();
     for (GameSprite* sprite : sprites) {
         if (auto groundSprite = dynamic_cast<GroundSprite*>(sprite)) {
             groundSprite->update();
         }
+    }
+
+    if (sprites.size() >= Constants::MAX_MOB_AMOUNT) return;
+
+    if (spriteClock.getElapsedTime().asSeconds() >= Constants::MOB_SPAWN_RATE_SECONDS) {
+        createNewSprite();
+        spriteClock.restart();
     }
 }
 
@@ -45,4 +60,27 @@ void SpriteHandler::removeSprite(GameSprite* sprite) {
     if (index != -1) {
         sprites.erase(sprites.begin() + index);
     }
+}
+
+void SpriteHandler::createNewSprite() {
+    sf::Vector2f pos = createSpritePos();
+    int randNum = getRandomInt(0, 1);
+
+    std::cout << "new sprite: " << pos.x << ", " << pos.y << std::endl;
+    if (randNum == 0) {
+        sprites.push_back(new Zombie(steve, pos));
+    } else {
+        sprites.push_back(new Creeper(world, *this, steve, pos));
+    }
+}
+
+sf::Vector2f SpriteHandler::createSpritePos() const {
+    sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
+    sf::Vector2f newPos;
+    Direction dir = steve.getDirectionFacing();
+
+    newPos.x = dir == Direction::LEFT ? stevePos.x - 5 : stevePos.x + 5;
+    newPos.y = findTopYLevelAtX(world, newPos.x) + 2;
+
+    return getPosAtBlock(newPos.x, newPos.y);
 }

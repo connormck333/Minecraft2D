@@ -54,6 +54,7 @@ public:
     void setShouldJump(bool val);
 
     sf::FloatRect getHitbox() const;
+    Direction getDirectionFacing() const;
 
     bool isLeftBlocked() const;
     bool isRightBlocked() const;

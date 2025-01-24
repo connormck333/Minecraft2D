@@ -17,6 +17,9 @@ namespace Constants {
     constexpr int STEVE_HEALTH = 5;
     constexpr int RESPAWN_TIME = 3;
 
+    constexpr int MAX_MOB_AMOUNT = 10;
+    constexpr int MOB_SPAWN_RATE_SECONDS = 10;
+
     constexpr int HOTBAR_HEIGHT = 51;
     constexpr int HOTBAR_WIDTH = 389;
     constexpr sf::Vector2i HOTBAR_POSITION = sf::Vector2i(

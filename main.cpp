@@ -35,7 +35,7 @@ int main() {
 
     EventHandler eventHandler(window, world, *steve, *hotbar);
     InputHandler inputHandler(*steve, *hotbar);
-    SpriteHandler spriteHandler(window, *steve);
+    SpriteHandler spriteHandler(window, world, *steve);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
     spriteHandler.addSprite(new Creeper(world, spriteHandler, *steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));

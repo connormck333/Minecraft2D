@@ -71,6 +71,11 @@ sf::FloatRect GroundSprite::getHitbox() const {
     return hitbox;
 }
 
+Direction GroundSprite::getDirectionFacing() const {
+    return directionFacing;
+}
+
+
 bool GroundSprite::isLeftBlocked() const {
     return leftBlocked;
 }
