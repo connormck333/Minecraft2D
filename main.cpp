@@ -11,8 +11,6 @@
 #include "include/handlers/SpriteHandler.h"
 #include "include/inventory/Healthbar.h"
 #include "include/inventory/Hotbar.h"
-#include "include/sprites/hostiles/Creeper.h"
-#include "include/sprites/hostiles/Zombie.h"
 #include "include/terrain/WorldGenerator.h"
 #include "include/GameState.h"
 #include "include/handlers/RespawnHandler.h"
@@ -38,7 +36,6 @@ int main() {
     SpriteHandler spriteHandler(window, world, *steve);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
-    spriteHandler.addSprite(new Creeper(world, spriteHandler, *steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
 
     RespawnHandler respawnHandler(window, *steve, *hotbar);
     auto gameState = GameState::ACTIVE;

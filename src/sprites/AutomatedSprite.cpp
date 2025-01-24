@@ -14,6 +14,8 @@ Direction AutomatedSprite::getDirectionOfSteve() const {
 }
 
 void AutomatedSprite::update() {
+    shouldJump();
+
     sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
     sf::Vector2f spritePos = getRelativeBlockPos(sprite.value().getPosition());
 

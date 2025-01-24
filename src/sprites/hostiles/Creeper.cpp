@@ -122,7 +122,10 @@ void Creeper::destroyWorld() {
         }
     }
 
-    steve.damage(4);
+    sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
+    if (abs(stevePos.x - pos.x) <= 3 && abs(stevePos.y - pos.y) <= 3) {
+        steve.damage(4);
+    }
 
     spriteHandler.removeSprite(this);
     GameSprite::~GameSprite();

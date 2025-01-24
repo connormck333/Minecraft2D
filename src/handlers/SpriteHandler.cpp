@@ -66,7 +66,6 @@ void SpriteHandler::createNewSprite() {
     sf::Vector2f pos = createSpritePos();
     int randNum = getRandomInt(0, 1);
 
-    std::cout << "new sprite: " << pos.x << ", " << pos.y << std::endl;
     if (randNum == 0) {
         sprites.push_back(new Zombie(steve, pos));
     } else {
