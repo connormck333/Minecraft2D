@@ -78,11 +78,11 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
 
     bool canInteractX = true;
     if (steveX < x) {
-        for (int currentX = steveX; currentX < x; currentX++) {
+        for (int currentX = steveX + 1; currentX < x; currentX++) {
             if (doesBlockExist(world, currentX, y)) canInteractX = false;
         }
     } else {
-        for (int currentX = x; currentX < steveX; currentX++) {
+        for (int currentX = x + 1; currentX < steveX; currentX++) {
             if (doesBlockExist(world, currentX, y)) canInteractX = false;
         }
     }
@@ -98,7 +98,7 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
         }
     }
 
-    return canInteractX || canInteractY;
+    return canInteractX && canInteractY;
 }
 
 bool EventHandler::isWithinDistance(int x, int y, int steveX, int steveY) const {
