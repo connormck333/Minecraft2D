@@ -1,17 +1,13 @@
 #include "../../include/screens/RespawnScreen.h"
 
 #include "../../include/Constants.h"
+#include "../../include/Utils.h"
 
 RespawnScreen::RespawnScreen(sf::RenderWindow &window) : window(window) {
     background = sf::RectangleShape(sf::Vector2f(Constants::SCREEN_HEIGHT, Constants::SCREEN_WIDTH));
     background.setFillColor(sf::Color(25, 0,0, 200));
 
-    font = sf::Font("assets/fonts/MinecraftRegular.otf");
-    text = new sf::Text(font);
-    text->setString("You died!");
-    text->setFillColor(sf::Color::White);
-    text->setOutlineColor(sf::Color::Black);
-    text->setCharacterSize(40);
+    text = createText("You died!", 40);
 }
 
 void RespawnScreen::render() {

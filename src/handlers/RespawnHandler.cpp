@@ -2,8 +2,10 @@
 #include "../../include/Constants.h"
 #include "../../include/Utils.h"
 
-RespawnHandler::RespawnHandler(sf::RenderWindow& window, Steve& steve, Hotbar& hotbar) : steve(steve), hotbar(hotbar) {
+RespawnHandler::RespawnHandler(sf::RenderWindow& window, Steve& steve, Hotbar& hotbar)
+: window(window), steve(steve), hotbar(hotbar) {
     respawnScreen = new RespawnScreen(window);
+    currentTimeText = createText("0s", 30);
 }
 
 void RespawnHandler::checkForDeath(GameState& gameState) {
@@ -24,6 +26,10 @@ void RespawnHandler::respawn(const std::vector<std::vector<Block*>>& world, Game
 void RespawnHandler::render(const GameState& gameState) const {
     if (gameState == GameState::RESPAWN) {
         respawnScreen->render();
+    } else {
+        currentTimeText->setString(std::to_string(static_cast<int>(respawnClock.getElapsedTime().asSeconds())) + "s");
+        currentTimeText->setPosition(window.mapPixelToCoords(sf::Vector2i(Constants::SCREEN_WIDTH + 100, 10)));
+        window.draw(*currentTimeText);
     }
 }
 

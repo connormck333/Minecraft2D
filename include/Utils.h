@@ -8,6 +8,7 @@
 #include "../include/blocks/Block.h"
 
 inline sf::Font quantityFont("./assets/fonts/Roboto-Regular.ttf");
+inline sf::Font minecraftFont("./assets/fonts/MinecraftRegular.otf");
 
 sf::Vector2f getSteveSpawnPos(const std::vector<std::vector<Block*>>& world);
 
@@ -26,5 +27,7 @@ sf::Vector2f getItemBlockScale(sf::Vector2f scale);
 sf::Vector2f getItemScale(sf::Vector2f scale, int height, int width);
 
 bool doesBlockExist(const std::vector<std::vector<Block*>>& world, int x, int y);
+
+sf::Text* createText(const std::string& textStr, int fontSize);
 
 #endif //UTILS_H

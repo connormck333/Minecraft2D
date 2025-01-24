@@ -10,11 +10,13 @@
 
 class RespawnHandler {
 private:
+    sf::RenderWindow& window;
     Steve& steve;
     Hotbar& hotbar;
 
     sf::Clock respawnClock;
     RespawnScreen* respawnScreen;
+    sf::Text* currentTimeText;
 
 public:
     RespawnHandler(sf::RenderWindow& window, Steve& steve, Hotbar& hotbar);

@@ -10,7 +10,6 @@ private:
     sf::RenderWindow& window;
 
     sf::RectangleShape background;
-    sf::Font font;
     sf::Text* text;
 
 public:
