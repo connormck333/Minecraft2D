@@ -18,6 +18,7 @@ public:
 
     int& getHealth();
     void damage(int damage);
+    void respawn(sf::Vector2f spawnPos);
 };
 
 #endif //STEVE_H

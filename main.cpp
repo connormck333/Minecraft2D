@@ -11,9 +11,12 @@
 #include "include/handlers/SpriteHandler.h"
 #include "include/inventory/Healthbar.h"
 #include "include/inventory/Hotbar.h"
+#include "include/screens/RespawnScreen.h"
 #include "include/sprites/hostiles/Creeper.h"
 #include "include/sprites/hostiles/Zombie.h"
 #include "include/terrain/WorldGenerator.h"
+#include "include/GameState.h"
+#include "include/handlers/RespawnHandler.h"
 
 using namespace std;
 
@@ -38,6 +41,9 @@ int main() {
     worldGenerator.loadTrees();
     spriteHandler.addSprite(new Zombie(*steve, sf::Vector2f(stevePos.x, stevePos.y - 2)));
 
+    RespawnHandler respawnHandler(window, *steve, *hotbar);
+    auto gameState = GameState::ACTIVE;
+
     while (window.isOpen()) {
 
         while (const optional<sf::Event> ev = window.pollEvent()) {
@@ -45,16 +51,20 @@ int main() {
                 window.close();
             }
 
-            eventHandler.handleEvents(ev);
+            if (gameState == GameState::ACTIVE) eventHandler.handleEvents(ev);
         }
 
-        inputHandler.handle();
+        respawnHandler.checkForDeath(gameState);
 
-        spriteHandler.update();
-        hotbar->update();
+        if (gameState == GameState::ACTIVE) {
+            inputHandler.handle();
 
-        view.setCenter(steve->getSprite().value().getPosition());
-        window.setView(view);
+            spriteHandler.update();
+            hotbar->update();
+
+            view.setCenter(steve->getSprite().value().getPosition());
+            window.setView(view);
+        } else respawnHandler.respawn(world, gameState);
 
         window.clear();
 
@@ -63,6 +73,9 @@ int main() {
         spriteHandler.draw();
         hotbar->draw();
         healthbar->update();
+
+        respawnHandler.render(gameState);
+
         window.display();
     }
 

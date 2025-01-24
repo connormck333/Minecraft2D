@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Steve::Steve(sf::Vector2f pos) : GroundSprite("Steve.png", Constants::STEVE_MOVEMENT_SPEED), health(5) {
+Steve::Steve(sf::Vector2f pos) : GroundSprite("Steve.png", Constants::STEVE_MOVEMENT_SPEED), health(Constants::STEVE_HEALTH) {
     textures[0] = sf::IntRect(
         {24, 48},
         {23, 23}
@@ -67,3 +67,10 @@ int& Steve::getHealth() {
 void Steve::damage(const int damage) {
     health -= damage;
 }
+
+void Steve::respawn(sf::Vector2f spawnPos) {
+    sprite->setPosition(spawnPos);
+    directionFacing = Direction::RIGHT;
+    health = Constants::STEVE_HEALTH;
+}
+

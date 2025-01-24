@@ -14,6 +14,9 @@ namespace Constants {
     constexpr float STEVE_MOVEMENT_SPEED = 0.13f;
     constexpr float HOSTILE_MOVEMENT_SPEED = 0.02f;
 
+    constexpr int STEVE_HEALTH = 5;
+    constexpr int RESPAWN_TIME = 3;
+
     constexpr int HOTBAR_HEIGHT = 51;
     constexpr int HOTBAR_WIDTH = 389;
     constexpr sf::Vector2i HOTBAR_POSITION = sf::Vector2i(

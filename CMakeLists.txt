@@ -39,7 +39,9 @@ set(SOURCE_FILES main.cpp
         src/handlers/SpriteHandler.cpp
         src/sprites/AutomatedSprite.cpp
         src/sprites/hostiles/Creeper.cpp
-        src/inventory/Healthbar.cpp)
+        src/inventory/Healthbar.cpp
+        src/screens/RespawnScreen.cpp
+        src/handlers/RespawnHandler.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
