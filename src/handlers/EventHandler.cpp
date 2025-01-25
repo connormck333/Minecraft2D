@@ -2,8 +2,8 @@
 #include "../../include/Utils.h"
 #include "../../include/Constants.h"
 
-EventHandler::EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>>& world, Steve& steve, Hotbar& hotbar) :
-    window(window), world(world), steve(steve), hotbar(hotbar) {}
+EventHandler::EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>>& world, Steve& steve, Hotbar& hotbar, SpriteHandler& spriteHandler) :
+    window(window), world(world), steve(steve), hotbar(hotbar), spriteHandler(spriteHandler) {}
 
 
 void EventHandler::handleEvents(const std::optional<sf::Event>& ev) const {
@@ -12,6 +12,7 @@ void EventHandler::handleEvents(const std::optional<sf::Event>& ev) const {
     steve.handleEvent(ev.value());
     deleteBlockOnClick(ev.value());
     placeBlockOnRightClick(ev.value());
+    damageSpriteOnClick(ev.value());
 }
 
 void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
@@ -74,7 +75,7 @@ sf::Vector2f EventHandler::getMousePos(const sf::Event::MouseButtonPressed* mous
 
 bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const {
 
-    if (!isWithinDistance(x, y, steveX, steveY)) return false;
+    if (!isWithinReach(x, y, steveX, steveY)) return false;
 
     bool canInteractX = true;
     if (steveX < x) {
@@ -101,7 +102,33 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
     return canInteractX && canInteractY;
 }
 
-bool EventHandler::isWithinDistance(int x, int y, int steveX, int steveY) const {
+bool EventHandler::isWithinReach(int x, int y, int steveX, int steveY) const {
     return std::abs(steveX - x) <= Constants::STEVE_REACH_DISTANCE && std::abs(steveY - y) <= Constants::STEVE_REACH_DISTANCE;
 }
 
+void EventHandler::damageSpriteOnClick(const sf::Event &ev) const {
+    if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
+        if (mouse->button != sf::Mouse::Button::Left) return;
+
+        auto mousePos = window.mapPixelToCoords(mouse->position);d
+        std::vector<GameSprite*> sprites = spriteHandler.getSprites();
+
+        for (const auto& sprite : sprites) {
+            if (auto* groundSprite = dynamic_cast<GroundSprite*>(sprite)) {
+                sf::Vector2f spritePos = groundSprite->getSprite().value().getPosition();
+                sf::FloatRect spriteSize = groundSprite->getSprite().value().getLocalBounds();
+
+                std::cout << "checking to damage" << std::endl;
+                std::cout << mousePos.x << ", " << spritePos.x << ", " << spriteSize.size.x << std::endl;
+
+                if (
+                    mousePos.x >= spritePos.x && mousePos.x <= spritePos.x + spriteSize.size.x
+                    && mousePos.y >= spritePos.y && mousePos.y < spritePos.y + spriteSize.size.y
+                ) {
+                    std::cout << "damage!" << std::endl;
+                    groundSprite->damage(Constants::STEVE_DAMAGE);
+                }
+            }
+        }
+    }
+}

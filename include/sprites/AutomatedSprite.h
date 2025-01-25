@@ -19,7 +19,7 @@ protected:
     void shouldJump();
 
 public:
-    AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed);
+    AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed, int health);
 
     void update() override;
 };

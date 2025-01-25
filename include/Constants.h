@@ -15,10 +15,13 @@ namespace Constants {
     constexpr float HOSTILE_MOVEMENT_SPEED = 0.08f;
 
     constexpr int STEVE_HEALTH = 5;
+    constexpr int STEVE_DAMAGE = 1;
     constexpr int RESPAWN_TIME = 3;
 
     constexpr int MAX_MOB_AMOUNT = 10;
     constexpr int MOB_SPAWN_RATE_SECONDS = 10;
+    constexpr int ZOMBIE_HEALTH = 5;
+    constexpr int CREEPER_HEALTH = 3;
 
     constexpr int HOTBAR_HEIGHT = 51;
     constexpr int HOTBAR_WIDTH = 389;

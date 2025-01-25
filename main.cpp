@@ -31,9 +31,9 @@ int main() {
     auto* hotbar = new Hotbar(window);
     auto* healthbar = new Healthbar(window, steve->getHealth());
 
-    EventHandler eventHandler(window, world, *steve, *hotbar);
-    InputHandler inputHandler(*steve, *hotbar);
     SpriteHandler spriteHandler(window, world, *steve);
+    EventHandler eventHandler(window, world, *steve, *hotbar, spriteHandler);
+    InputHandler inputHandler(*steve, *hotbar);
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
 

@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "SpriteHandler.h"
 #include "../blocks/Block.h"
 #include "../sprites/Steve.h"
 #include "../inventory/Hotbar.h"
@@ -15,20 +16,22 @@ private:
     std::vector<std::vector<Block*>>& world;
     Steve& steve;
     Hotbar& hotbar;
+    SpriteHandler& spriteHandler;
 
     sf::Vector2f getMousePos(const sf::Event::MouseButtonPressed* mouse) const;
 
     void deleteBlockOnClick(const sf::Event& ev) const;
     void placeBlockOnRightClick(const sf::Event& ev) const;
 
-    bool canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const;
-    bool isWithinDistance(int x, int y, int steveX, int steveY) const;
+    [[nodiscard]] bool canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const;
+    [[nodiscard]] bool isWithinReach(int x, int y, int steveX, int steveY) const;
+
+    void damageSpriteOnClick(const sf::Event& ev) const;
 
 public:
-    EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>> &world, Steve& steve, Hotbar& hotbar);
+    EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>> &world, Steve& steve, Hotbar& hotbar, SpriteHandler& spriteHandler);
 
     void handleEvents(const std::optional<sf::Event> &ev) const;
-
 };
 
 #endif //EVENTHANDLER_H

@@ -4,7 +4,7 @@
 #include "../../../include/Utils.h"
 
 Creeper::Creeper(std::vector<std::vector<Block*>>& world, SpriteHandler& spriteHandler, Steve &steve, sf::Vector2f pos)
-: AutomatedSprite(steve, "creeper.png", Constants::HOSTILE_MOVEMENT_SPEED),
+: AutomatedSprite(steve, "creeper.png", Constants::HOSTILE_MOVEMENT_SPEED, Constants::CREEPER_HEALTH),
 world(world), spriteHandler(spriteHandler) {
     textures[0] = sf::IntRect(
             {31, 56},
@@ -93,7 +93,7 @@ void Creeper::explode() {
     }
 
     int nextTexture;
-    float millisPassed = explodingClock.getElapsedTime().asMilliseconds();
+    int millisPassed = explodingClock.getElapsedTime().asMilliseconds();
     if (millisPassed <= 200) nextTexture = 0;
     else if (millisPassed <= 400) nextTexture = 1;
     else if (millisPassed <= 600) nextTexture = 2;

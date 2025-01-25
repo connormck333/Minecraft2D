@@ -12,6 +12,7 @@ InputHandler::InputHandler(Steve& steve, Hotbar& hotbar) : steve(steve), hotbar(
 }
 
 void InputHandler::handle() const {
+    // Check for movement
     if (isKeyPressed(sf::Keyboard::Key::D) && !isKeyPressed(sf::Keyboard::Key::A)) {
         steve.animateWalking(Direction::RIGHT);
     } else if (!isKeyPressed(sf::Keyboard::Key::D) && isKeyPressed(sf::Keyboard::Key::A)) {

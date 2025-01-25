@@ -1,8 +1,8 @@
 #include "../../include/sprites/GroundSprite.h"
 #include "../../include/Utils.h"
 
-GroundSprite::GroundSprite(const std::string& fileName, const float movementSpeed)
-: GameSprite(fileName, movementSpeed) {}
+GroundSprite::GroundSprite(const std::string& fileName, const float movementSpeed, const int health)
+: GameSprite(fileName, movementSpeed), health(health) {}
 
 void GroundSprite::update() {
     if (isJumping) {
@@ -118,4 +118,13 @@ void GroundSprite::animateWalking(Direction direction) {
         sprite->setScale(sf::Vector2f(-5, 5));
         sprite->move(sf::Vector2f(-movementSpeed, 0));
     }
+}
+
+int& GroundSprite::getHealth() {
+    return health;
+}
+
+void GroundSprite::damage(const int damage) {
+    health -= damage;
+    sprite.value().move(sf::Vector2f(-10, -15));
 }

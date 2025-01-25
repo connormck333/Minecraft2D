@@ -1,8 +1,8 @@
 #include "../../include/sprites/AutomatedSprite.h"
 #include "../../include/Utils.h"
 
-AutomatedSprite::AutomatedSprite(Steve& steve, const std::string& fileName, float movementSpeed)
-: GroundSprite(fileName, movementSpeed), steve(steve), damageCooldown(1) {
+AutomatedSprite::AutomatedSprite(Steve& steve, const std::string& fileName, const float movementSpeed, const int health)
+: GroundSprite(fileName, movementSpeed, health), damageCooldown(1), steve(steve) {
     damageClock.restart();
 }
 
