@@ -16,6 +16,11 @@ private:
     bool isOnGround = false;
     bool isJumping = false;
 
+    bool isDamaging = false;
+    Direction damagingDirection = Direction::NONE;
+    float damageVelocity = 0.0f;
+    float damageSpeed = 0.005;
+
     float hitboxPosX = 0;
     float hitboxSizeX = 0;
     float hitboxPosY = 0;
@@ -67,7 +72,7 @@ public:
     void animateWalking(Direction direction);
 
     int& getHealth();
-    void damage(int damage);
+    void damage(int damage, const Direction& direction);
 
 };
 

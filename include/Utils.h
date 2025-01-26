@@ -23,6 +23,8 @@ sf::Vector2f getRelativeBlockPos(float x, float y);
 sf::Vector2f getRelativeBlockPos(sf::Vector2f pos);
 sf::Vector2f getPosAtBlock(int x, int y);
 
+Direction getSpriteDirection(sf::Vector2f stevePos, sf::Vector2f spritePos);
+
 sf::Vector2f getItemBlockScale(sf::Vector2f scale);
 sf::Vector2f getItemScale(sf::Vector2f scale, int height, int width);
 

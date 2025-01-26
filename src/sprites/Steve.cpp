@@ -20,6 +20,7 @@ Steve::Steve(sf::Vector2f pos) : GroundSprite("Steve.png", Constants::STEVE_MOVE
     sprite->setOrigin({ sprite->getLocalBounds().size.x - 11.5f, 0 });
     sprite->setScale(sf::Vector2f(5, 5));
     directionFacing = Direction::RIGHT;
+    attackClock.start();
 
     setHitboxPositionAndSize(30, 60, 50, 50);
 
@@ -66,3 +67,10 @@ void Steve::respawn(sf::Vector2f spawnPos) {
     health = Constants::STEVE_HEALTH;
 }
 
+bool Steve::canAttack() const {
+    return attackClock.getElapsedTime().asMilliseconds() >= Constants::STEVE_ATTACK_COOLDOWN;
+}
+
+void Steve::restartAttackClock() {
+    attackClock.restart();
+}

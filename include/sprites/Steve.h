@@ -4,10 +4,10 @@
 #define STEVE_H
 
 #include "GroundSprite.h"
-#include "utils/Direction.h"
 
-class Steve : public GroundSprite {
+class Steve final : public GroundSprite {
 private:
+    sf::Clock attackClock;
     void createTextures();
 
 public:
@@ -16,6 +16,9 @@ public:
     void handleEvent(sf::Event ev);
 
     void respawn(sf::Vector2f spawnPos);
+
+    [[nodiscard]] bool canAttack() const;
+    void restartAttackClock();
 };
 
 #endif //STEVE_H

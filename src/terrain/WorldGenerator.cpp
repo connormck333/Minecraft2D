@@ -32,7 +32,7 @@ void WorldGenerator::loadTrees() const {
 }
 
 void WorldGenerator::updateWorld() const {
-    std::vector<GameSprite*> sprites = spriteHandler.getSprites();
+    std::vector<GameSprite*> sprites = spriteHandler.getSprites(true);
     Steve& steve = spriteHandler.getSteve();
 
     std::unordered_set<GroundSprite*> isOnGround;

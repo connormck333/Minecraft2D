@@ -76,6 +76,10 @@ sf::Vector2f getPosAtBlock(int x, int y) {
     return sf::Vector2f(x * Constants::BLOCK_SIZE, (Constants::WORLD_HEIGHT - y) * Constants::BLOCK_SIZE);
 }
 
+Direction getSpriteDirection(const sf::Vector2f stevePos, const sf::Vector2f spritePos) {
+    return spritePos.x < stevePos.x ? Direction::LEFT : Direction::RIGHT;
+}
+
 sf::Vector2f getItemBlockScale(const sf::Vector2f scale) {
     return getItemScale(scale, Constants::BLOCK_SIZE, Constants::BLOCK_SIZE);
 }

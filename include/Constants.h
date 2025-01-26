@@ -10,12 +10,14 @@ namespace Constants {
     constexpr int TREES_AMOUNT = WORLD_WIDTH / 10;
 
     constexpr int STEVE_REACH_DISTANCE = 3;
+    constexpr int STEVE_ATTACK_DISTANCE = 2;
 
     constexpr float STEVE_MOVEMENT_SPEED = 0.13f;
     constexpr float HOSTILE_MOVEMENT_SPEED = 0.08f;
 
     constexpr int STEVE_HEALTH = 5;
-    constexpr int STEVE_DAMAGE = 1;
+    constexpr int STEVE_ATTACK_DAMAGE = 1;
+    constexpr int STEVE_ATTACK_COOLDOWN = 700;
     constexpr int RESPAWN_TIME = 3;
 
     constexpr int MAX_MOB_AMOUNT = 10;

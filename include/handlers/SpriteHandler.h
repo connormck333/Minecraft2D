@@ -15,7 +15,7 @@ private:
     sf::Clock spriteClock;
     std::vector<GameSprite*> sprites;
 
-    sf::Vector2f createSpritePos() const;
+    [[nodiscard]] sf::Vector2f createSpritePos() const;
     void createNewSprite();
 
 public:
@@ -24,8 +24,8 @@ public:
     void addSprite(GameSprite* sprite);
     void removeSprite(GameSprite* sprite);
 
-    Steve& getSteve() const;
-    std::vector<GameSprite*> getSprites() const;
+    [[nodiscard]] Steve& getSteve() const;
+    [[nodiscard]] std::vector<GameSprite*> getSprites(bool includeSteve) const;
 
     void update();
     void draw() const;

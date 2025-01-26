@@ -13,8 +13,18 @@ void GroundSprite::update() {
             velocityY = 0;
             isJumping = false;
         }
-    } else {
-        applyGravity();
+    } else applyGravity();
+
+    if (isDamaging) {
+        damageVelocity -= damageSpeed;
+
+        if (damagingDirection == Direction::LEFT) sprite->move(sf::Vector2f(damageVelocity, -0.07));
+        else sprite->move(sf::Vector2f(abs(damageVelocity), -0.07));
+
+        if (damageVelocity <= -0.6) {
+            damageVelocity = 0;
+            isDamaging = false;
+        }
     }
 }
 
@@ -124,7 +134,10 @@ int& GroundSprite::getHealth() {
     return health;
 }
 
-void GroundSprite::damage(const int damage) {
+void GroundSprite::damage(const int damage, const Direction& direction) {
+    if (isDamaging) return;
+
+    isDamaging = true;
     health -= damage;
-    sprite.value().move(sf::Vector2f(-10, -15));
+    damagingDirection = direction;
 }

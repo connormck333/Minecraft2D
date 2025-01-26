@@ -24,7 +24,7 @@ void AutomatedSprite::update() {
         animateWalking(dir);
     } else if (stevePos.y == spritePos.y) {
         if (damageClock.getElapsedTime().asSeconds() >= damageCooldown) {
-            steve.damage(1);
+            steve.damage(1, getSpriteDirection(stevePos, spritePos));
             damageClock.restart();
         }
     }

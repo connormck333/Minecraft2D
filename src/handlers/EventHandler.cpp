@@ -102,33 +102,37 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
     return canInteractX && canInteractY;
 }
 
-bool EventHandler::isWithinReach(int x, int y, int steveX, int steveY) const {
-    return std::abs(steveX - x) <= Constants::STEVE_REACH_DISTANCE && std::abs(steveY - y) <= Constants::STEVE_REACH_DISTANCE;
-}
-
-void EventHandler::damageSpriteOnClick(const sf::Event &ev) const {
+void EventHandler::damageSpriteOnClick(const sf::Event& ev) const {
     if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
         if (mouse->button != sf::Mouse::Button::Left) return;
+        if (!steve.canAttack()) return;
 
-        auto mousePos = window.mapPixelToCoords(mouse->position);d
-        std::vector<GameSprite*> sprites = spriteHandler.getSprites();
+        auto mousePos = getRelativeBlockPos(window.mapPixelToCoords(mouse->position));
+        auto stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
+        Direction clickDir = getSpriteDirection(stevePos, mousePos);
+        std::vector<GameSprite*> sprites = spriteHandler.getSprites(false);
 
         for (const auto& sprite : sprites) {
             if (auto* groundSprite = dynamic_cast<GroundSprite*>(sprite)) {
-                sf::Vector2f spritePos = groundSprite->getSprite().value().getPosition();
-                sf::FloatRect spriteSize = groundSprite->getSprite().value().getLocalBounds();
+                sf::Vector2f spritePos = getRelativeBlockPos(groundSprite->getSprite().value().getPosition());
+                Direction spriteDir = getSpriteDirection(stevePos, spritePos);
 
-                std::cout << "checking to damage" << std::endl;
-                std::cout << mousePos.x << ", " << spritePos.x << ", " << spriteSize.size.x << std::endl;
+                if (spriteDir != clickDir) continue;
 
-                if (
-                    mousePos.x >= spritePos.x && mousePos.x <= spritePos.x + spriteSize.size.x
-                    && mousePos.y >= spritePos.y && mousePos.y < spritePos.y + spriteSize.size.y
-                ) {
-                    std::cout << "damage!" << std::endl;
-                    groundSprite->damage(Constants::STEVE_DAMAGE);
+                if (isSpriteWithinReach(stevePos, spritePos)) {
+                    groundSprite->damage(Constants::STEVE_ATTACK_DAMAGE, spriteDir);
+                    steve.restartAttackClock();
                 }
             }
         }
     }
+}
+
+bool EventHandler::isWithinReach(int x, int y, int steveX, int steveY) const {
+    return std::abs(steveX - x) <= Constants::STEVE_REACH_DISTANCE && std::abs(steveY - y) <= Constants::STEVE_REACH_DISTANCE;
+}
+
+bool EventHandler::isSpriteWithinReach(sf::Vector2f& stevePos, sf::Vector2f& spritePos) const {
+    return abs(stevePos.x - spritePos.x) <= Constants::STEVE_ATTACK_DISTANCE
+        && abs(stevePos.y - spritePos.y) <= Constants::STEVE_ATTACK_DISTANCE;
 }

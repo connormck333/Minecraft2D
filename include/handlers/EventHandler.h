@@ -25,6 +25,7 @@ private:
 
     [[nodiscard]] bool canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const;
     [[nodiscard]] bool isWithinReach(int x, int y, int steveX, int steveY) const;
+    [[nodiscard]] bool isSpriteWithinReach(sf::Vector2f& stevePos, sf::Vector2f& spritePos) const;
 
     void damageSpriteOnClick(const sf::Event& ev) const;
 

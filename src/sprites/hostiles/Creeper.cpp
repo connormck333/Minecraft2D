@@ -110,21 +110,22 @@ void Creeper::explode() {
 }
 
 void Creeper::destroyWorld() {
-    sf::Vector2f pos = getRelativeBlockPos(sprite.value().getPosition());
+    const sf::Vector2f pos = getRelativeBlockPos(sprite.value().getPosition());
 
     for (int yOffset = -2; yOffset <= 2; yOffset++) {
         for (int xOffset = -2; xOffset <= 2; xOffset++) {
-            Block* temp = world[pos.y + yOffset][pos.x + xOffset];
-            if (temp != nullptr && !temp->isBlockAir()) {
-                world[pos.y + yOffset][pos.x + xOffset] = new Block();
+            const int y = static_cast<int>(pos.y) + yOffset;
+            const int x = static_cast<int>(pos.x) + xOffset;
+            if (const Block* temp = world[y][x]; temp != nullptr && !temp->isBlockAir()) {
+                world[y][x] = new Block();
                 delete temp;
             }
         }
     }
 
-    sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
+    const sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
     if (abs(stevePos.x - pos.x) <= 3 && abs(stevePos.y - pos.y) <= 3) {
-        steve.damage(4);
+        steve.damage(4, getSpriteDirection(stevePos, pos));
     }
 
     spriteHandler.removeSprite(this);

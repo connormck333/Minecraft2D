@@ -18,9 +18,10 @@ Steve& SpriteHandler::getSteve() const {
     return steve;
 }
 
-std::vector<GameSprite*> SpriteHandler::getSprites() const {
+std::vector<GameSprite*> SpriteHandler::getSprites(const bool includeSteve) const {
     std::vector<GameSprite*> spritesVector = sprites;
-    spritesVector.push_back(&steve);
+
+    if (includeSteve) spritesVector.push_back(&steve);
 
     return spritesVector;
 }
@@ -29,7 +30,10 @@ void SpriteHandler::update() {
     steve.update();
     for (GameSprite* sprite : sprites) {
         if (auto groundSprite = dynamic_cast<GroundSprite*>(sprite)) {
-            groundSprite->update();
+            if (groundSprite->getHealth() <= 0) {
+                removeSprite(sprite);
+                delete sprite;
+            } else groundSprite->update();
         }
     }
 
