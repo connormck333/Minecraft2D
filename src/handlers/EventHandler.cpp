@@ -24,7 +24,7 @@ void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
 
         if (int y = pos.y; y > 0 && y < world.size()) {
             if (int x = pos.x; x >= 0 && x < world[y].size()) {
-                if (canBreakOrPlaceBlock(pos.x, pos.y, stevePos.x, stevePos.y)) {
+                if (canBreakBlock(pos.x, pos.y, stevePos.x, stevePos.y)) {
                     const Block* block = world[y][x];
                     world[y][x] = new Block();
 
@@ -44,15 +44,16 @@ void EventHandler::placeBlockOnRightClick(const sf::Event &ev) const {
         if (mouse->button != sf::Mouse::Button::Right) return;
         if (hotbar.getSelectedItem() == nullptr || !hotbar.getSelectedItem()->canBePlaced()) return;
 
-        sf::Vector2f pos = getMousePos(mouse);
-        sf::Vector2f stevePos = getRelativeBlockPos(steve.getSprite().value().getPosition());
+        const auto pos = sf::Vector2i(getMousePos(mouse));
+        const auto stevePos = sf::Vector2i(getRelativeBlockPos(steve.getSprite().value().getPosition()));
 
         if (int y = pos.y; y > 0 && y < world.size()) {
             if (int x = pos.x; x >= 0 && x < world[y].size()) {
                 if (
                     world[y][x] == nullptr
                     || !world[y][x]->isBlockAir()
-                    || !canBreakOrPlaceBlock(x, y, stevePos.x, stevePos.y)
+                    || !canBreakBlock(x, y, stevePos.x, stevePos.y)
+                    || !canPlaceBlock(pos.x, pos.y)
                 ) return;
 
                 sf::Vector2f relativePos(
@@ -73,7 +74,7 @@ sf::Vector2f EventHandler::getMousePos(const sf::Event::MouseButtonPressed* mous
     return getRelativeBlockPos(pos.x, pos.y);
 }
 
-bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const {
+bool EventHandler::canBreakBlock(int x, int y, int steveX, int steveY) const {
 
     if (!isWithinReach(x, y, steveX, steveY)) return false;
 
@@ -100,6 +101,13 @@ bool EventHandler::canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) co
     }
 
     return canInteractX && canInteractY;
+}
+
+bool EventHandler::canPlaceBlock(int x, int y) const {
+    return doesBlockExist(world, x + 1, y)
+        || doesBlockExist(world, x, y + 1)
+        || doesBlockExist(world, x, y - 1)
+        || doesBlockExist(world, x - 1, y);
 }
 
 void EventHandler::damageSpriteOnClick(const sf::Event& ev) const {

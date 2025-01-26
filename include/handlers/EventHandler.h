@@ -23,7 +23,8 @@ private:
     void deleteBlockOnClick(const sf::Event& ev) const;
     void placeBlockOnRightClick(const sf::Event& ev) const;
 
-    [[nodiscard]] bool canBreakOrPlaceBlock(int x, int y, int steveX, int steveY) const;
+    [[nodiscard]] bool canBreakBlock(int x, int y, int steveX, int steveY) const;
+    [[nodiscard]] bool canPlaceBlock(int x, int y) const;
     [[nodiscard]] bool isWithinReach(int x, int y, int steveX, int steveY) const;
     [[nodiscard]] bool isSpriteWithinReach(sf::Vector2f& stevePos, sf::Vector2f& spritePos) const;
 
