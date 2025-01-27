@@ -59,7 +59,7 @@ void CraftItem::render(sf::RenderWindow& window, const sf::Vector2f pos) {
         item->getQuantityText().value().setPosition({currentItemPos.x + 2, currentItemPos.y + 10});
         window.draw(item->getQuantityText().value());
 
-        currentItemPos.x += 20;
+        currentItemPos.x += 40;
     }
 }
 
