@@ -25,7 +25,7 @@ public:
 
     void loadRect(int x, int y, int height, int width);
 
-    std::optional<sf::Sprite> getSprite();
+    std::optional<sf::Sprite>& getSprite();
 
     bool isStatic() const;
 };

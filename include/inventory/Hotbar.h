@@ -6,7 +6,7 @@
 #include "../sprites/GameSprite.h"
 #include "./items/Item.h"
 
-class Hotbar : public GameSprite {
+class Hotbar final : public GameSprite {
 private:
     sf::RenderWindow& window;
     std::vector<Item*> slots;

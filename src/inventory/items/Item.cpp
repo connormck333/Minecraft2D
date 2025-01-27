@@ -1,8 +1,10 @@
+#include <utility>
+
 #include "../../../include/inventory/items/Item.h"
 #include "../../../include/Constants.h"
 #include "../../../include/Utils.h"
 
-Item::Item(std::string id, const std::string &fileName) : GameSprite(fileName), id(id), quantity(1) {
+Item::Item(std::string id, const std::string &fileName) : GameSprite(fileName), id(std::move(id)), quantity(1) {
     quantityText = sf::Text(quantityFont);
     quantityText->setString(std::to_string(quantity));
     quantityText->setCharacterSize(15);
@@ -17,7 +19,7 @@ std::string Item::getId() const {
     return id;
 }
 
-std::optional<sf::Text> Item::getQuantityText() const {
+std::optional<sf::Text>& Item::getQuantityText() {
     return quantityText;
 }
 
@@ -38,12 +40,17 @@ void Item::setSlotPosition(const sf::RenderWindow& window, const int slotId) {
 
 void Item::incrementQuantity() {
     quantity++;
-    quantityText.value().setString(std::to_string(quantity));
+    setQuantityText();
 }
 
 void Item::decrementQuantity() {
     quantity--;
-    quantityText.value().setString(std::to_string(quantity));
+    setQuantityText();
+}
+
+void Item::setQuantity(int quantity) {
+    this->quantity = quantity;
+    setQuantityText();
 }
 
 int Item::getQuantity() const {
@@ -56,4 +63,8 @@ bool Item::canBePlaced() const {
 
 Block* Item::createBlock(const sf::Vector2f& pos) {
     return new Block();
+}
+
+void Item::setQuantityText() {
+    quantityText.value().setString(std::to_string(quantity));
 }

@@ -14,6 +14,7 @@
 #include "include/terrain/WorldGenerator.h"
 #include "include/GameState.h"
 #include "include/handlers/RespawnHandler.h"
+#include "include/screens/CraftScreen.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ int main() {
     WorldGenerator worldGenerator(window, spriteHandler, world);
     worldGenerator.loadTrees();
 
+    CraftScreen craftScreen(window);
     RespawnHandler respawnHandler(window, *steve, *hotbar);
     auto gameState = GameState::ACTIVE;
 
@@ -78,6 +80,9 @@ int main() {
 
         // Display respawn screen if Steve is dead
         respawnHandler.render(gameState);
+
+        // Display crafting screen if inventory is open
+        if (inputHandler.isInventoryOpen()) craftScreen.render();
 
         window.display();
     }

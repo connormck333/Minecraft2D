@@ -12,11 +12,14 @@ private:
     Hotbar& hotbar;
 
     std::vector<sf::Keyboard::Key> numKeys;
+    bool inventoryOpen = false;
 
 public:
     InputHandler(Steve& steve, Hotbar& hotbar);
 
-    void handle() const;
+    void handle();
+
+    [[nodiscard]] bool isInventoryOpen() const;
 };
 
 #endif //INPUTHANDLER_H

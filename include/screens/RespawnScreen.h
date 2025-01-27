@@ -5,17 +5,16 @@
 
 #include <SFML/Graphics.hpp>
 
-class RespawnScreen {
-private:
-    sf::RenderWindow& window;
+#include "Screen.h"
 
-    sf::RectangleShape background;
+class RespawnScreen final : public Screen {
+private:
     sf::Text* text;
 
 public:
-    RespawnScreen(sf::RenderWindow& window);
+    explicit RespawnScreen(sf::RenderWindow& window);
 
-    void render();
+    void render() override;
 };
 
 #endif //RESPAWNSCREEN_H

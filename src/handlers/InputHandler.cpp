@@ -11,12 +11,14 @@ InputHandler::InputHandler(Steve& steve, Hotbar& hotbar) : steve(steve), hotbar(
     numKeys.push_back(sf::Keyboard::Key::Num8);
 }
 
-void InputHandler::handle() const {
+void InputHandler::handle() {
     // Check for movement
     if (isKeyPressed(sf::Keyboard::Key::D) && !isKeyPressed(sf::Keyboard::Key::A)) {
         steve.animateWalking(Direction::RIGHT);
     } else if (!isKeyPressed(sf::Keyboard::Key::D) && isKeyPressed(sf::Keyboard::Key::A)) {
         steve.animateWalking(Direction::LEFT);
+    } else if (isKeyPressed(sf::Keyboard::Key::I)) {
+        inventoryOpen = true;
     }
 
     // Check for selected inventory slot change
@@ -27,3 +29,6 @@ void InputHandler::handle() const {
     }
 }
 
+bool InputHandler::isInventoryOpen() const {
+    return inventoryOpen;
+}

@@ -18,7 +18,7 @@ GameSprite::GameSprite(const string &fileName) {
 }
 
 void GameSprite::loadTexture(const std::string &fileName) {
-    if (fileName != "" && texture.loadFromFile("assets/sprites/" + fileName)) {
+    if (!fileName.empty() && texture.loadFromFile("assets/sprites/" + fileName)) {
         sprite.emplace(texture);
     }
 }
@@ -31,7 +31,7 @@ void GameSprite::loadRect(int x, int y, int height, int width) {
     sprite->setTextureRect(blockRect);
 }
 
-optional<sf::Sprite> GameSprite::getSprite() {
+optional<sf::Sprite>& GameSprite::getSprite() {
     return sprite;
 }
 

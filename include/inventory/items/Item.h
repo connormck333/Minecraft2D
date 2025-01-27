@@ -15,6 +15,8 @@ private:
 
     std::optional<sf::Text> quantityText;
 
+    void setQuantityText();
+
     sf::Vector2i getSlotPosition(int slotId) const;
 
 public:
@@ -22,12 +24,13 @@ public:
     Item(std::string id, const std::string& fileName, bool isBlock);
 
     std::string getId() const;
-    std::optional<sf::Text> getQuantityText() const;
+    std::optional<sf::Text>& getQuantityText();
 
     void setSlotPosition(const sf::RenderWindow& window, int slotId);
 
     void incrementQuantity();
     void decrementQuantity();
+    void setQuantity(int quantity);
     int getQuantity() const;
 
     virtual bool canBePlaced() const;

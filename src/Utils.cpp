@@ -98,7 +98,7 @@ bool doesBlockExist(const std::vector<std::vector<Block*>>& world, const int x, 
 }
 
 sf::Text* createText(const std::string& textStr, const int fontSize) {
-    sf::Text* text = new sf::Text(minecraftFont);
+    auto* text = new sf::Text(minecraftFont);
     text->setString(textStr);
     text->setFillColor(sf::Color::White);
     text->setOutlineColor(sf::Color::Black);
