@@ -11,6 +11,8 @@ private:
     Steve& steve;
     Hotbar& hotbar;
 
+    const int COOLDOWN = 200;
+    sf::Clock cooldownClock;
     std::vector<sf::Keyboard::Key> numKeys;
     bool inventoryOpen = false;
 

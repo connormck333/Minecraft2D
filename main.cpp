@@ -32,15 +32,15 @@ int main() {
     auto* hotbar = new Hotbar(window);
     auto* healthbar = new Healthbar(window, steve->getHealth());
 
-    SpriteHandler spriteHandler(window, world, *steve);
-    EventHandler eventHandler(window, world, *steve, *hotbar, spriteHandler);
-    InputHandler inputHandler(*steve, *hotbar);
-    WorldGenerator worldGenerator(window, spriteHandler, world);
-    worldGenerator.loadTrees();
-
     CraftScreen craftScreen(window);
     RespawnHandler respawnHandler(window, *steve, *hotbar);
     auto gameState = GameState::ACTIVE;
+
+    SpriteHandler spriteHandler(window, world, *steve);
+    EventHandler eventHandler(window, world, *steve, *hotbar, spriteHandler, craftScreen);
+    InputHandler inputHandler(*steve, *hotbar);
+    WorldGenerator worldGenerator(window, spriteHandler, world);
+    worldGenerator.loadTrees();
 
     while (window.isOpen()) {
 
@@ -50,7 +50,7 @@ int main() {
                 window.close();
             }
 
-            if (gameState == GameState::ACTIVE) eventHandler.handleEvents(ev);
+            if (gameState == GameState::ACTIVE) eventHandler.handleEvents(ev, inputHandler.isInventoryOpen());
         }
 
         // Check if Steve's health is <= 0

@@ -42,6 +42,34 @@ void Hotbar::addNewItem(Item* item) {
     }
 }
 
+bool Hotbar::addNewItem(CraftItem* item) {
+    std::vector<Item*> requirements = item->getRequirements();
+
+    for (const Item* requirement : requirements) {
+        bool valid = false;
+        for (int i = 0; i < slots.size(); i++) {
+            Item* slotItem = slots[i];
+            if (slotItem == nullptr) continue;
+            if (slotItem->getId() == requirement->getId() && slotItem->getQuantity() >= requirement->getQuantity()) {
+                valid = true;
+                int newQuantity = slotItem->getQuantity() - requirement->getQuantity();
+                if (newQuantity == 0) {
+                    deleteSlot(i);
+                } else {
+                    slotItem->setQuantity(newQuantity);
+                }
+                break;
+            }
+        }
+
+        if (!valid) return false;
+    }
+
+    addNewItem(item->getHotbarItem());
+
+    return true;
+}
+
 void Hotbar::updatePosition() {
     sf::Vector2f pos = window.mapPixelToCoords(Constants::HOTBAR_POSITION);
     sprite->setPosition(pos);

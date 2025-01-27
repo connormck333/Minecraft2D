@@ -45,7 +45,8 @@ set(SOURCE_FILES main.cpp
         src/screens/CraftScreen.cpp
         src/screens/Screen.cpp
         src/inventory/crafting/CraftItem.cpp
-        src/inventory/crafting/WoodPickaxe.cpp)
+        src/inventory/crafting/WoodPickaxe.cpp
+        src/inventory/items/tools/WoodPickaxeItem.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

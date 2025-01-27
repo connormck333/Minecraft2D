@@ -5,6 +5,7 @@
 
 #include "../sprites/GameSprite.h"
 #include "./items/Item.h"
+#include "crafting/CraftItem.h"
 
 class Hotbar final : public GameSprite {
 private:
@@ -24,6 +25,7 @@ public:
     Hotbar(sf::RenderWindow& window);
 
     void addNewItem(Item* item);
+    [[nodiscard]] bool addNewItem(CraftItem* item);
 
     void update();
     void draw() const;

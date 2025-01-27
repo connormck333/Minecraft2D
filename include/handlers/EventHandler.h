@@ -9,6 +9,7 @@
 #include "../blocks/Block.h"
 #include "../sprites/Steve.h"
 #include "../inventory/Hotbar.h"
+#include "../screens/CraftScreen.h"
 
 class EventHandler {
 private:
@@ -17,6 +18,7 @@ private:
     Steve& steve;
     Hotbar& hotbar;
     SpriteHandler& spriteHandler;
+    CraftScreen& craftScreen;
 
     sf::Vector2f getMousePos(const sf::Event::MouseButtonPressed* mouse) const;
 
@@ -30,10 +32,18 @@ private:
 
     void damageSpriteOnClick(const sf::Event& ev) const;
 
-public:
-    EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>> &world, Steve& steve, Hotbar& hotbar, SpriteHandler& spriteHandler);
+    void craftItemOnClick(const sf::Event& ev) const;
 
-    void handleEvents(const std::optional<sf::Event> &ev) const;
+public:
+    EventHandler(
+        sf::RenderWindow& window,
+        std::vector<std::vector<Block*>> &world,
+        Steve& steve, Hotbar& hotbar,
+        SpriteHandler& spriteHandler,
+        CraftScreen& craftScreen
+    );
+
+    void handleEvents(const std::optional<sf::Event> &ev, bool isInventoryOpen) const;
 };
 
 #endif //EVENTHANDLER_H

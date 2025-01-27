@@ -1,6 +1,8 @@
 #include "../../include/handlers/InputHandler.h"
 
 InputHandler::InputHandler(Steve& steve, Hotbar& hotbar) : steve(steve), hotbar(hotbar) {
+    cooldownClock.start();
+
     numKeys.push_back(sf::Keyboard::Key::Num1);
     numKeys.push_back(sf::Keyboard::Key::Num2);
     numKeys.push_back(sf::Keyboard::Key::Num3);
@@ -17,8 +19,9 @@ void InputHandler::handle() {
         steve.animateWalking(Direction::RIGHT);
     } else if (!isKeyPressed(sf::Keyboard::Key::D) && isKeyPressed(sf::Keyboard::Key::A)) {
         steve.animateWalking(Direction::LEFT);
-    } else if (isKeyPressed(sf::Keyboard::Key::I)) {
-        inventoryOpen = true;
+    } else if (isKeyPressed(sf::Keyboard::Key::I) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
+        inventoryOpen = !inventoryOpen;
+        cooldownClock.restart();
     }
 
     // Check for selected inventory slot change

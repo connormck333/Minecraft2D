@@ -14,6 +14,8 @@ private:
 public:
     explicit CraftScreen(sf::RenderWindow& window);
 
+    std::vector<CraftItem*>& getItems();
+
     void render() override;
 };
 

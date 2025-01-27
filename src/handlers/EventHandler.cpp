@@ -2,12 +2,23 @@
 #include "../../include/Utils.h"
 #include "../../include/Constants.h"
 
-EventHandler::EventHandler(sf::RenderWindow& window, std::vector<std::vector<Block*>>& world, Steve& steve, Hotbar& hotbar, SpriteHandler& spriteHandler) :
-    window(window), world(world), steve(steve), hotbar(hotbar), spriteHandler(spriteHandler) {}
+EventHandler::EventHandler(
+    sf::RenderWindow& window,
+    std::vector<std::vector<Block*>>& world,
+    Steve& steve,
+    Hotbar& hotbar,
+    SpriteHandler& spriteHandler,
+    CraftScreen& craftScreen
+) : window(window), world(world), steve(steve), hotbar(hotbar), spriteHandler(spriteHandler), craftScreen(craftScreen) {}
 
 
-void EventHandler::handleEvents(const std::optional<sf::Event>& ev) const {
+void EventHandler::handleEvents(const std::optional<sf::Event>& ev, bool isInventoryOpen) const {
     if (!ev.has_value()) return;
+
+    if (isInventoryOpen) {
+        craftItemOnClick(ev.value());
+        return;
+    }
 
     steve.handleEvent(ev.value());
     deleteBlockOnClick(ev.value());
@@ -131,6 +142,27 @@ void EventHandler::damageSpriteOnClick(const sf::Event& ev) const {
                     groundSprite->damage(Constants::STEVE_ATTACK_DAMAGE, spriteDir);
                     steve.restartAttackClock();
                 }
+            }
+        }
+    }
+}
+
+void EventHandler::craftItemOnClick(const sf::Event& ev) const {
+    if (const auto mouse = ev.getIf<sf::Event::MouseButtonPressed>()) {
+        const auto mousePos = window.mapPixelToCoords(mouse->position);
+        const std::vector<CraftItem*>& items = craftScreen.getItems();
+
+        for (CraftItem* item : items) {
+            const sf::Vector2f itemPos = item->getBoxPos();
+            const sf::Vector2f itemSize = item->getBoxSize();
+
+            if (
+                (mousePos.x >= itemPos.x && mousePos.x <= itemSize.x + itemPos.x)
+                && (mousePos.y >= itemPos.y && mousePos.y <= itemSize.y + itemPos.y)
+            ) {
+                if (hotbar.addNewItem(item)) return;
+
+                item->setBoxRed();
             }
         }
     }
