@@ -51,7 +51,18 @@ set(SOURCE_FILES main.cpp
         src/inventory/crafting/IronPickaxe.cpp
         src/inventory/items/tools/StonePickaxeItem.cpp
         src/inventory/items/tools/IronPickaxeItem.cpp
-        src/inventory/items/tools/PickaxeItem.cpp)
+        src/inventory/items/tools/PickaxeItem.cpp
+        src/inventory/items/swords/SwordItem.cpp
+        src/inventory/items/swords/WoodSwordItem.cpp
+        src/inventory/crafting/WoodSword.cpp
+        src/inventory/crafting/StoneSword.cpp
+        src/inventory/crafting/IronSword.cpp
+        src/inventory/crafting/GoldSword.cpp
+        src/inventory/crafting/DiamondSword.cpp
+        src/inventory/items/swords/StoneSwordItem.cpp
+        src/inventory/items/swords/IronSwordItem.cpp
+        src/inventory/items/swords/GoldSwordItem.cpp
+        src/inventory/items/swords/DiamondSwordItem.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
