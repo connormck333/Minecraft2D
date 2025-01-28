@@ -1,6 +1,7 @@
 #include "../../include/inventory/Hotbar.h"
 #include "../../include/Constants.h"
 #include "../../include/Utils.h"
+#include "../../include/inventory/items/tools/PickaxeItem.h"
 
 Hotbar::Hotbar(sf::RenderWindow& window) : GameSprite("hotbar.png"), window(window) {
     for (int i = 0; i < 8; i++) slots.push_back(nullptr);
@@ -82,6 +83,12 @@ void Hotbar::updateSlots() {
         if (item->getQuantity() <= 0) {
             deleteSlot(i);
             continue;
+        }
+        if (const auto* pickaxe = dynamic_cast<PickaxeItem*>(item)) {
+            if (pickaxe->getDurability() <= 0) {
+                deleteSlot(i);
+                continue;
+            }
         }
 
         item->setSlotPosition(window, i);
