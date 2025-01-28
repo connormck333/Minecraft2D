@@ -32,6 +32,9 @@ public:
 
     void setSelectedSlot(int slotId);
     Item* getSelectedItem() const;
+
+    void dropSelectedItem();
+    void dropOneOfSelectedItem();
 };
 
 #endif //HOTBAR_H

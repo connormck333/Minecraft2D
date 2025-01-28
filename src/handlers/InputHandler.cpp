@@ -22,6 +22,12 @@ void InputHandler::handle() {
     } else if (isKeyPressed(sf::Keyboard::Key::I) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
         inventoryOpen = !inventoryOpen;
         cooldownClock.restart();
+    } else if (isKeyPressed(sf::Keyboard::Key::X) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
+        hotbar.dropSelectedItem();
+        cooldownClock.restart();
+    } else if (isKeyPressed(sf::Keyboard::Key::C) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
+        hotbar.dropOneOfSelectedItem();
+        cooldownClock.restart();
     }
 
     // Check for selected inventory slot change

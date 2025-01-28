@@ -127,6 +127,15 @@ Item* Hotbar::getSelectedItem() const {
     return slots[selectedSlot];
 }
 
+void Hotbar::dropSelectedItem() {
+    deleteSlot(selectedSlot);
+}
+
+void Hotbar::dropOneOfSelectedItem() {
+    slots[selectedSlot]->decrementQuantity();
+    if (slots[selectedSlot]->getQuantity() <= 0) deleteSlot(selectedSlot);
+}
+
 void Hotbar::deleteSlot(int slotId) {
     const Item* temp = slots[slotId];
     slots[slotId] = nullptr;
