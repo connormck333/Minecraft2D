@@ -1,6 +1,7 @@
 #include "../../include/handlers/EventHandler.h"
 #include "../../include/Utils.h"
 #include "../../include/Constants.h"
+#include "../../include/inventory/items/tools/PickaxeItem.h"
 
 EventHandler::EventHandler(
     sf::RenderWindow& window,
@@ -37,6 +38,9 @@ void EventHandler::deleteBlockOnClick(const sf::Event& ev) const {
             if (int x = pos.x; x >= 0 && x < world[y].size()) {
                 if (canBreakBlock(pos.x, pos.y, stevePos.x, stevePos.y)) {
                     const Block* block = world[y][x];
+
+                    if (!canBreakMaterial(block)) return;
+
                     world[y][x] = new Block();
 
                     if (!block->isBlockAir()) {
@@ -81,8 +85,22 @@ void EventHandler::placeBlockOnRightClick(const sf::Event &ev) const {
 
 
 sf::Vector2f EventHandler::getMousePos(const sf::Event::MouseButtonPressed* mouse) const {
-    sf::Vector2f pos = window.mapPixelToCoords(mouse->position);
-    return getRelativeBlockPos(pos.x, pos.y);
+    return getRelativeBlockPos(window.mapPixelToCoords(mouse->position));
+}
+
+bool EventHandler::canBreakMaterial(const Block* block) const {
+    const int requiredPickaxeLevel = block->getPickaxeLevel();
+    if (requiredPickaxeLevel == 0) return true;
+
+    Item* item = hotbar.getSelectedItem();
+    if (const auto pickaxe = dynamic_cast<PickaxeItem*>(item)) {
+        if (pickaxe->getStrength() < requiredPickaxeLevel) return false;
+
+        pickaxe->weakenDurability(block->getPickaxeDamage());
+        return true;
+    }
+
+    return false;
 }
 
 bool EventHandler::canBreakBlock(int x, int y, int steveX, int steveY) const {

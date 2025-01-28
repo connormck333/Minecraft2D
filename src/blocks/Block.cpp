@@ -8,6 +8,9 @@
 
 Block::Block(const std::string& fileName) : GameSprite(fileName) {}
 
+Block::Block(const std::string& fileName, const int pickaxeLevel, const int pickaxeDamage)
+    : GameSprite(fileName), pickaxeLevel(pickaxeLevel), pickaxeDamage(pickaxeDamage) {}
+
 Block::Block() : GameSprite("") {
     isAir = true;
 }
@@ -42,6 +45,14 @@ CollisionType* Block::collidesWith(GroundSprite* other) const {
 
 bool Block::isBlockAir() const {
     return isAir;
+}
+
+int Block::getPickaxeLevel() const {
+    return pickaxeLevel;
+}
+
+int Block::getPickaxeDamage() const {
+    return pickaxeDamage;
 }
 
 Item* Block::getItem() const {

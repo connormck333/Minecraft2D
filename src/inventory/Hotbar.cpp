@@ -116,7 +116,7 @@ void Hotbar::setSelectedSlot(int slotId) {
     selectedSlot = slotId;
 }
 
-Item *Hotbar::getSelectedItem() const {
+Item* Hotbar::getSelectedItem() const {
     return slots[selectedSlot];
 }
 

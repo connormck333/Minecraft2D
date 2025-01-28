@@ -25,6 +25,7 @@ private:
     void deleteBlockOnClick(const sf::Event& ev) const;
     void placeBlockOnRightClick(const sf::Event& ev) const;
 
+    [[nodiscard]] bool canBreakMaterial(const Block* block) const;
     [[nodiscard]] bool canBreakBlock(int x, int y, int steveX, int steveY) const;
     [[nodiscard]] bool canPlaceBlock(int x, int y) const;
     [[nodiscard]] bool isWithinReach(int x, int y, int steveX, int steveY) const;
