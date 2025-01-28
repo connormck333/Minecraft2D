@@ -36,14 +36,14 @@ protected:
     bool rightBlocked = false;
     bool shouldAttemptJump = true;
 
-    int health;
+    float health;
 
     void resetToStillTexture();
 
     void setHitboxPositionAndSize(float positionX, float sizeX, float positionY, float sizeY);
 
 public:
-    GroundSprite(const std::string& fileName, float movementSpeed, int health);
+    GroundSprite(const std::string& fileName, float movementSpeed, float health);
 
     virtual void update();
 
@@ -71,8 +71,8 @@ public:
 
     void animateWalking(Direction direction);
 
-    int& getHealth();
-    void damage(int damage, const Direction& direction);
+    float& getHealth();
+    void damage(float damage, const Direction& direction);
 
 };
 

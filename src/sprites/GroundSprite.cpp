@@ -1,7 +1,7 @@
 #include "../../include/sprites/GroundSprite.h"
 #include "../../include/Utils.h"
 
-GroundSprite::GroundSprite(const std::string& fileName, const float movementSpeed, const int health)
+GroundSprite::GroundSprite(const std::string& fileName, const float movementSpeed, const float health)
 : GameSprite(fileName, movementSpeed), health(health) {}
 
 void GroundSprite::update() {
@@ -130,11 +130,11 @@ void GroundSprite::animateWalking(Direction direction) {
     }
 }
 
-int& GroundSprite::getHealth() {
+float& GroundSprite::getHealth() {
     return health;
 }
 
-void GroundSprite::damage(const int damage, const Direction& direction) {
+void GroundSprite::damage(const float damage, const Direction& direction) {
     if (isDamaging) return;
 
     isDamaging = true;

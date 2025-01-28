@@ -1,6 +1,6 @@
 #include "../../include/inventory/Healthbar.h"
 
-Healthbar::Healthbar(sf::RenderWindow& window, int& health) : window(window), health(health) {
+Healthbar::Healthbar(sf::RenderWindow& window, float& health) : window(window), health(health) {
     for (int i = 0; i < 5; i++) {
         hearts.push_back(new GameSprite("heart.png"));
     }

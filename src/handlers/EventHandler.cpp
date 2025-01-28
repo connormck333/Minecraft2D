@@ -1,6 +1,7 @@
 #include "../../include/handlers/EventHandler.h"
 #include "../../include/Utils.h"
 #include "../../include/Constants.h"
+#include "../../include/inventory/items/swords/SwordItem.h"
 #include "../../include/inventory/items/tools/PickaxeItem.h"
 
 EventHandler::EventHandler(
@@ -157,7 +158,15 @@ void EventHandler::damageSpriteOnClick(const sf::Event& ev) const {
                 if (spriteDir != clickDir) continue;
 
                 if (isSpriteWithinReach(stevePos, spritePos)) {
-                    groundSprite->damage(Constants::STEVE_ATTACK_DAMAGE, spriteDir);
+                    Item* item = hotbar.getSelectedItem();
+                    float damage = Constants::STEVE_ATTACK_DAMAGE;
+
+                    if (const auto sword = dynamic_cast<SwordItem*>(item)) {
+                        damage = sword->getDamage();
+                        sword->decreaseDurability(1);
+                    }
+
+                    groundSprite->damage(damage, spriteDir);
                     steve.restartAttackClock();
                 }
             }

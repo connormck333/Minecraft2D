@@ -9,10 +9,10 @@ class Healthbar {
 private:
     sf::RenderWindow& window;
     std::vector<GameSprite*> hearts;
-    int& health;
+    float& health;
 
 public:
-    Healthbar(sf::RenderWindow& window, int& health);
+    Healthbar(sf::RenderWindow& window, float& health);
 
     void update() const;
 };
