@@ -3,9 +3,9 @@
 #ifndef WOODPICKAXEITEM_H
 #define WOODPICKAXEITEM_H
 
-#include "../Item.h"
+#include "PickaxeItem.h"
 
-class WoodPickaxeItem : public Item {
+class WoodPickaxeItem final : public PickaxeItem {
 public:
     WoodPickaxeItem();
 };

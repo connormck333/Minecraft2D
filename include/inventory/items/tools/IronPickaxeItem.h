@@ -3,9 +3,9 @@
 #ifndef IRONPICKAXEITEM_H
 #define IRONPICKAXEITEM_H
 
-#include "../Item.h"
+#include "PickaxeItem.h"
 
-class IronPickaxeItem final : public Item {
+class IronPickaxeItem final : public PickaxeItem {
 public:
     IronPickaxeItem();
 };

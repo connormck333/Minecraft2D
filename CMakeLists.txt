@@ -50,7 +50,8 @@ set(SOURCE_FILES main.cpp
         src/inventory/crafting/StonePickaxe.cpp
         src/inventory/crafting/IronPickaxe.cpp
         src/inventory/items/tools/StonePickaxeItem.cpp
-        src/inventory/items/tools/IronPickaxeItem.cpp)
+        src/inventory/items/tools/IronPickaxeItem.cpp
+        src/inventory/items/tools/PickaxeItem.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

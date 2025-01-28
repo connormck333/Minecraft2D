@@ -3,9 +3,9 @@
 #ifndef STONEPICKAXEITEM_H
 #define STONEPICKAXEITEM_H
 
-#include "../Item.h"
+#include "PickaxeItem.h"
 
-class StonePickaxeItem final : public Item {
+class StonePickaxeItem final : public PickaxeItem {
 public:
     StonePickaxeItem();
 };
