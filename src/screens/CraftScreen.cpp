@@ -1,6 +1,8 @@
 #include "../../include/screens/CraftScreen.h"
 
+#include "../../include/inventory/crafting/DiamondPickaxe.h"
 #include "../../include/inventory/crafting/DiamondSword.h"
+#include "../../include/inventory/crafting/GoldPickaxe.h"
 #include "../../include/inventory/crafting/GoldSword.h"
 #include "../../include/inventory/crafting/IronPickaxe.h"
 #include "../../include/inventory/crafting/IronSword.h"
@@ -13,6 +15,8 @@ CraftScreen::CraftScreen(sf::RenderWindow& window) : Screen(window) {
     items.push_back(new WoodPickaxe());
     items.push_back(new StonePickaxe());
     items.push_back(new IronPickaxe());
+    items.push_back(new GoldPickaxe());
+    items.push_back(new DiamondPickaxe());
     items.push_back(new WoodSword());
     items.push_back(new StoneSword());
     items.push_back(new IronSword());
@@ -30,14 +34,13 @@ void CraftScreen::render() {
     const float originalX = currentPos.x;
 
     for (int i = 0; i < items.size(); i++) {
-        CraftItem* item = items[i];
-        item->render(window, currentPos);
-        currentPos.x += 150;
-
-        if (i % 4 == 0 && i != 0) {
+        if (i % 5 == 0 && i != 0) {
             currentPos.y += 175;
             currentPos.x = originalX;
         }
+        CraftItem* item = items[i];
+        item->render(window, currentPos);
+        currentPos.x += 150;
     }
 }
 

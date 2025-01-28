@@ -22,6 +22,7 @@ public:
     [[nodiscard]] sf::Vector2f getBoxPos() const;
     [[nodiscard]] sf::Vector2f getBoxSize() const;
 
+    void setBoxGreen();
     void setBoxRed();
     void resetBoxColor();
 

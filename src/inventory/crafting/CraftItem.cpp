@@ -27,6 +27,11 @@ sf::Vector2f CraftItem::getBoxSize() const {
     return craftBox.getSize();
 }
 
+void CraftItem::setBoxGreen() {
+    craftBox.setFillColor(sf::Color(136, 225, 57, 100));
+    craftClock.restart();
+}
+
 void CraftItem::setBoxRed() {
     craftBox.setFillColor(sf::Color(210, 0, 0, 100));
     craftClock.restart();

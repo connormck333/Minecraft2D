@@ -6,7 +6,7 @@
 
 Tree::Tree(std::vector<std::vector<Block*>>& world, sf::Vector2f rootPos) : world(world) {
     rootX = rootPos.x;
-    rootY = rootPos.y;
+    rootY = rootPos.y + 1;
 
     loadTree();
 }

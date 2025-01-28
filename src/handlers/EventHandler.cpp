@@ -187,7 +187,10 @@ void EventHandler::craftItemOnClick(const sf::Event& ev) const {
                 (mousePos.x >= itemPos.x && mousePos.x <= itemSize.x + itemPos.x)
                 && (mousePos.y >= itemPos.y && mousePos.y <= itemSize.y + itemPos.y)
             ) {
-                if (hotbar.addNewItem(item)) return;
+                if (hotbar.addNewItem(item)) {
+                    item->setBoxGreen();
+                    return;
+                }
 
                 item->setBoxRed();
             }

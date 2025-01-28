@@ -21,7 +21,7 @@ namespace Constants {
     constexpr int RESPAWN_TIME = 3;
 
     constexpr int MAX_MOB_AMOUNT = 10;
-    constexpr int MOB_SPAWN_RATE_SECONDS = 5;
+    constexpr int MOB_SPAWN_RATE_SECONDS = 60;
     constexpr int ZOMBIE_HEALTH = 5;
     constexpr int CREEPER_HEALTH = 3;
 
