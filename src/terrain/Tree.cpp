@@ -14,6 +14,8 @@ Tree::Tree(std::vector<std::vector<Block*>>& world, sf::Vector2f rootPos) : worl
 void Tree::loadTree() const {
     for (int i = 0; i < 3; i++) {
         int y = rootY + i;
+        if (y > world.size() - 1) continue;
+        if (rootX > world[y].size() - 1) continue;
         world[y][rootX] = new OakWood(sf::Vector2f(rootX * Constants::BLOCK_SIZE, (Constants::WORLD_HEIGHT - y) * Constants::BLOCK_SIZE));
     }
 
@@ -24,6 +26,9 @@ void Tree::loadTree() const {
         int y = pos.y;
         pos.x = pos.x * Constants::BLOCK_SIZE;
         pos.y = (Constants::WORLD_HEIGHT - pos.y) * Constants::BLOCK_SIZE;
+
+        if (y > world.size() - 1) continue;
+        if (x > world[y].size() - 1) continue;
 
         world[y][x] = new Leaves(pos);
     }
