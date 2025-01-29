@@ -11,7 +11,7 @@
 #include "../inventory/Hotbar.h"
 #include "../screens/CraftScreen.h"
 
-class EventHandler {
+class EventHandler final {
 private:
     sf::RenderWindow& window;
     std::vector<std::vector<Block*>>& world;

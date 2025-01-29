@@ -6,7 +6,7 @@
 #include "../inventory/Hotbar.h"
 #include "../sprites/Steve.h"
 
-class InputHandler {
+class InputHandler final {
 private:
     Steve& steve;
     Hotbar& hotbar;
@@ -15,6 +15,8 @@ private:
     sf::Clock cooldownClock;
     std::vector<sf::Keyboard::Key> numKeys;
     bool inventoryOpen = false;
+
+    [[nodiscard]] bool cooldownComplete() const;
 
 public:
     InputHandler(Steve& steve, Hotbar& hotbar);

@@ -6,7 +6,7 @@
 #include "../sprites/Steve.h"
 #include "../blocks/Block.h"
 
-class SpriteHandler {
+class SpriteHandler final {
 private:
     sf::RenderWindow& window;
     std::vector<std::vector<Block*>>& world;
@@ -15,6 +15,7 @@ private:
     sf::Clock spriteClock;
     std::vector<GameSprite*> sprites;
 
+    [[nodiscard]] bool isSpriteBelowSurface(GroundSprite* sprite) const;
     [[nodiscard]] sf::Vector2f createSpritePos() const;
     void createNewSprite();
 

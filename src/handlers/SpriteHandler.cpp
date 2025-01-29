@@ -30,7 +30,7 @@ void SpriteHandler::update() {
     steve.update();
     for (GameSprite* sprite : sprites) {
         if (auto groundSprite = dynamic_cast<GroundSprite*>(sprite)) {
-            if (groundSprite->getHealth() <= 0) {
+            if (groundSprite->getHealth() <= 0 || !isSpriteBelowSurface(groundSprite)) {
                 removeSprite(sprite);
                 delete sprite;
             } else groundSprite->update();
@@ -86,4 +86,9 @@ sf::Vector2f SpriteHandler::createSpritePos() const {
     newPos.y = findTopYLevelAtX(world, newPos.x) + 2;
 
     return getPosAtBlock(newPos.x, newPos.y);
+}
+
+bool SpriteHandler::isSpriteBelowSurface(GroundSprite* sprite) const {
+    sf::Vector2f pos = getRelativeBlockPos(sprite->getSprite().value().getPosition());
+    return pos.y < Constants::WORLD_HEIGHT;
 }

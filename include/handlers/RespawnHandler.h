@@ -8,7 +8,7 @@
 #include "../GameState.h"
 #include "../screens/RespawnScreen.h"
 
-class RespawnHandler {
+class RespawnHandler final {
 private:
     sf::RenderWindow& window;
     Steve& steve;

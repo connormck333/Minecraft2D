@@ -5,7 +5,7 @@
 
 #include "../sprites/GameSprite.h"
 
-class Healthbar {
+class Healthbar final {
 private:
     sf::RenderWindow& window;
     std::vector<GameSprite*> hearts;

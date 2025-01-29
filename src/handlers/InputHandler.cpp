@@ -19,13 +19,13 @@ void InputHandler::handle() {
         steve.animateWalking(Direction::RIGHT);
     } else if (!isKeyPressed(sf::Keyboard::Key::D) && isKeyPressed(sf::Keyboard::Key::A)) {
         steve.animateWalking(Direction::LEFT);
-    } else if (isKeyPressed(sf::Keyboard::Key::I) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
+    } else if (isKeyPressed(sf::Keyboard::Key::I) && cooldownComplete()) {
         inventoryOpen = !inventoryOpen;
         cooldownClock.restart();
-    } else if (isKeyPressed(sf::Keyboard::Key::X) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
+    } else if (isKeyPressed(sf::Keyboard::Key::X) && cooldownComplete()) {
         hotbar.dropSelectedItem();
         cooldownClock.restart();
-    } else if (isKeyPressed(sf::Keyboard::Key::C) && cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN) {
+    } else if (isKeyPressed(sf::Keyboard::Key::C) && cooldownComplete()) {
         hotbar.dropOneOfSelectedItem();
         cooldownClock.restart();
     }
@@ -40,4 +40,8 @@ void InputHandler::handle() {
 
 bool InputHandler::isInventoryOpen() const {
     return inventoryOpen;
+}
+
+bool InputHandler::cooldownComplete() const {
+    return cooldownClock.getElapsedTime().asMilliseconds() > COOLDOWN;
 }
