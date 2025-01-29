@@ -39,7 +39,7 @@ void CraftItem::setBoxRed() {
 
 void CraftItem::resetBoxColor() {
     int timeElapsed = craftClock.getElapsedTime().asMilliseconds();
-    if (timeElapsed < 1000 || timeElapsed > 2000) return;
+    if (timeElapsed < 1000) return;
 
     craftBox.setFillColor(sf::Color(210, 210, 210, 100));
 }
