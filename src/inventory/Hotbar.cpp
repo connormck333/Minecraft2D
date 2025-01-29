@@ -17,10 +17,12 @@ void Hotbar::loadSelectedSlot() {
     selectedSquare.setOutlineColor(sf::Color::White);
 }
 
-void Hotbar::update() {
+bool Hotbar::update() {
     updatePosition();
-    updateSlots();
     updateSelectedSlot();
+    bool gameOver = updateSlots();
+
+    return gameOver;
 }
 
 void Hotbar::addNewItem(Item* item) {
@@ -76,14 +78,19 @@ void Hotbar::updatePosition() {
     sprite->setPosition(pos);
 }
 
-void Hotbar::updateSlots() {
+bool Hotbar::updateSlots() {
+    int emeraldCount = 0;
     for (int i = 0; i < slots.size(); i++) {
         Item* item = slots[i];
         if (item == nullptr) continue;
+
+        // Check quantity is greater than 0
         if (item->getQuantity() <= 0) {
             deleteSlot(i);
             continue;
         }
+
+        // Check pickaxe durability
         if (const auto* pickaxe = dynamic_cast<PickaxeItem*>(item)) {
             if (pickaxe->getDurability() <= 0) {
                 deleteSlot(i);
@@ -91,8 +98,13 @@ void Hotbar::updateSlots() {
             }
         }
 
+        // Check for emeralds
+        if (item->getId() == "emerald") emeraldCount += item->getQuantity();
+
         item->setSlotPosition(window, i);
     }
+
+    return emeraldCount >= Constants::EMERALD_WIN_COUNT;
 }
 
 void Hotbar::updateSelectedSlot() {

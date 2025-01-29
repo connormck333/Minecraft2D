@@ -4,7 +4,7 @@
 #define GAMESTATE_H
 
 enum class GameState {
-    ACTIVE, RESPAWN
+    ACTIVE, RESPAWN, WIN
 };
 
 #endif //GAMESTATE_H

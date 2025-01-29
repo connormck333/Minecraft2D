@@ -66,7 +66,8 @@ set(SOURCE_FILES main.cpp
         src/inventory/items/tools/DiamondPickaxeItem.cpp
         src/inventory/items/tools/GoldPickaxeItem.cpp
         src/inventory/crafting/DiamondPickaxe.cpp
-        src/inventory/crafting/GoldPickaxe.cpp)
+        src/inventory/crafting/GoldPickaxe.cpp
+        src/screens/GameOverScreen.cpp)
 set(CMAKE_PREFIX_PATH "/opt/homebrew")
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

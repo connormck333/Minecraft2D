@@ -17,17 +17,17 @@ private:
 
     void loadSelectedSlot();
     void updatePosition();
-    void updateSlots();
+    bool updateSlots();
     void updateSelectedSlot();
     void deleteSlot(int slotId);
 
 public:
-    Hotbar(sf::RenderWindow& window);
+    explicit Hotbar(sf::RenderWindow& window);
 
     void addNewItem(Item* item);
     [[nodiscard]] bool addNewItem(CraftItem* item);
 
-    void update();
+    bool update();
     void draw() const;
 
     void setSelectedSlot(int slotId);

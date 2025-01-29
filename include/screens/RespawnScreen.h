@@ -4,7 +4,6 @@
 #define RESPAWNSCREEN_H
 
 #include <SFML/Graphics.hpp>
-
 #include "Screen.h"
 
 class RespawnScreen final : public Screen {

@@ -14,7 +14,8 @@ private:
     Steve& steve;
     Hotbar& hotbar;
 
-    sf::Clock respawnClock;
+    sf::Clock timeAliveClock;
+    sf::Clock respawnTimer;
     RespawnScreen* respawnScreen;
     sf::Text* currentTimeText;
 
@@ -26,6 +27,9 @@ public:
     void respawn(const std::vector<std::vector<Block*>>& world, GameState& gameState) const;
 
     void render(const GameState& gameState) const;
+
+    [[nodiscard]] int getTimeAliveSeconds() const;
+    void stopTimeAliveClock();
 };
 
 #endif //RESPAWNHANDLER_H

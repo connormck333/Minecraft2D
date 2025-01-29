@@ -15,6 +15,7 @@
 #include "include/GameState.h"
 #include "include/handlers/RespawnHandler.h"
 #include "include/screens/CraftScreen.h"
+#include "include/screens/GameOverScreen.h"
 
 using namespace std;
 
@@ -34,6 +35,7 @@ int main() {
 
     CraftScreen craftScreen(window);
     RespawnHandler respawnHandler(window, *steve, *hotbar);
+    GameOverScreen gameOverScreen(window, respawnHandler);
     auto gameState = GameState::ACTIVE;
 
     SpriteHandler spriteHandler(window, world, *steve);
@@ -61,11 +63,13 @@ int main() {
             inputHandler.handle();
 
             spriteHandler.update();
-            hotbar->update();
+            bool gameOver = hotbar->update();
+
+            if (gameOver) gameState = GameState::WIN;
 
             view.setCenter(steve->getSprite().value().getPosition());
             window.setView(view);
-        } else respawnHandler.respawn(world, gameState);
+        } else if (gameState != GameState::WIN) respawnHandler.respawn(world, gameState);
 
         // Clear window
         window.clear();
@@ -83,6 +87,9 @@ int main() {
 
         // Display crafting screen if inventory is open
         if (inputHandler.isInventoryOpen()) craftScreen.render();
+
+        // Display winning screen if game is over
+        if (gameState == GameState::WIN) gameOverScreen.render();
 
         window.display();
     }

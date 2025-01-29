@@ -19,6 +19,7 @@ namespace Constants {
     constexpr int STEVE_ATTACK_DAMAGE = 1;
     constexpr int STEVE_ATTACK_COOLDOWN = 700;
     constexpr int RESPAWN_TIME = 3;
+    constexpr int EMERALD_WIN_COUNT = 5;
 
     constexpr int MAX_MOB_AMOUNT = 10;
     constexpr int MOB_SPAWN_RATE_SECONDS = 60;

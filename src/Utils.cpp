@@ -28,17 +28,16 @@ sf::Vector2f getSteveSpawnPos(const std::vector<std::vector<Block*>>& world) {
 }
 
 Block* getRandomOre(const sf::Vector2f pos) {
-    int randomNumber = getRandomInt(0, 3);
+    const int randomNumber = getRandomInt(0, 20);
 
-    switch (randomNumber) {
-        case 0: return new IronOre(pos);
-        case 1: return new GoldOre(pos);
-        case 2: return new DiamondOre(pos);
-        default: return new EmeraldOre(pos);
-    }
+    if (randomNumber <= 9) return new IronOre(pos);
+    if (randomNumber <= 14) return new GoldOre(pos);
+    if (randomNumber <= 18) return new DiamondOre(pos);
+
+    return new EmeraldOre(pos);
 }
 
-int getRandomInt(int min, int max) {
+int getRandomInt(const int min, const int max) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution distribution(min, max);
@@ -46,14 +45,14 @@ int getRandomInt(int min, int max) {
     return distribution(gen);
 }
 
-bool getRandomBool(int chance) {
+bool getRandomBool(const int chance) {
     return getRandomInt(0, chance) == 0;
 }
 
 int findTopYLevelAtX(const std::vector<std::vector<Block*>>& world, const int x) {
-    for (int i = Constants::WORLD_HEIGHT - 1; i >= 0; i--) {
-        if (world[i][x]->getSprite().has_value()) {
-            return i;
+    for (int y = Constants::WORLD_HEIGHT - 1; y >= 0; y--) {
+        if (world[y][x]->getSprite().has_value()) {
+            return y;
         }
     }
 
