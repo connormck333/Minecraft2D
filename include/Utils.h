@@ -7,8 +7,8 @@
 #include <SFML/System/Vector2.hpp>
 #include "../include/blocks/Block.h"
 
-inline sf::Font quantityFont("./assets/fonts/Roboto-Regular.ttf");
-inline sf::Font minecraftFont("./assets/fonts/MinecraftRegular.otf");
+inline sf::Font quantityFont("assets/fonts/Roboto-Regular.ttf");
+inline sf::Font minecraftFont("assets/fonts/MinecraftRegular.otf");
 
 sf::Vector2f getSteveSpawnPos(const std::vector<std::vector<Block*>>& world);
 
