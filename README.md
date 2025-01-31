@@ -1,8 +1,7 @@
+![Demo video](./resources/Minecraft2D.gif)  
 # Minecraft 2D Mini Game
-A 2D Minecraft based mini game developed with C++ and SFML.
-No game engine was used.
-
-![Demo video](./resources/Minecraft2D.gif)
+A 2D Minecraft based mini game developed with C++ and SFML without a game engine.  
+Link to Medium article: <a href="https://medium.com/@connora.mckenzie/learning-c-lets-build-minecraft-a9394bb054e0" target="_blank">here</a>
 
 ## How to win?
 You spawn in a 2D world as Steve. You must collect resources and avoid hostile mobs.
